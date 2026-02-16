@@ -1,0 +1,867 @@
+\documentclass[11pt, leqno]{article}
+
+\usepackage{amsmath, amsthm, amssymb, tikz, upgreek,
+    mathrsfs, hhline, mathtools, biblatex}
+
+\addbibresource{bibliography.bib} 
+
+% \addtolength{\oddsidemargin}{-.875in}
+% \addtolength{\evensidemargin}{-.875in}
+% \addtolength{\textwidth}{1.75in}
+% \addtolength{\topmargin}{-.3in}
+% \addtolength{\textheight}{.6in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+            \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{1}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\vk}{\varkappa}
+\newcommand{\bvk}{\overline{\varkappa}}
+\newcommand{\Li}{\mathrm{Li}}
+
+
+\begin{document}
+
+\title{Arithmetic Function Analogs for K-Tuples}
+\author{Logan McBroom}
+\maketitle
+
+\begin{abstract}
+    We encode the essential information of k-tuples in some
+    extensions of common arithmetic functions. 
+    Analogs of some fundamental relationships between those common functions
+    are shown to hold for our extensions.
+\end{abstract}
+
+\section{K-Tuples}
+
+\subsection{Basic Properties}
+
+\begin{definition}
+Define $\mathbb{K}$, the set of \textbf{k-tuples}, by
+$$\mathbb{K} := \mathscr{P}(\mathbb{Z}).$$
+We say a k-tuple is \textbf{singular} if it contains exactly one element.
+\end{definition}
+
+Some authors forbid infinite k-tuples.
+We denote the number of elements in a set $S$ by $\#S$, and the compliment of 
+$S$ by $\overline{S}$.
+
+The motivation for much of this paper is to extend 
+a definition or result pertaining to integers to the k-tuples.
+That is, we view traditional number theoretic concepts involving an integer $k$ 
+as being about the singular k-tuple $\{0\}$, and attempt to extend that result 
+in a natural way to nonsingular k-tuples.
+We also refer to such singular definitions and results collectively as 
+``singular number theory''.
+
+\begin{definition}
+For $A,B \in\mathbb{K}$, we define
+$$A+B := \{a+b : a\in A, b\in B \}.$$
+\end{definition}
+
+For $k\in\mathbb{Z}$ and $A\in\mathbb{K}$, define for convenience $k+A := \{k\} + A$.
+That is, $k+A$ is the translation of $A$ by $k$.
+
+We are often concerned with congruence between elements of k-tuples,
+but the usual definition of congruence is insufficient, as it describes only
+exact incidence between numbers relative to a modulus.
+We are instead concerned with the contents of one k-tuple
+being contained in another relative to a modulus.
+The following definition handles the "modulus" aspect of that need,
+and the containment will be handled by $\subset$.
+
+\begin{definition}
+Given a k-tuple $A$ and a natural number $n$, define the \textbf{periodization} 
+of $A$ with respect to $n$ by
+$$|A|_n := \{a+kn : a\in A, k\in\mathbb{Z}\}$$
+
+Define $\mathbb{K}_p\subset\mathbb{K}$, the set of \textbf{periodic k-tuples}, to be the set of all such periodizations.
+\end{definition}
+
+Note that $|A|_n$ is periodic with period $n$, but there may be a smaller value 
+over which the periodization is periodic.
+
+% =================================================================================================================================
+\subsection{Natural K-Tuples}
+
+The greatest common divisor function has no obvious analog in $\mathbb{K}$. 
+We are still interested, though, in whether each element of a k-tuple is 
+coprime to a given natural number.
+
+\begin{definition} Define $\vk(n) : \mathbb{N} \rightarrow \mathbb{K}_p$ by:
+\begin{align*}
+    \vk(n) &= \{ k\in\mathbb{Z} : (k,n)=1 \}.
+\end{align*}
+If $\vk(n)=C$ for some $n$, we say that $C$ is a \textbf{natural k-tuple}.
+\end{definition}
+
+In other words, $\vk(n)$ is the set for which $\chi_0$, the principle Dirichlet
+character mod $n$, is the indicator.
+Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
+as will be seen in Proposition \ref{vk primes}.
+For a k-tuple $A$, we can then speak of each element of $A$ being coprime to some $n$ by saying $A\subset\vk(n)$.
+
+% This definition has the issue that for some A, (A,n) is neither 1 nor not 1, which is logically confusing.
+% \begin{definition}
+%     Let $A$ be a k-tuple and let $n$ be a natural number.
+%     If for all $a\in A$ we have $(a,n)=1$, we say $A$ and $n$ are coprime, and write $(A,n)=1$.
+
+%     If for all $a\in A$ we have $(a,n)\not=1$, we write $(A,n)\not= 1$.
+% \end{definition}
+
+\begin{proposition}\label{vk mult}
+For any natural numbers $m$ and $n$
+    $$\vk(mn)=\vk(m) \cap \vk(n).$$
+\end{proposition}
+\begin{proof}
+    For $m,n\in\mathbb{N}$, we have
+    \begin{align*}
+        \vk(mn) 
+        &= \{ k\in\mathbb{Z} : (k,mn)=1  \} \\
+        &= \{ k\in\mathbb{Z} : (k,m)=1 \text{ and } (k,n)= 1 \} \\
+        &= \{ k\in\mathbb{Z} : (k,m)=1 \}
+            \cap \{ k\in\mathbb{Z} : (k,n)= 1 \} \\
+        &= \vk(m) \cap \vk(n).
+    \end{align*}
+\end{proof}
+\begin{corollary}\label{vk subset split}
+    For any natural numbers $m$ and $n$, and any k-tuple $A$, we have
+    $$A \subset \vk(mn)  \Leftrightarrow A\subset \vk(m) \textnormal{ and } A \subset \vk(n).$$
+\end{corollary}
+\begin{proof}
+    Let $m,n\in\mathbb{N}$ and let $A\in\mathbb{K}$.
+    Then by the Proposition,
+    \begin{align*}
+        &A\subset \vk(mn) \\
+        \Leftrightarrow &A\subset (\vk(m)\cap\vk(n))\\
+        \Leftrightarrow &A\subset \vk(m) \text{ and } A\subset\vk(n).
+    \end{align*}
+\end{proof}
+
+\begin{proposition}\label{vk primes}
+    For any prime $p$ and natural number $k$, we have
+    $$\vk(p^k) = \vk(p).$$
+\end{proposition}
+\begin{proof}
+    This is immediate from $(n,p^k)=1 \Leftrightarrow (n,p)=1$.
+\end{proof}
+
+\begin{proposition}
+    For any natural number $n$ with prime factorization 
+    $$n=\prod_{p_i|n}p_i^{a_i},$$
+    we have
+    $$\vk(n) = \vk\left(\prod_{p_i|n}p_i\right).$$
+\end{proposition}
+\begin{proof}
+    We have by Propositions \ref{vk mult} and \ref{vk primes},
+    \begin{align*}
+        \vk(n) 
+        &= \vk\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+        &= \bigcap_{p_i|n}\vk(p_i^{a_i}) \\
+        &= \bigcap_{p_i|n}\vk(p_i) \\
+        &= \vk\left(\prod_{p_i|n}p_i\right). \\
+    \end{align*}
+\end{proof}
+
+% =======================================================================================================================================
+\subsection{The Totient Function}
+
+We now extend Euler's totient function $\varphi$, which first requires a 
+conceptual reinterpreting of the function. 
+Instead of counting which natural numbers up to $n$ are relatively 
+prime to $n$, we can think of $\varphi$ as the sliding of a singular 
+k-tuple over the elements of $\vk(n)$ over one of its periods.
+The output of the function will be the number of times the singular 
+k-tuple sat upon an element of $\vk(n)$.
+With this perspective, we may now slide a non-singular 
+k-tuple, e.g. $A=\{0,2\}$, in the same fashion, and count the occurences of 
+all elements of $A$ being over an element of $\vk(6)$.
+We graph this process below. 
+Rather than graphing beyond 6, we rely on the periodicity of $\vk$ and 
+move points beyond 6 back to 0.
+
+\begin{enumerate}
+    \item[0] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+            \hline
+            $\bigcdot$ & $\ $ & $\bigcdot$ & $ $ & $ $ & $\ $ & $\ $\\
+            \hline
+            $ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+            \hline
+        \end{tabular} \end{center}
+    \item[1] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+        \hline
+        $ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $ $ & $\ $ & $\ $\\
+        \hline
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        \hline
+    \end{tabular} \end{center}
+    \item[2] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+        \hline
+        $ $ & $\ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $\ $ & $\ $\\
+        \hline
+        $\ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        \hline
+    \end{tabular}\\ \end{center}
+    \item[3] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+        \hline
+        $ $ & $\ $ & $ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $\ $\\
+        \hline
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        \hline
+    \end{tabular} \end{center}
+    \item[4] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+        \hline
+        $\bigcdot$ & $ $ & $ $ & $ $ & $\bigcdot$ & $\ $ & $\ $\\
+        \hline
+        $ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        \hline
+    \end{tabular} \end{center}
+    \item[5] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+        \hline
+        $ $ & $\bigcdot $ & $ $ & $ $ & $ $ & $\bigcdot$ & $ $\\
+        \hline
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $\ $\\
+        \hline
+    \end{tabular} \end{center}
+\end{enumerate}
+
+There is only a single occurrence, on table 5, of complete containment by $\vk(6)$. 
+The result is then one, and we are conceptually prepared for the following definition.
+
+\begin{definition}[K-Tuple Totient Function]~ \\
+For any k-tuple $A$ and natural number $n$, define $\varphi_A$ by:
+\begin{align*}
+    \varphi_A(1) &:=1 \\
+    \varphi_A(n) &:= \#\{k\in\mathbb{Z} : 0 \leq k < n \textnormal{ and } k+A\subset \vk(n) \}
+\end{align*}
+\end{definition}
+
+\begin{theorem}\label{phi multiplicative}
+    For any k-tuple $A$, $\varphi_A$ is a multiplicative function.
+\end{theorem}
+\begin{proof}
+    Let $A$ be a k-tuple and let $m$ and $n$ be coprime natural numbers.
+    For each natural number $a$, define the set $P_A(a)$ by
+    $$ P_A(a) = \{k\in\mathbb{N} : 0 \leq k < a \textnormal{ and } k+A\subset\vk(a)\}$$
+    By the definition of $\varphi_A$, $\#P_A(a)=\varphi_A(a)$. 
+
+    Now let $\Gamma: P_A(mn) \longmapsto P_A(m)\times P_A(n)$ be given by
+    $$\Gamma(a) = (a \text{ mod } m, a \text{ mod } n)$$
+    where we take $a \text{ mod } k$ to mean the unique integer on $[0,k)$ congruent to $a$ modulo $k$.
+
+    % Well defined
+    We must first show this mapping does not take an element of $P_A(mn)$ to a pair not in $P_A(m)\times P_A(n)$.
+    Given $k\in P_A(mn)$, we have $k<mn$ and $k+A\subset \vk(mn)$.
+    By Corrolary \ref{vk mult}, $k+A\subset \vk(m)$ and $k+A\subset \vk(n)$.
+    But $\vk(m)$ is periodic with period $m$, so $a \text{ mod } m + A \subset \vk$.
+    We also have $0 \leq a \text{ mod } m < m$, so $a \text{ mod } m\in P_A(m)$ and likewise $a \text{ mod } n\in P_A(n)$.
+    Thus, the mapping is well defined.
+    
+    % Injective
+    Let $a_1,\ a_2\in P(mn)$ such that $\Gamma(a_1)=\Gamma(a_2)$.
+    Then $a_1\equiv a_2 \pmod m$ and $a_1\equiv a_2 \pmod n$. 
+    Because $m$ and $n$ are coprime, $a_1\equiv a_2 \pmod{mn}$. 
+    Because $a_1$ and $a_2$ are also less than $mn$, $a_1=a_2$.
+    Thus, $\Gamma$ is injective.
+    
+    % Surjective
+    Now let $(b,c)\in P(m)\times P(n)$.
+    Then $b<m$, $c<n$, $b+A\subset \vk(m)$, and $c+A\subset \vk(n)$.
+    Because $m$ and $n$ are coprime, there exists exactly one $a$ satisfying $a\equiv b \pmod m$, $a\equiv c \pmod n$,
+    and $0\leq a < mn$ by the Chinese Remainder Theorem.
+    Because $b+A\subset\vk(m)$ and $a\equiv b \pmod m$, $a+A\subset\vk(m)$, and likewise $a+A\subset\vk(n)$.
+    Then by Corrolary \ref{vk subset split}, $a+A\subset\vk(mn)$, so $a\in P_A(mn)$.
+    Thus, $\Gamma(a)=(b,c)$, so $\Gamma$ is surjective. 
+
+    Finally, $\Gamma$ is injective and surjective, so $\Gamma$ is a bijection, and 
+    \begin{align*}
+    \varphi_s(mn)
+    &=\#P(mn) \\
+    &=\#(P(m)\times P(n)) \\
+    &=\#P(m) \cdot \#P(n) \\
+    &=\varphi_s(m)\cdot\varphi_s(n).
+    \end{align*}
+\end{proof}
+
+
+% ================================================================================================================================
+\subsection{The Unit Function}
+The singular unit function $u(n)$ is defined by $u(n)=1$ for all $n$.
+It is surprising that such a trivial function has a non-trivial extension to k-tuple.
+\begin{definition}
+    For any k-tuple $A$ and prime $p$, define $u_A(p)$ by:
+    $$u_A(p) = \#\{ k\in |A|_p : 0\leq k < p\}$$
+    We extend $u_A$ to all natural numbers by complete multiplicativity.
+\end{definition}
+
+We have immediately from complete multiplicativity that $u_A(1)=1$.
+The definition for primes tells us that $u_A$ gives the number of residues the elements of $A$ fill modulo $p$.
+% The extension by complete multiplicativity means that if a natural number $n$ has factorization
+% $n=\prod_{p_i}p_i^{a_i}$, $u_A(n)$ is given by 
+% $$u_A(n)=\prod_{p_i}u_A(p_i)^{a_i}.$$
+Using $u_A$, we are now better equipped to describe the behaviour of $\varphi_A$.
+
+\begin{theorem}\label{phi prime powers}
+    For any k-tuple $A$, prime $p$, and natural number $k$ we have:
+    $$\varphi_A( p^k ) = p^k - u_A(p)p^{k-1}.$$
+\end{theorem}
+\begin{proof}
+    By definition
+    \begin{align*}    
+        u_A(p)&=\#\{ m\in |A|_p : 0\leq m < p \} \\
+        \Rightarrow p-u_A(p)&=\#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } m \not\in |A|_p\}.
+    \end{align*}
+
+    % Reflection
+    Now, as $m$ takes on each residue modulo $p$, so does $-m$, so
+    \begin{align*}
+        p-u_A(p) 
+        &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } -m \not\in |A|_p\} \\
+        &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+    \end{align*}
+    
+    % Grow by p^k
+    For any $m$ satisfying $m + a \not\equiv 0 \pmod p$, $m+jp$ will satisfy that condition for any integer $j$. 
+    So by extending the upper bound of the range condition to $ap$ we have $a$ times as many 
+    values of $m$ satisfying both conditions. Using this with $a=p^{k-1}$ we have
+    \begin{align*}
+        p^k - u_A(p)p^{k-1} &=\#\{ m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+    \end{align*}
+
+    Now, $\vk(p)$ contains exactly the integers on the interval $[1,p-1]$, so we may replace the latter condition to obtain
+    $$p^k-u_A(p)p^{k-1} = \#\{m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } m+A\subset\vk(p)\}.$$
+    Then by Theorem \ref{vk primes} we have
+    \begin{align*}
+        p^k - u_A(p)p^{k-1} &= \#\{m\in\mathbb{Z} : 0 \leq m < p^k \textnormal{ and } m+A \subset \vk(p^k) \}\\
+        &= \varphi_A(p^k).
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Totient Product Formula]~ \\
+    For any k-tuple $A$ and natural number $n$, we have:
+    $$\varphi_A(n)=n\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
+\end{theorem}
+\begin{proof}
+Let $A$ be a k-tuple and $n$ be a natural number.
+Then $n$ has a factorization, say
+$$n=\prod_{p_i|n}p_i^{a_i}.$$
+Then we have by Theorems \ref{phi multiplicative} and \ref{phi prime powers},
+\begin{align*}
+    \varphi_A(n) 
+    &= \varphi_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+    &= \prod_{p_i|n}\varphi_A(p_i^{a_i}) \\
+    &= \prod_{p_i|n} \left(p_i^{a_i} - u_A(p_i)p_i^{a_i-1}\right) \\
+    &= n\prod_{p_i|n} \left(1 - \frac{u_A(p_i)}{p_i}\right).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+    For any k-tuple $A$, the totient function has the following properties:
+    \begin{enumerate}
+        \item[\textnormal{(a)}] $\varphi_A(mn) = \varphi_A(m)\varphi_A(n)(d/\varphi_A(d))$, where $d=(m,n)$.
+        \item[\textnormal{(b)}] $\varphi_A(mn) = \varphi_A(m)\varphi_A(n)$ if $(m,n)=1$.
+        \item[\textnormal{(c)}] $a|b$ implies $\varphi_A(a)|\varphi_A(b)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The proof of these follows nearly verbatim the singular case,
+    which is shown in Theorem 2.5 of \cite{Apostol}.
+    % \begin{enumerate}
+    %     \item[(a)] We have 
+    %         $$\frac{\varphi_A(n)}{n}=\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
+    %         For any prime divisor $p$ of $mn$, we have either $p|m$ or $p|n$. 
+    %         If both are true, we also have $p|(m,n)$. Then
+    %         \begin{align*}
+    %             \frac{\varphi_A(mn)}{mn} 
+    %             &= \prod_{p|n}\left(1-\frac{u_A(p)}{p}\right) \\
+    %             &= \frac{\prod_{p|m}\left(1-\frac{u_A(p)}{p}\right)\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right)} 
+    %                 {\prod_{p|(m,n)}\left(1-\frac{u_A(p)}{p}\right)} \\
+    %             &= \frac{\frac{\varphi_A(m)}{m}\frac{\varphi_A(n)}{n}}{\frac{\varphi_A(d)}{d}}
+    %         \end{align*}
+    %         Multiplying by $mn$ gives the desired result.
+
+    %     \item[(b)] This is a special case of (a).
+        
+    %     \item[(c)] Since $a|b$ we have $b=ac$ where $1 \leq c \leq b$.
+    %         If $c=b$ then $a=1$ and $\varphi_A(a)|\varphi_A(b)$ trivially. 
+    %         Assume then that $c<b$.
+    %         From (b) we have
+    %         \begin{equation}\label{phi divides phi property}
+    %             \begin{aligned}
+    %                 \varphi_A(b) 
+    %                 &= \varphi_A(ac) \\
+    %                 &= \varphi_A(a)\varphi_A(c)\frac{d}{\varphi_A(d)} \\
+    %                 &= d\varphi_A(a)\frac{\varphi_A(c)}{\varphi_A(d)}
+    %             \end{aligned}
+    %         \end{equation}
+    %         where $d=(a,c)$.
+    %         The result follows by induction on $b$.
+    %         For $b=1$ it holds trivially.
+    %         Suppose now that it holds for all integers less than $b$.
+    %         Then it holds for $c$, so $\varphi_A(d)|\varphi_A(c)$.
+    %         The right member of (\ref{phi divides phi property}) is then an integer, so (\ref{phi divides phi property})
+    %         gives that $\varphi_A(a)|\varphi_A(b)$.
+
+    % \end{enumerate}
+\end{proof}
+
+The following theorem shows the existence of a k-tuple with a 
+desired unit function, along with some bounds.
+Uniqueness is not guaranteed, even among k-tuples containing 0.
+For example, the sequence $2,1,3$ is satisfied by the k-tuples 
+$\{0,12,21\}$ and $\{0,21,27\}$.
+\begin{theorem}\label{Const with seq}
+    Let $p_n$ be the $n$th prime number.
+    For any sequence $a_n$ where $0<a_n\leq p_n$, and any natural number $N$, there exists a 
+    k-tuple $A$ such that 
+    \begin{enumerate}
+        \item For all $a\in A$, $0\leq a < p_N\#$ (the $N$th primorial)
+        \item $\#A = \max_{i<N}\{a_i\} = M$.
+        \item For $n\leq N$, $u_A(p_n)=a_n$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Let $A_1=\{0\}$.
+    Now for each $i$ from 2 to $M$, let $Q_i$ be the set of primes up to $p_N$ for which $u_{A_i}$ is smaller than needed.
+    By the Chinese Remainder Theorem there exists a unique $k$ with $0 \leq k < p_N\#$ that solves $k\equiv i \pmod q$
+    for all $q\in Q_i$, and $k\equiv 0 \pmod {p_i}$ for each prime $p_i\leq p_N$ which is not in $Q_i$.
+    Let $A_i=A_{i-1}\cup k$.
+    
+    All conditions are satisfied by $A_M$:
+    \begin{enumerate}
+        \item Each element added was on $[0,p_N\#)$.
+        \item Each $A_i$ contains $i$ elements, so $\#A_M=M$.
+        \item For each prime $p_n$ up to $p_N$, exactly the first $a_n$ residues have been filled by elements of $A_M$,
+            that is, $u_{A_M}(p_n)=a_n$.
+    \end{enumerate}
+\end{proof}
+    
+% ==============================================================================================================================
+\subsection{Dirichlet Products and the M\"obius Function}
+For any arithmetic functions $f$ and $g$ we denote their Dirichlet product by
+$$(f\ast g)(n) := \sum_{ab=n}f(a)g(b).$$
+We denote the Dirichlet inverse of an arithmetic function $f$ by $f^{-1}$.
+We define the arithmetic function $N$ by $N(n)=n$.
+
+\begin{definition}
+    For any k-tuple $A$, define $\mu_A$ to be the unique Dirichlet inverse
+    of $u_A$.
+\end{definition}
+
+By definition $u_A$ is completely multiplicative, so by Theorem 2.17 
+in \cite{Apostol}, we have its Dirichlet inverse to be
+$$\mu_A(n)=u_A^{-1}(n)=\mu(n)u_A(n).$$
+
+We have also from Theorem 2.18 of \cite{Apostol} that for any multiplicative function $f$ and natural number $n$, that
+\begin{equation}\label{sum to product}
+    \sum_{d|n}\mu(d)f(d) = \prod_{p|n}(1-f(p)),
+\end{equation}
+which is used to prove the following.
+
+\begin{theorem}
+    We have
+    $$u_A*\varphi_A = N.$$
+\end{theorem}
+\begin{proof}
+    Applying equation (\ref{sum to product}) with $f(n)=u_A(n)/n$ to the totient product formula, we have
+    \begin{align*}
+        \varphi_A(n) 
+        &= n \prod_{p|n}\left(1-\frac{u_A(p)}{p}\right) \\
+        &= n \sum_{d|n}\mu(d)\frac{u_A(d)}{d} \\
+        &= \sum_{d|n}\mu_A(d)\frac{n}{d} \\
+        &= (\mu_A\ast N)(n).
+    \end{align*}
+    Taking the Dirichlet product of both sides by $u_A$, we obtain the theorem.
+\end{proof}
+
+
+% =======================================================================================================================================
+\subsection{Admissibility}
+
+\begin{definition}
+    We say a k-tuple $A$ is \textbf{admissible} if, for each prime $p$, we have
+    $$u_A(p)<p.$$
+\end{definition}
+
+Then a k-tuple is admissible if it does not fill all of the residue classes modulo any prime.
+
+The primary problem for which the k-tuples are developed is the prime k-tuple 
+conjecture, which we are now equipped to state efficiently.
+
+\begin{conjecture}[Prime K-Tuple Conjecture]
+For any finite, admissible k-tuple $A$, there exists an infinite k-tuple $B$ such that $A+B\subset \mathbb{P}$.
+\end{conjecture}
+
+Admissibility is required, for if a k-tuple $A$ was inadmissible by prime $p$, for $b\in B$ large enough that each element
+of $b+A$ is greater than $p$, we must have some element of $A$ filling the 0 residue.
+That element is then divisible by $p$, $b+A\not\subset\mathbb{P}$, and it cannot be for any $b$ beyond that bound.
+Thus, there can be only finitely many integers at which $b+A\subset\mathbb{P}$ and no valid $B$ exists.
+
+The finiteness of $A$ is also required. 
+For example, let $A$ be the set of all primorials.
+This fills at most $i$ residues of each prime $p_i$ and so is admissible.
+We cannot have negatives in $B$, for $2\in A$ is the minimum prime.
+We cannot have 0 or 1 in $B$, because $A+B$ would contain 6 and 4 respectively.
+If $B$ contains $b>1$, $b$ is divisible by some prime $p$, and the primorials will eventually be divisible by $p$.
+Then for some element $a\in A$ divisible by $p$, $p|a+b$, so $A+B\not\subset\mathbb{P}$.
+Thus, there are no integers $b$ such that $b+A\subset\mathbb{P}$.
+Not only can $B$ not be infinite in this case, it cannot contain any integer.
+
+If the conjecture holds, there exist infinite k-tuples $A$ with arbitrary large finite $B$ such that
+$A+B\subset\mathbb{P}$. 
+Indeed, given a finite admissible k-tuple $B$, we apply the conjecture and find such an $A$.
+The question of adding two infinite k-tuples and obtaining a prime k-tuple is handled in greater generality in 
+\cite{Granville},
+the results of which we state in less generality as the following theorem. 
+It is often said that the Prime K-Tuple Conjecture feels intuitively true, so it is somewhat alarming 
+that it holds as a consequence the following result, which seems intuitively impossible.
+\begin{theorem}
+    Assume the Prime K-Tuple Conjecture.
+    Then there exist infinite k-tuples $A$ and $B$ such that $A+B\subset\mathbb{P}$.
+\end{theorem}
+
+% ========================================================================================================================
+% ========================================================================================================================
+% ========================================================================================================================
+\section{Analytic Results}
+
+The function $u_A$ is convenient to work with in the setting of arithmetic functions in
+that it takes on only integer values and gives the relationship $u_A \ast \phi_A = N$.
+Transporting it to the domain of Dirichlet series, though, poses a challenge.
+The function $L(s,u_A)=\sum_{n\ge 1}u_A(n)n^{-s}$ permits an Euler product, 
+and that product can be written as a power of $\zeta$, a finite product, and 
+the series $L(s,(\#A)^{\Omega})$, where $\Omega(n)$ is the number of primes 
+(counting multiplicity) which compose $n$.
+While the final portion of this form has reasonable convergence properties,
+it would give us significant trouble were we to proceed down this path.
+That portion, though, does not seem to have much to do with the additive patterns
+we seek to analyze; rather it describes that $u_A$ should grow
+approximately with the number of primes in its composition.
+The following adjustment, then, gives an arithmetic function
+which contains the same essential information, but which has far simpler
+analytic properties.
+
+\begin{definition}
+    Let $A$ be a k-tuple.
+    For each $n$, define $w_A(n)$ by
+    $$w_A(n) = \frac{u_A(n)}{(\#A)^{\Omega(n)}}.$$
+\end{definition}
+
+This is equivalent to defining $w_A(p)=u_A(p)/\#A$ on primes and
+extending it by complete multiplicativity as with $u_A$,
+but we may also show this directly: because $\Omega$ is completely additive, 
+$(\#A)^{\Omega}$ is completely multiplicative, so $w_A$ is as well.
+It is this $w_A$ that we will focus our analytic efforts on.
+Note also that for primes $p$ with $\max(A) \le p$, $u_A(p)=\#A$, so
+$w_A$ is eventually 1 on primes.
+
+\subsection{Zeta Function Extensions}
+\begin{definition}
+Let $A$ be a k-tuple, and let $s\in\mathbb{C}$. 
+Define
+$$\zeta_A(s) := L(s,w_A) = \sum_{n\ge 1} \frac{w_A(n)}{n^s}.$$
+\end{definition}
+
+Clearly $\zeta_{\{0\}} = \zeta$. 
+We have that $w_A$ is completely multiplicative, so $\zeta_A$ permits the Euler product
+$$\zeta(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1}.$$
+But we know for sufficiently large primes, $w_A(p)=1$, so
+letting $S$ be the set of primes on which $w_A(p)\not= 1$, we have
+$$\zeta_A(s) = \zeta(s)\prod_{p\in S}\frac{1-p^{-s}}{1-w_A(p)p^{-s}}.$$
+Let $M_A(s)$ denote the finite product above and call this the modulator for $A$.
+This form immediately yields the analytic continuation of $\zeta_A$ via
+the continuation of $\zeta$ to the entire plane, except at the pole contributed 
+by $\zeta$ at $s=1$, and one infinite (but well behaved) set of poles for each $p\in S$.
+These poles are at the solutions of $0=1-w_A(p)p^{-s}$, which are found, for any 
+$k\in\mathbb{Z}$, at $s_{p,k} = \frac{\log(w_A(p)) + 2\pi k i}{\log(p)}$.
+We have $\text{Res}(\zeta,1)=1$, so
+\begin{equation}\label{res 1}
+    \text{Res}(\zeta_A, 1) = M_A(1) = \prod_{p\in S}\frac{p-1}{p-w_A(p)}.
+\end{equation}
+
+\begin{proposition}
+    For any admissible k-tuple, we have 
+    $$\frac{1}{x}\sum_{n\le x} w_A(n) \sim M_A(1).$$
+\end{proposition}
+\begin{proof} 
+    Every modulator pole has real part less than one.
+    Thus, we can apply the Wiener-Ikehara theorem (1.1 in \cite{Korevaar}) 
+    and have
+    $$\frac{1}{n}\sum_{n\le x} w_A(n) \sim \text{Res}(\zeta_A, 1) = M_A(1).$$
+\end{proof}
+
+To find the residues of any pole of the modulator, we first 
+show that no two poles among those listed coincide. 
+Clearly none of those given by the modulator coincide with $s=1$, so we need only 
+check that no poles among the modulator coincide.
+Suprisingly, though, this will walk us directly into the four exponentials conjecture.
+\begin{conjecture}[Four exponentials conjecture]
+    For $1\le i,j \le 2$, let $\lambda_{ij}\in\mathbb{C}$ such that
+    each $exp(\lambda_{ij})$ is algebraic. Suppose that $\lambda_{11}$
+    and $\lambda_{12}$ are linearly independent, and that $\lambda_{21}$
+    and $\lambda_{22}$ are linearly independent, both in the rationals.
+    Then
+    $$\lambda_{11}\lambda_{22} \not= \lambda_{12}\lambda_{21}.$$
+\end{conjecture}
+\begin{lemma}
+    Assume the four exponentials conjecture. 
+    Then we have
+    $$s_{p_1,k_1} = s_{p_2,k_2} \implies (p_1,k_1) = (p_2,k_2).$$
+\end{lemma}
+\begin{proof}
+    % Let $a_i = w_A(p_i)$ and note that $a_i\in\mathbb{Q}$ and $0 < a_i < 1$, 
+    % so $a_i\not\in\mathbb{Z}$.
+    Assume $s_{p_1,k_1} = s_{p_2,k_2}$, and assume for contradiction $p_1\not=p_2$
+    Then their real parts coincide and we have $\log{a_1}/\log{p_1} =\log{a_2}/\log{p_2}$,
+    which gives 
+    \begin{equation}\label{four exp 1}
+    \log{a_1}\log{p_2} = \log{a_2}\log{p_1}.
+    \end{equation}
+    Each $a_i$ and $p_i$ is rational and thus algebraic, so the exponential
+    of each logarithm is algebraic.
+    
+    To show the linear independence of $\log{p_1}$ and $\log{p_2}$, assume
+    there are $r,s\in\mathbb{Q}$ such that $r\log{p_1} + s\log{p_2} = 0$.
+    Then $p_1^rp_2^s = 1$, which is only possible if $r=s=0$.
+
+    If $\log{a_1}$ and $\log{a_2}$ are dependent, then there are $r,s\in\mathbb{Q}$,
+    not both 0, such that $r\log{a_1} + s\log{a_2} = 0$.
+    Without loss of generality, assume $r\not=0$.
+    Then $a_1 = a_2^{-s/r}$.
+    Applying this to equation (\ref{four exp 1}), we have
+    \begin{align*}
+    -\frac{s}{r}\log{p_2} &= \log{p_1} \\
+    \implies p_2^{-s/r} &= p_1,
+    \end{align*}
+    which is a contradiction.
+    Thus, $\log{a_1}$ and $\log{a_2}$ are linearly independent.
+
+    Finally, we may apply the four exponentials conjecture, which 
+    contradicts (\ref{four exp 1}).
+    Thus, $p_1=p_2$. 
+    Showing $k_1=k_2$ is trivial.
+\end{proof}
+
+The values of $a_i$ in the above proof are not entirely arbitrary, coming
+from $w_A$. 
+As such, there may be some yet undiscovered way of showing this result holds
+without the four exponentials conjecture.
+We continue to assume the conjecture as we now find the residues of the poles
+associated with the modulator.
+
+\begin{theorem}
+    $$\text{Res}(\zeta_A, s_{p,k}) = 
+        \frac{1-p^{-s_{p,k}}}{\log{p}} \zeta(s_{p,k}) 
+        \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}}.
+        $$
+\end{theorem} 
+\begin{proof}
+    By the lemma, each pole of $\zeta_A$ is simple.
+    That is, for any $s_{p,k}$ we have $\zeta_A(s) = 
+    H_{p,k}(s)\cdot g(s)$, where 
+    $$g(s) = \frac{1}{1-w_A(p)p^{-s}},$$
+    and
+    $$H_{p,k}(s) = \zeta(s)(1-p^{-s})
+        \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}},
+        $$ 
+    where $H_{p,k}$ is holomorphic at $s_{p,k}$.
+    Now, note that by the definition of $s_{p,k}$, $1-w_A(p)p^{-s_{p,k}}=0$.
+    Using this, we have
+    \begin{align*}
+    \text{Res}((1-w_A(p)p^{-s})^{-1},s_{p,k}) 
+        &= \frac{1}{\frac{d}{ds}(1-w_A(p)p^{-s})|_{s_{p,k}}} \\ 
+        &= \frac{1}{w_A(p)\log(p)p^{-s_{p,k}}} \\ 
+        &= \frac{1}{\log(p)},
+    \end{align*}
+    which gives
+    \begin{align*}
+        \text{Res}(\zeta_A,s_{p,k}) = \frac{H_{p,k}(s_{p,k})}{\log(p)}
+    \end{align*}
+    as was needed.
+\end{proof}
+
+
+% =======================================================================================================================================
+\section{Dump zone}
+
+\subsection{Unplaced results}
+
+\begin{theorem}
+    For any admissible k-tuple $A$, we have
+    $$u_A(n) \leq \varphi(n).$$
+\end{theorem}
+\begin{proof}
+    Let $A\in\mathbb{K}$, and let $n$ be a natural number with factorization
+    $$n=\prod_{p_i|n}p_i^{a_i}.$$
+    Then 
+    \begin{align*}
+        u_A(n) 
+        &= u_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+        &= \prod_{p_i|n}u_A(p_i)^{a_i} \\
+        &\leq \prod_{p_i|n}(p_i-1)^{a_i} \\
+        &\leq \prod_{p_i|n}(p_i-1)\cdot p_i^{a_i-i} \\
+        &= \varphi(n).
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    For any admissible k-tuple $A$, define 
+    $$\pi_A(x) = \#\{n \le x : n + A \subset \mathbb{P} \}.$$
+\end{definition}
+
+\begin{definition}
+    For $n>0$, define 
+    $$\Li_n(x) = \int_{2}^{\infty}\frac{\mathrm{dt}}{\log^n(t)}.$$
+    We call this the $n$th (offset) logarithmic integral.
+\end{definition}
+The ``offset" is due to the lower bound being 2, rather than 0.
+The prime number theorem is usually given in the form
+$\pi(x) \sim \frac{x}{\log(x)}$,
+but also $\Li_1(x) \sim \frac{x}{\log(x)}$, and it is well known that $\Li_1$ gives a better
+approximation of $\pi$.
+It is no surprise then that in 1923, Hardy and Littlewood made
+the following conjecture.
+\begin{conjecture}[First Hardy-Littlewood conjecture]
+Let $A$ be an admissible k-tuple. Then
+$$\pi_A(x) \sim C_A\Li_{\#A}(x),$$
+where
+$$C_A = \prod_{p}\frac{1-u_A(p)p^{-1}}{(1-p^{-1})^{\#A}}.$$
+\end{conjecture}
+This, of course, implies the prime k-tuple conjecture.
+It also implies that the exact structure of a k-tuple
+does not determine its asymptotic behavior, but
+rather that behavior is entirely decided by $u_A$.
+For example, $\{0,2\}$ and $\{0,4\}$ produce the same $u_A$.
+This yields an equivalence relation.
+
+\begin{definition}
+    Given k-tuples $A$ and $B$, we say $A$ and $B$ are \textbf{residually equivalent} if we have
+    $u_A=u_B$, and we denote this by $A \sim B$.
+\end{definition}
+
+
+Now, it is known (TODO: ref?) that $\Li_1$ has the asymptotic expansion
+\begin{equation}\label{Li1 asymp}
+\Li_1(x) \sim \frac{x}{\log(x)}\sum_{k\ge 0} \frac{k!}{\log^{k}(x)},
+\end{equation}
+so the simpler estimate $\frac{x}{\log{x}}$ given in the prime number theorem is the 
+truncation of this expansion.
+Then we should expect to analagously use the truncation of 
+the asymptotic expansion of $\Li_n$ in attempting to gain traction in the 
+first Hardy-Littlewood conjecture.
+
+\begin{proposition}
+    We have the asymptotic expansion of $\Li_n$ to be
+    $$\Li_n(x) \sim \frac{x}{(n-1)!\log{x}}\sum_{k\ge n-1}\frac{k!}{\log^k(x)}.$$
+\end{proposition}
+\begin{proof}
+    First, apply integration by parts to $\Li_n$ with $dv = dx/(x\log^n(x))$ and
+    $u=x$ to obtain
+    \begin{equation}\label{Lin asymp ind}
+        \Li_n(x) = \frac{-x}{(n-1)\log^{n-1}{x}} + \frac{1}{n-1}\Li_{n-1}(x)
+    \end{equation}
+    for $n>1$.
+    We have the result for $n=1$: it is exactly equation (\ref{Li1 asymp}).
+    Assume then for induction the result holds for some $n$.
+    Then applying equation (\ref{Lin asymp ind}) we have
+    \begin{align*}
+        \Li_{n+1}(x) &= \frac{-x}{n\log^{n}{x}} + \frac{1}{n}\Li_{n}(x) \\
+        &\sim \frac{-x}{n\log^{n}{x}} 
+            + \frac{x}{n!\log{x}}\sum_{k\ge n-1}\frac{k!}{\log^kx} \\
+        &= \frac{x}{n!\log{x}}\left(\frac{-(n-1)!}{\log^{n-1}{x}} +
+            \sum_{k\ge n-1}\frac{k!}{\log^k{x}}\right) \\
+        &= \frac{x}{n!\log{x}}\sum_{k\ge n}\frac{k!}{\log^k{x}}.
+    \end{align*}
+\end{proof}
+
+All this is to say: if the first Hardy-Littlewood conjecture is correct,
+we should attempt to show, following in the steps of the prime number theorem,
+that 
+$$\pi_A(x) \sim \frac{C_Ax}{\log^{\#A}{x}}.$$
+
+To that end, we follow the usual route and define:
+\begin{definition}
+    $$\upvartheta_A(x) = \sum_{\substack{n\le x \\ n + A \subset 
+        \mathbb{P}}}\log^{\#A}{n}.$$
+\end{definition}
+
+\begin{proposition}
+    For $x\ge2$ we have
+    $$\upvartheta_A(x) = \pi_A(x)\log^{\#A}{x} - 
+        \int_{1}^{x}\frac{\pi_A(t)\cdot \#A \cdot \log^{\#A-1}{t}}{t}dt$$
+    and
+    $$\pi_A(x) = \frac{\upvartheta_A(x)}{\log^{\#A}{x}} + 
+        \int_{2}^{x}\frac{\#A}{t\log^{\#A+1}{t}}dt.$$
+\end{proposition}
+\begin{proof}
+    The proof follows exactly the path of Theorem 4.3 of \cite{Apostol},
+    and so is omitted.
+\end{proof}
+
+\begin{proposition}
+    The following relations are logically equivalent:
+    $$\pi_A(x) \sim \frac{C_Ax}{\log^{\#A}{x}}.$$
+    $$\upvartheta_A(x) \sim C_Ax.$$
+\end{proposition}
+
+% =======================================================================================================================================
+\subsection{Notes/TODO}
+
+\begin{enumerate}
+  \item
+    Compute the ratio of the $0,2$ and $0,6$ HLC constants.
+  \item
+    Double check Granville actually implies the thing.
+    Oh, just noticed he is the pretentious theory guy.
+  \item 
+    We should check if any results require finiteness on k-tuple
+  \item 
+    Is there a meaning to u or v on composites outside of comp-mult?
+    It would be more convincing to define them by a property and then
+    prove comp-mult.
+  \item
+    Where in the argument for prime number theorem iff chebyshev relation
+    does the argument break down for our functions?
+  \item 
+    $\varphi_A$ appears to be equivalent to a discrete convolution.
+    Is that worth thinking about?
+    Can we use that to improve the main proofs?
+    What else can be done with this?
+  \item Scan for AB instead of A$\lor$ B - old note, what does this even mean
+  \item 
+    Old note -
+    implicit conversion from int to K should probably give $\{0,k\}$, 
+    this makes products an extension.
+    This will probably require rereading the entire document though.
+    This breaks addition being an extension.
+    We could add modulus and two converter ops for integers that give completely 
+    full and empty As.
+\end{enumerate}
+
+% Every periodic k-tuple contains infinitely many primes among 
+% each residue of the period by Dirichlets theorem
+
+% ========================================================================================================================
+% ========================================================================================================================
+% ========================================================================================================================
+\pagebreak
+\printbibliography
+
+\end{document}
+
