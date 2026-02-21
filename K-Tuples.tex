@@ -100,9 +100,6 @@ Define $\mathbb{K}_p\subset\mathbb{K}$, the set of \textbf{periodic k-tuples}, t
 Note that $|A|_n$ is periodic with period $n$, but there may be a smaller value 
 over which the periodization is periodic.
 
-% =================================================================================================================================
-\subsection{Natural K-Tuples}
-
 The greatest common divisor function has no obvious analog in $\mathbb{K}$. 
 We are still interested, though, in whether each element of a k-tuple is 
 coprime to a given natural number.
@@ -114,8 +111,6 @@ coprime to a given natural number.
 If $\vk(n)=C$ for some $n$, we say that $C$ is a \textbf{natural k-tuple}.
 \end{definition}
 
-In other words, $\vk(n)$ is the set for which $\chi_0$, the principle Dirichlet
-character mod $n$, is the indicator.
 Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
 as will be seen in Proposition \ref{vk primes}.
 For a k-tuple $A$, we can then speak of each element of $A$ being coprime to some $n$ by saying $A\subset\vk(n)$.
@@ -149,7 +144,7 @@ For any natural numbers $m$ and $n$
 \end{corollary}
 \begin{proof}
     Let $m,n\in\mathbb{N}$ and let $A\in\mathbb{K}$.
-    Then by the Proposition,
+    Then by the proposition,
     \begin{align*}
         &A\subset \vk(mn) \\
         \Leftrightarrow &A\subset (\vk(m)\cap\vk(n))\\
@@ -165,22 +160,23 @@ For any natural numbers $m$ and $n$
     This is immediate from $(n,p^k)=1 \Leftrightarrow (n,p)=1$.
 \end{proof}
 
-\begin{proposition}
-    For any natural number $n$ with prime factorization 
-    $$n=\prod_{p_i|n}p_i^{a_i},$$
-    we have
-    $$\vk(n) = \vk\left(\prod_{p_i|n}p_i\right).$$
-\end{proposition}
-\begin{proof}
-    We have by Propositions \ref{vk mult} and \ref{vk primes},
-    \begin{align*}
-        \vk(n) 
-        &= \vk\left(\prod_{p_i|n}p_i^{a_i}\right) \\
-        &= \bigcap_{p_i|n}\vk(p_i^{a_i}) \\
-        &= \bigcap_{p_i|n}\vk(p_i) \\
-        &= \vk\left(\prod_{p_i|n}p_i\right). \\
-    \end{align*}
-\end{proof}
+% I don't think this is needed
+% \begin{proposition}
+%     For any natural number $n$ with prime factorization 
+%     $$n=\prod_{p_i|n}p_i^{a_i},$$
+%     we have
+%     $$\vk(n) = \vk\left(\prod_{p_i|n}p_i\right).$$
+% \end{proposition}
+% \begin{proof}
+%     We have by propositions \ref{vk mult} and \ref{vk primes},
+%     \begin{align*}
+%         \vk(n) 
+%         &= \vk\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+%         &= \bigcap_{p_i|n}\vk(p_i^{a_i}) \\
+%         &= \bigcap_{p_i|n}\vk(p_i) \\
+%         &= \vk\left(\prod_{p_i|n}p_i\right). \\
+%     \end{align*}
+% \end{proof}
 
 % =======================================================================================================================================
 \subsection{The Totient Function}
@@ -384,7 +380,7 @@ Then we have by Theorems \ref{phi multiplicative} and \ref{phi prime powers},
 \end{theorem}
 \begin{proof}
     The proof of these follows nearly verbatim the singular case,
-    which is shown in Theorem 2.5 of \cite{Apostol}.
+    which is shown in theorem 2.5 of \cite{Apostol}.
     % \begin{enumerate}
     %     \item[(a)] We have 
     %         $$\frac{\varphi_A(n)}{n}=\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
@@ -478,7 +474,7 @@ We have also from Theorem 2.18 of \cite{Apostol} that for any multiplicative fun
 which is used to prove the following.
 
 \begin{theorem}
-    We have
+    For any k-tuple $A$, we have
     $$u_A*\varphi_A = N.$$
 \end{theorem}
 \begin{proof}
@@ -550,6 +546,9 @@ that it holds as a consequence the following result, which seems intuitively imp
 % ========================================================================================================================
 \section{Analytic Results}
 
+We denote the Derichlet series of an arithmetic function $f$ by
+$$\Di(f)(s) := \sum_{n\ge 1}\frac{f(n)}{n^{s}}.$$
+
 The function $u_A$ is convenient to work with in the setting of arithmetic functions in
 that it takes on only integer values and gives the relationship $u_A \ast \phi_A = N$.
 Transporting it to the domain of Dirichlet series, though, poses a challenge.
@@ -581,28 +580,18 @@ $w_A$ is eventually 1 on primes.
 We will work with both $\Di(u_A)$ and $\Di(w_A)$.
 
 \subsection{Zeta Function Extensions}
-\begin{definition}
-Let $A$ be a k-tuple, and let $s\in\mathbb{C}$. 
-For $\Re(s)>1$, define
-$$\zeta_A(s) := \Di(w_A)(s) = \sum_{n\ge 1} \frac{w_A(n)}{n^s}.$$
-\end{definition}
-
-Clearly $\zeta_{\{0\}} = \zeta$. 
-We have that $w_A$ is completely multiplicative, so $\zeta_A$ permits the Euler product
-$$\zeta(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1}.$$
-But we know for sufficiently large primes, $w_A(p)=1$, so
+ 
+We have that $w_A$ is completely multiplicative, so $\Di(w_A)$ permits the Euler product
+$$\Di(w_A)(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1},$$
+but we know for sufficiently large primes, $w_A(p)=1$, so
 letting $S_A$ be the set of primes on which $w_A(p)\not= 1$, we have
-$$\zeta_A(s) = \zeta(s)\prod_{p\in S_A}\frac{1-p^{-s}}{1-w_A(p)p^{-s}}.$$
+$$\Di(w_A)(s) = \zeta(s)\prod_{p\in S_A}\frac{1-p^{-s}}{1-w_A(p)p^{-s}}.$$
 Let $M_A(s)$ denote the finite product above and call this the modulator for $A$.
-This form immediately yields the analytic continuation of $\zeta_A$ via
+This form immediately yields the analytic continuation of $\Di(w_A)$ via
 the continuation of $\zeta$ to the entire plane, except at the pole contributed 
 by $\zeta$ at $s=1$, and one infinite (but well behaved) set of poles for each $p\in S_A$.
 These poles are at the solutions of $0=1-w_A(p)p^{-s}$, which are found, for any 
 $k\in\mathbb{Z}$, at $s_{p,k} = \frac{\log(w_A(p)) + 2\pi k i}{\log(p)}$.
-We have $\text{Res}(\zeta,1)=1$, so
-\begin{equation}\label{res 1}
-    \text{Res}(\zeta_A, 1) = M_A(1) = \prod_{p\in S_A}\frac{p-1}{p-w_A(p)}.
-\end{equation}
 
 \begin{proposition}
     For any admissible k-tuple, we have 
@@ -611,8 +600,11 @@ We have $\text{Res}(\zeta,1)=1$, so
 \begin{proof} 
     Every modulator pole has real part less than one.
     Thus, we can apply the Wiener-Ikehara theorem (1.1 in \cite{Korevaar}) 
-    and have
-    $$\frac{1}{n}\sum_{n\le x} w_A(n) \sim \text{Res}(\zeta_A, 1) = M_A(1).$$
+    which gives
+    $$\frac{1}{n}\sum_{n\le x} w_A(n) \sim \text{Res}(\Di(w_A), 1).$$
+    We have $\text{Res}(\zeta,1)=1$, so
+    $$\text{Res}(\Di(w_A), 1) = M_A(1),$$
+    as was needed.
 \end{proof}
 
 To find the residues of any pole of the modulator, we first 
@@ -669,20 +661,20 @@ Suprisingly, though, this will walk us directly into the four exponentials conje
 
 The values of $a_i$ in the above proof are not entirely arbitrary, coming
 from $w_A$. 
-As such, there may be some yet undiscovered way of showing this result holds
+As such, there may be some way of showing this result holds
 without the four exponentials conjecture.
 We continue to assume the conjecture as we now find the residues of the poles
 associated with the modulator.
 
 \begin{theorem}
-    $$\text{Res}(\zeta_A, s_{p,k}) = 
+    $$\text{Res}(\Di(w_A), s_{p,k}) = 
         \frac{1-p^{-s_{p,k}}}{\log{p}} \zeta(s_{p,k}) 
         \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}}.
         $$
 \end{theorem} 
 \begin{proof}
-    By the lemma, each pole of $\zeta_A$ is simple.
-    That is, for any $s_{p,k}$ we have $\zeta_A(s) = 
+    By the lemma, each pole of $\Di(w_A)$ is simple.
+    That is, for any $s_{p,k}$ we have $\Di(w_A)(s) = 
     H_{p,k}(s)\cdot g(s)$, where 
     $$g(s) = \frac{1}{1-w_A(p)p^{-s}},$$
     and
@@ -700,7 +692,7 @@ associated with the modulator.
     \end{align*}
     which gives
     \begin{align*}
-        \text{Res}(\zeta_A,s_{p,k}) = \frac{H_{p,k}(s_{p,k})}{\log(p)}
+        \text{Res}(\Di(w_A),s_{p,k}) = \frac{H_{p,k}(s_{p,k})}{\log(p)}
     \end{align*}
     as was needed.
 \end{proof}
@@ -790,7 +782,7 @@ $$\pi_A(x) \sim \frac{C_Ax}{\log^{\#A}{x}}.$$
 For each admissible constellation $A$, conjecture \ref{HLC} gives an associated 
 constant $C_A$.
 This section aims to explore these constants in our context.
-Just as we describe $\zeta_A$ in terms of $\zeta$ and a finite modulator, 
+Just as we describe $\Di(w_A)$ in terms of $\zeta$ and a finite modulator, 
 we may describe $\Di(u_A)$ as
 $$\Di(u_A)(s) = \Di((\#A)^\Omega)(s)
     \prod_{p\in S_A}\frac{1-\#Ap^{-s}}{1-u_A(p)p^{-s}}.$$
@@ -807,15 +799,16 @@ once again as the modulator, this time denoted $N_A(s)$, so that
 \end{equation}
 
 \begin{lemma}
-    For any admissible k-tuple $A$, $\Omega_A(s)$ converges for $s$ with $\Re(s)>1/2$.
+    For any admissible k-tuple $A$, $\Omega_A(s)$ converges for any $s$ with $\Re(s)>1/2$.
 \end{lemma}
 \begin{proof}
     Let $A$ be an admissible k-tuple.
     Fix $s=\sigma + it$ with $\sigma>1/2$.
     Let 
-    $$\Omega_{A,r} = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-\#Ap^{-s}}.$$
-    We will show the convergence of $\Omega_{A,r}$ at $s$ for $r=todo$, from which 
+    $$\Omega_{A,r}(s) = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-\#Ap^{-s}}.$$
+    We will show the convergence of $\Omega_{A,r}$ at $s$ for a fixed $r$, from which 
     the result follows. 
+    We fix $r$ to be large enough that $\#Ar^{-\sigma} < 1/2$.
     We have
     \begin{align*}
         \log{\Omega_{A, r}}(s) 
@@ -839,7 +832,7 @@ once again as the modulator, this time denoted $N_A(s)$, so that
         &\le \sum_{p>r}\sum_{k\ge 2}
             \left(\#Ap^{-\sigma}\right)^k.
     \end{align*}
-    For each $p>r$ the $k$ sum is a convergent geometric series.
+    For each $p>r$, by our bound on $r$, the $k$ sum is a convergent geometric series.
     We have also for $p>r$ that $1-\#Ap^{-\sigma} > 1/2$, so
     \begin{align*}
         |\log{\Omega_{A,r}}(s)| 
@@ -858,14 +851,28 @@ following.
 
 \begin{corollary}
     For any admissible k-tuple $A$, we have
-    $$C_A = \Omega_A(1) N_A(1),$$
+    $$\frac{1}{C_A} = \Omega_A(1) N_A(1),$$
     and
-    $$\Res(u_A,1) = C_A\Res(\zeta^{\#A},1).$$
+    $$\Res(\zeta^{\#A},1) = C_A\Res(\Di(u_A),1).$$
 \end{corollary}
+\begin{proof}
+    For the first equality, we have
+    \begin{align*} 
+        \frac{1}{C_A} 
+        &= \prod_{p}\frac{(1-p^{-1})^{\#A}}{1-u_A(p)p^{-1}} \\
+        &= \prod_{p\not\in S_A}\frac{(1-p^{-1})^{\#A}}{1-\#Ap^{-1}}
+           \prod_{p\in S_A}\frac{(1-p^{-1})^{\#A}}{1-u_A(p)p^{-1}} \\
+        &= \prod_{p}\frac{(1-p^{-1})^{\#A}}{1-\#Ap^{-1}}
+           \prod_{p\in S_A}\frac{1-\#Ap^{-1}}{1-u_A(p)p^{-1}} \\
+        &= \Omega_A(1)N_A(1).
+    \end{align*}
+
+    Taking residues in (\ref{DuA normal form}) yields the second equality.
+\end{proof}
 
 The Laurent expansion of $\zeta$ is known, so the residues above
 are computable.
-The constants $\Omega_A$ are determined entirely by $\#A$, and thus
+The constants $\Omega_A(1)$ are determined entirely by $\#A$, and thus
 hold no information about the structure of $A$.
 Then it seems reasonable to expect $N_A(1)$, along with $M_A(1)$, to
 contain some trace of the structural information.
@@ -955,23 +962,35 @@ is cool, but is there an easier way?
 
 \begin{enumerate}
   \item
+    This one website gets prime constant in terms of prime zeta, what
+    do we get following that argument for u or w series?
+  \item
+    Tao keeps mentioning the value of twisting series by characters.
+    What value is he referencing, and what does it give us?
+  \item
+    Continue to hunt for u and w series relations
+  \item
+    Are modulator constants unique per residual equivalence class?
+    If so, is there an operation on rationals that takes two constants
+    and returns the constant of the dirichlet product of the input sequences?
+    There are a lot of directions here, but in general
+    can we attribute some meaning to a simple operation (such as multiplication)
+    of two constants?
+  \item
+    I think we can get milage out of $\Lambda_A := \log \ast u_A$ or 
+    something like it.
+  \item
     Write program to compute N and M for large data set of k-tuples.
     We could try to order them by N or M values; do they produce the same order?
+    - No, 0,30 and 0,2,6 counterexample
+    But maybe among same size?
+    \begin{conjecture}
+        Let $A,B$ be admissible k-tuples with $\#A=\#B$.
+        Then $$M_A(1) < M_B(1) \iff N_A(1) < N_B(1).$$
+    \end{conjecture}
   \item
     Write out the proof for psiA in terms of psi,
     not sure if it's needed but it's cool.
-  \item
-    Rewrite the stupid deleted proof of the uA L series converging for
-    real over one half.
-  \item
-    We need to understand where the HLC constants are coming from.
-    The denominator seems to be accounting for the Omega growth,
-    is there a way to express it in terms of $w$?
-    Yes, we have $C_A = (\zeta^{\#A} / L(s,u_A))(s)$, and the
-    L-series for $u_A$ and $v_A$ are related.
-    $$L(s,v_A) = \zeta(s)M_A(s),$$
-    $$L(s,u_A) = \zeta^{\#A}(s)M'_A(s)L(s,(\#A)^\Omega),$$
-    where $M'$ 
   \item
     Compute the ratio of the $0,2$ and $0,6$ HLC constants.
     Answer: 1/2 (just requires cancellations)
@@ -993,15 +1012,6 @@ is cool, but is there an easier way?
     Is that worth thinking about?
     Can we use that to improve the main proofs?
     What else can be done with this?
-  \item Scan for AB instead of A$\lor$ B - old note, what does this even mean
-  \item 
-    Old note -
-    implicit conversion from int to K should probably give $\{0,k\}$, 
-    this makes products an extension.
-    This will probably require rereading the entire document though.
-    This breaks addition being an extension.
-    We could add modulus and two converter ops for integers that give completely 
-    full and empty As.
 \end{enumerate}
 
 % Every periodic k-tuple contains infinitely many primes among 

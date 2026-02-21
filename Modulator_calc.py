@@ -35,18 +35,23 @@ mods = [find_mods(kts[i], uAs[i]) for i in range(len(kts))]
 def compute_M_A(A, uA, mod):
     c = len(A)
     return math.prod( (1-Fraction(1,p)) / (1-Fraction(uA[p],p*c)) for p in mod )
+M_As = [compute_M_A(kts[i], uAs[i], mods[i]) for i in range(len(kts))]
 
 # Compute N_A(1)
 def compute_N_A(A, uA, mod):
     c = len(A)
     return math.prod( (1-Fraction(1,p))**c / (1-Fraction(uA[p],p)) for p in mod )
+N_As = [compute_N_A(kts[i], uAs[i], mods[i]) for i in range(len(kts))]
+
 
 # Print everything 
 print()
 print(pd.DataFrame({
     "k-tuple"   : kts,
     "modulates" : mods,
-    "M_A"       : [compute_M_A(kts[i], uAs[i], mods[i]) for i in range(len(kts))],
-    "N_A"       : [compute_N_A(kts[i], uAs[i], mods[i]) for i in range(len(kts))],
+    "M_A"       : M_As,
+    "M_A dec"   : [float(M) for M in M_As],
+    "N_A"       : N_As,
+    "N_A dec"   : [float(N) for N in N_As],
 }))
 print()
