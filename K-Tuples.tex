@@ -784,40 +784,47 @@ constant $C_A$.
 This section aims to explore these constants in our context.
 Just as we describe $\Di(w_A)$ in terms of $\zeta$ and a finite modulator, 
 we may describe $\Di(u_A)$ as
-$$\Di(u_A)(s) = \Di((\#A)^\Omega)(s)
-    \prod_{p\in S_A}\frac{1-\#Ap^{-s}}{1-u_A(p)p^{-s}}.$$
-We then multiply and divide by $\zeta^{\#A}$ and obtain
-$$\Di(u_A)(s) = \zeta^{\#A}(s) 
-    \prod_{p}\frac{(1-p^{-s})^{\#A}}{1-\#Ap^{-s}}
-    \prod_{p\in S_A}\frac{1-\#Ap^{-s}}{1-u_A(p)p^{-s}}.$$
-This final step is taken because the central product now has reasonable 
-convergence properties.
-We refer to this central product as $\Omega_A(s)$, and the finite product
-once again as the modulator, this time denoted $N_A(s)$, so that
-\begin{equation}\label{DuA normal form}
-    \Di(u_A)(s) = \zeta^{\#A}(s) \Omega_A(s) N_A(s)
+\begin{equation}\label{DUA zeta form}
+\Di(u_A)(s) = \zeta^{\#A}(s)  
+    \prod_{p\in S_A}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.
 \end{equation}
+We refer to the final product once again as the modulator, 
+this time denoted $N_A(s)$, and this time it is infinite.
+It is tempting to factor the modulator into $\Di((\#A)^\Omega)/\zeta^{\#A}$
+and a finite product, but we cannot do this in general, for if $\#A$ is prime 
+the two terms gain a pole and zero at $s=1$, which destroys our further analysis.
+For $A$ with non-prime size, we have computed some values of that product
+at $s=1$ and seen large cancellations, so it may be worth exploring.
+The following result essentially states that the product which yields
+$C_A$ converges, which is well known, but is given for completeness.
 
-\begin{lemma}
-    For any admissible k-tuple $A$, $\Omega_A(s)$ converges for any $s$ with $\Re(s)>1/2$.
-\end{lemma}
+\begin{proposition}
+    For any admissible k-tuple $A$, there exists $\epsilon > 0$
+    such that $N_A(s)$ converges for $\Re(s) > 1-\epsilon$.
+\end{proposition}
 \begin{proof}
     Let $A$ be an admissible k-tuple.
+    Then $u_A(p) < p$, so the real parts of the solutions of $1-u_A(p)p^{-s}=0$ are all
+    left of 1, and go to 0 as $p\rightarrow\infty$.
+    Then there exists $\epsilon>0$ such that all solutions of $1-u_A(p)p^{-s}=0$
+    lie to the left of $1-\epsilon$.
     Fix $s=\sigma + it$ with $\sigma>1/2$.
     Let 
-    $$\Omega_{A,r}(s) = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-\#Ap^{-s}}.$$
-    We will show the convergence of $\Omega_{A,r}$ at $s$ for a fixed $r$, from which 
-    the result follows. 
-    We fix $r$ to be large enough that $\#Ar^{-\sigma} < 1/2$.
-    We have
+    $$N_{A,r}(s) = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.$$
+    We will show the convergence of $N_{A,r}$ at $s$ for a fixed $r$, from which 
+    the result follows, as the finitely many removed factors all converge
+    for $\Re(s)>1-\epsilon$.
+    We fix $r$ to be large enough that both $\#Ar^{-\sigma} < 1/2$,
+    and $u_A(p)=\#A$ for $p>r$.
+    We then have
     \begin{align*}
-        \log{\Omega_{A, r}}(s) 
+        \log{N_{A, r}}(s) 
         &= \log{\prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-\#Ap^{-s}}} \\
         &= \sum_{p>r}\left(\#A\log(1-p^{-s}) - \log(1-\#Ap^{-s})\right).
     \end{align*}
     Expanding the logs into power series gives
     \begin{align*}
-        \log{\Omega_{A,r}}(s) 
+        \log{N_{A,r}}(s) 
         &= \sum_{p>r}\left(
             -\#A\sum_{k\ge 1}\frac{p^{-sk}}{k} + 
             \sum_{k\ge 1}\frac{(\#Ap^{-s})^{k}}{k}\right) \\
@@ -828,73 +835,88 @@ once again as the modulator, this time denoted $N_A(s)$, so that
     Note the cancellation of the $k=1$ term.
     Now,
     \begin{align*}
-        |\log{\Omega_{A,r}}(s)| 
+        |\log{N_{A,r}}(s)| 
         &\le \sum_{p>r}\sum_{k\ge 2}
             \left(\#Ap^{-\sigma}\right)^k.
     \end{align*}
     For each $p>r$, by our bound on $r$, the $k$ sum is a convergent geometric series.
     We have also for $p>r$ that $1-\#Ap^{-\sigma} > 1/2$, so
     \begin{align*}
-        |\log{\Omega_{A,r}}(s)| 
+        |\log{N_{A,r}}(s)| 
         &= \sum_{p>r}\frac{(\#Ap^{-\sigma})^2}{1-\#Ap^{-\sigma}} \\
         &\le 2(\#A)^2\sum_{p>r}p^{-2\sigma} \\
         &\le 2(\#A)^2\sum_{n>r}n^{-2\sigma}.
     \end{align*}
     We have $\sigma > 1/2$, so this is a convergent p-series.
-    Thus, $\log{\Omega_{A,r}}$ converges absolutely, and exponentiating gives
+    Thus, $\log{N_{A,r}}$ converges absolutely, and exponentiating gives
     the result.
 \end{proof}
 
 We do not need the full domain of convergence of the prior result; our
-goal was to justify evaluating $\Omega_A(1)$ and obtaining the
+goal was to justify evaluating $N_A(1)$ and obtaining the
 following.
 
 \begin{corollary}
     For any admissible k-tuple $A$, we have
-    $$\frac{1}{C_A} = \Omega_A(1) N_A(1),$$
+    $$\frac{1}{C_A} = N_A(1),$$
     and
     $$\Res(\zeta^{\#A},1) = C_A\Res(\Di(u_A),1).$$
 \end{corollary}
 \begin{proof}
-    For the first equality, we have
-    \begin{align*} 
-        \frac{1}{C_A} 
-        &= \prod_{p}\frac{(1-p^{-1})^{\#A}}{1-u_A(p)p^{-1}} \\
-        &= \prod_{p\not\in S_A}\frac{(1-p^{-1})^{\#A}}{1-\#Ap^{-1}}
-           \prod_{p\in S_A}\frac{(1-p^{-1})^{\#A}}{1-u_A(p)p^{-1}} \\
-        &= \prod_{p}\frac{(1-p^{-1})^{\#A}}{1-\#Ap^{-1}}
-           \prod_{p\in S_A}\frac{1-\#Ap^{-1}}{1-u_A(p)p^{-1}} \\
-        &= \Omega_A(1)N_A(1).
-    \end{align*}
-
-    Taking residues in (\ref{DuA normal form}) yields the second equality.
+    The first equality is immediate from the definitions of $C_A$
+    and $N_A$.
+    Taking residues in (\ref{DUA zeta form}) then yields the second equality.
 \end{proof}
 
 The Laurent expansion of $\zeta$ is known, so the residues above
 are computable.
-The constants $\Omega_A(1)$ are determined entirely by $\#A$, and thus
-hold no information about the structure of $A$.
-Then it seems reasonable to expect $N_A(1)$, along with $M_A(1)$, to
-contain some trace of the structural information.
-The following table gives these values for some 
+% The constants $\Omega_A(1)$ are determined entirely by $\#A$, and thus
+% hold no information about the structure of $A$.
+% Then it seems reasonable to expect $N_A(1)$, along with $M_A(1)$, to
+% contain some trace of the structural information.
+As $M_A$ and $N_A$ are analogs for $w_A$ and $u_A$, we compute
+their values at 1 for some 
 admissible, non-residually-equivalent k-tuples,
-where the $p$ column gives those primes over which the product ranges.
+where the $p$ column gives those primes over which $w_A(p)\not=1$.
+Computations for $M_A$ were made entirely in the rationals before
+rounding and so should be accurate.
+Computations for $N_A$ were made using the product over the first 
+10000 primes before rounding, and so there is a possibility of error.
+
 \begin{center}
 \begin{tabular}{ c | c | c | c }
- $A$ & $p$ & $M_A(1)$ & $N_A(1)$ \\ 
- \hline
- $\{0,2\}$      & 2 & 2/3 & 1/2 \\ 
- $\{0,6\}$      & 2,3 & 8/15 & 1/3 \\ 
- $\{0,10\}$     & 2,5 & 16/27 & 2/5 \\ 
- $\{0,14\}$     & 2,7 & 8/13 & 3/7 \\ 
- $\{0,30\}$     & 2,3,5 & 64/135 & 4/15 \\  
- $\{0,2,6\}$    & 2,3 & 18/35 & 2/9 \\  
- $\{0,4,10\}$   & 2,3,5 & 216/455 & 128/675 \\  
- $\{0,4,28\}$   & 2,3,7 & 324/665 & 48/245 \\  
- $\{0,2,6,8\}$  & 2,3 & 16/35 & 2/27 \\  
- $\{0,2,6,30\}$ & 2,3,5,7 & 6144/14875 & 3072/42875 \\  
+    $A$ & $p$ & $M_A(1)$ & $N_A(1)$ \\ 
+    \hline
+    $\{0,2\}$        & 2          & 0.66666667 & 0.75738949 \\
+    $\{0,14\}$       & 2,7        & 0.61538462 & 0.63115790 \\
+    $\{0,10\}$       & 2,5        & 0.59259259 & 0.56804211 \\
+    $\{0,6\}$        & 2,3        & 0.53333333 & 0.37869474 \\
+    $\{0,2,6\}$      & 2,3        & 0.51428571 & 0.34986380 \\
+    $\{0,4,28\}$     & 2,3,7      & 0.48721805 & 0.27989104 \\
+    $\{0,4,10\}$     & 2,3,5      & 0.47472527 & 0.23324253 \\
+    $\{0,30\}$       & 2,3,5      & 0.47407407 & 0.28402106 \\
+    $\{0,2,6,8\}$    & 2,3        & 0.45714286 & 0.24089421 \\
+    $\{0,2,6,8,30\}$ & 2,3,5,7,11 & 0.38614839 & 0.05639911 \\
+    $\{0,18,30,60\}$ & 2,3,5,7    & 0.35463203 & 0.03011178 \\
+    $\{0,60,120,18\}$& 2,3,5      & 0.34996582 & 0.03011178
 \end{tabular}
 \end{center}
+
+Note that this table was ordered by the size of $M_A(1)$, but 
+$N_A(1)$ also decreases in step.
+\begin{conjecture}
+    Let $A,B$ be admissible k-tuples with $\#A=\#B$.
+    Then $$M_A(1) \le M_B(1) \iff N_A(1) \le N_B(1).$$
+\end{conjecture}
+(TODO: I do not believe this is true, it just appears so for
+everything I've tested. We should write a k-tuple generating 
+routine and test over a large dataset.)
+
+We see also that the final two entries for $N_A(1)$ appear to be exactly
+equal. It is not a rounding error: they are indeed identical.
+This, along with their corresponding k-tuples having the same size,
+means that the Hardy-Littlewood Conjecture predicts these k-tuples
+to have identical limiting frequency.
 
 
 % =======================================================================================================================================
@@ -962,13 +984,9 @@ is cool, but is there an easier way?
 
 \begin{enumerate}
   \item
-    This one website gets prime constant in terms of prime zeta, what
-    do we get following that argument for u or w series?
-  \item
-    Tao keeps mentioning the value of twisting series by characters.
-    What value is he referencing, and what does it give us?
-  \item
-    Continue to hunt for u and w series relations
+    $u_A\ast \mu^{\ast \#A}$ is almost always zero,
+    $w_A\ast \mu$ is almost always zero.
+    Are they non-zero at the same indices?
   \item
     Are modulator constants unique per residual equivalence class?
     If so, is there an operation on rationals that takes two constants
@@ -979,15 +997,12 @@ is cool, but is there an easier way?
   \item
     I think we can get milage out of $\Lambda_A := \log \ast u_A$ or 
     something like it.
+
   \item
-    Write program to compute N and M for large data set of k-tuples.
-    We could try to order them by N or M values; do they produce the same order?
-    - No, 0,30 and 0,2,6 counterexample
-    But maybe among same size?
-    \begin{conjecture}
-        Let $A,B$ be admissible k-tuples with $\#A=\#B$.
-        Then $$M_A(1) < M_B(1) \iff N_A(1) < N_B(1).$$
-    \end{conjecture}
+    Tao keeps mentioning the value of twisting series by characters.
+    What value is he referencing, and what does it give us?
+  \item
+    Continue to hunt for u and w series relations
   \item
     Write out the proof for psiA in terms of psi,
     not sure if it's needed but it's cool.
