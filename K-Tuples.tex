@@ -499,6 +499,34 @@ the trivial application of many of the common tools of analytic
 number theory.
 
 % =======================================================================================================================================
+\subsection{Von Mangoldt Extensions}
+
+We could have indroduced $u_A$ or $\varphi_A$ from the other
+via the formula $u_A \ast \varphi_A = N$, though we would then
+need to prove the definitional properties of whichever function came 
+second.
+We take that direction now, extending the Von Mangoldt function $\Lambda$
+via a formula, and then finding what properties it possesses.
+
+\begin{definition}
+    Let $A$ be a k-tuple. 
+    Define $\Lambda_A$ by
+    $$\Lambda_A := \log \ast \mu_A.$$
+\end{definition}
+
+TODO: And then? Below this line in this section is temporary while researching.
+These functions often behave like the base version.
+On primes they are the same. 
+On powers of primes, you can only obtain logs of powers of the prime (obv),
+but it seems like it is limited in how many of those powers are available?
+e.g., at 9 we are getting only 1,0 powers, at 25 we get 1,0,-1,-2 powers.
+The default behavior is 1 power.
+Thinking for one second, yeah no doy, the power is always $u_A(p) + k(1-u_A(p))$.
+I'm not sold on this having any meaning outside its definition.
+I think the definition that leads to HLC is
+$$\Lambda_A(n) = \prod_{k\in n + A} \Lambda(k).$$
+
+% =======================================================================================================================================
 \subsection{Admissibility}
 
 \begin{definition}
@@ -732,8 +760,8 @@ For example, $\{0,2\}$ and $\{0,4\}$ produce the same $u_A$.
 This yields an equivalence relation.
 
 \begin{definition}
-    Given k-tuples $A$ and $B$, we say $A$ and $B$ are \textbf{residually equivalent} if we have
-    $u_A=u_B$, and we denote this by $A \sim B$.
+    Given k-tuples $A$ and $B$, we say they are \textbf{residually equivalent} if
+    $u_A=u_B$.
 \end{definition}
 
 The following asymptotic expansion is well known:
@@ -888,36 +916,51 @@ Computations for $N_A$ were made using the product over the first
     $A$ & $p$ & $M_A(1)$ & $N_A(1)$ \\ 
     \hline
     $\{0,2\}$        & 2          & 0.66666667 & 0.75738949 \\
-    $\{0,14\}$       & 2,7        & 0.61538462 & 0.63115790 \\
+    % $\{0,14\}$       & 2,7        & 0.61538462 & 0.63115790 \\
     $\{0,10\}$       & 2,5        & 0.59259259 & 0.56804211 \\
     $\{0,6\}$        & 2,3        & 0.53333333 & 0.37869474 \\
-    $\{0,2,6\}$      & 2,3        & 0.51428571 & 0.34986380 \\
-    $\{0,4,28\}$     & 2,3,7      & 0.48721805 & 0.27989104 \\
-    $\{0,4,10\}$     & 2,3,5      & 0.47472527 & 0.23324253 \\
-    $\{0,30\}$       & 2,3,5      & 0.47407407 & 0.28402106 \\
+    % $\{0,2,6\}$      & 2,3        & 0.51428571 & 0.34986380 \\
+    % $\{0,4,28\}$     & 2,3,7      & 0.48721805 & 0.27989104 \\
+    % $\{0,4,10\}$     & 2,3,5      & 0.47472527 & 0.23324253 \\
+    % $\{0,30\}$       & 2,3,5      & 0.47407407 & 0.28402106 \\
     $\{0,2,6,8\}$    & 2,3        & 0.45714286 & 0.24089421 \\
+    $\{0,8,12,30\}$  & 2,3,5,11   & 0.41975814 & 0.10539121 \\
+    $\{0,6,12,18\}$  & 2,3        & 0.41558441 & 0.12044710 \\
     $\{0,2,6,8,30\}$ & 2,3,5,7,11 & 0.38614839 & 0.05639911 \\
     $\{0,18,30,60\}$ & 2,3,5,7    & 0.35463203 & 0.03011178 \\
     $\{0,60,120,18\}$& 2,3,5      & 0.34996582 & 0.03011178
 \end{tabular}
 \end{center}
 
-Note that this table was ordered by the size of $M_A(1)$, but 
-$N_A(1)$ also decreases in step.
-\begin{conjecture}
-    Let $A,B$ be admissible k-tuples with $\#A=\#B$.
-    Then $$M_A(1) \le M_B(1) \iff N_A(1) \le N_B(1).$$
-\end{conjecture}
-(TODO: I do not believe this is true, it just appears so for
-everything I've tested. We should write a k-tuple generating 
-routine and test over a large dataset.)
+The table is sorted by $M_A(1)$, and at first glance it appears
+that $N_A(1)$ follows in step.
+The entries $\{0,8,12,30\}$ and $\{0,6,12,18\}$ have been added
+to dispel this. 
+TODO: I don't think this next thing is really worth saying if we don't have 
+anything else to say about it.
+Indeed, we have for k-tuples $A$ and $B$ with $\#A = \#B = c$,
+\begin{align*}
+    M_A(1) &< M_B(1) \\
+    \iff 1 &< \prod_{p}\frac{1-v_A(p)p^{-1}}{1-v_B(p)p^{-1}} \\
+    \iff 0 &< \sum_{p}\left[ \log(1-v_A(p)p^{-1}) - \log(1-v_B(p)p^{-1}) \right] \\
+    % \iff 0 &< \sum_{p}\left[ -\sum_{k\ge1} \frac{v_A(p)^k}{kp^k} +\sum_{k\ge1} \frac{v_B(p)^k}{kp^k} \right] \\
+    \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{v_B(p)^k-v_A(p)^k}{kp^k} \\
+    \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{v_B(p)^k-v_A(p)^k}{p^k}. \\
+\end{align*}
+Following the same proceedure for $N_A(1)$ gives
+\begin{align*}
+    N_A(1) &< N_B(1) \\
+    \iff 0 &< \sum_{k\ge1}\frac{c^k}{k}\sum_{p}\frac{v_B(p)^k-v_A(p)^k}{p^k}, \\
+\end{align*}
+so the ordering of $N$s is essentially that of the $M$s, but with a higher weight
+given to higher powers of each prime.
 
-We see also that the final two entries for $N_A(1)$ appear to be exactly
-equal. It is not a rounding error: they are indeed identical.
+We see also that the final two entries for $N_A(1)$ in the table appear to be exactly
+equal. It is not a rounding error: they are identical.
 This, along with their corresponding k-tuples having the same size,
 means that the Hardy-Littlewood Conjecture predicts these k-tuples
-to have identical limiting frequency.
-
+to have identical limiting frequency, despite their residual
+inequivalence.
 
 % =======================================================================================================================================
 \section{Dump zone}

@@ -1,7 +1,7 @@
 import math
 import cmath
 
-bound = 104729+1
+bound = 3**8+1
 
 def divisors(n):
     n = abs(n)
@@ -145,5 +145,55 @@ def phi_gen(A):
 # print( conv(w_A, mu) )
 
 
+kts = [
+    [0],
+    [0,2],
+    [0,6],
+    [0,10],
+    [0,14],
+    [0,30],
+    [0,2,6],
+    [0,4,10],
+    [0,4,28],
+    [0,2,6,8],
+    [0,18,30,60],
+    [0,60,120,180],
+    [0,2,6,8,30],
+    ]
 
+muAs = [mu_gen(A) for A in kts]
 
+log = eval(lambda n : math.log(n))
+LAs = [conv(mu_A, log) for mu_A in muAs]
+from fractions import Fraction
+for LA in LAs:
+    for i in range(len(LA)):
+        LA[i] = round( math.exp(LA[i]), 3 )
+
+from primes import primes
+def r_gen(A): # u for primes
+    def out(p):
+        A_mod_p = set()
+        for k in A:
+            A_mod_p.add( k % p )
+        return len(A_mod_p)
+    return out
+rAs = [r_gen(A) for A in kts]
+def find_mods(A, rA):
+    mods = []
+    for p in primes[:100]:
+        if rA(p) < len(A):
+            mods.append(p)
+    return mods
+mods = [find_mods(kts[i], rAs[i]) for i in range(len(kts))]
+
+import pandas as pd
+pd.set_option("display.float_format", "{:.3f}".format)
+pd.set_option("display.max_colwidth", 200 )
+print()
+print(pd.DataFrame(LAs
+    # "k-tuple"   : kts,
+    # "modulates" : mods,
+    # "Lambda_A"  : LAs
+).T)
+print() 
