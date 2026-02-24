@@ -1,7 +1,7 @@
 import math
 import cmath
 
-bound = 3**8+1
+bound = 2**14+1
 
 def divisors(n):
     n = abs(n)
@@ -49,10 +49,16 @@ def invert( f ):
         f_inv[n] = -sum([f[a]*f_inv[b] for a,b in prod_bp(n) if b < n ]) / U_f[n]
     return f_inv
 
+Id = [0]*(bound-1)
+def conv_power( f, n, g = Id ):
+    if n == 0: return f
+    else: return conv_power( conv( f, g ), n-1, f )
+
 # Base functions ========================================================
 def eval( f ):
     return [f(i) if i > 0 else 0 for i in range(0,bound)]
 
+Id.insert( 1, 1 )
 u = [1]*bound
 mu = invert( u )
 N = range(bound)
@@ -86,7 +92,7 @@ def r(p, A): # u for primes
 def u_gen(A):
     return unit_gen( A, r )
 def w_gen(A):
-    return unit_gen( A, lambda p : r(p)/len(A) )
+    return unit_gen( A, lambda p, A : r(p, A)/len(A) )
 
 def mu_gen(A):
     return pointwise(u_gen(A), mu)
@@ -144,7 +150,6 @@ def phi_gen(A):
 
 # print( conv(w_A, mu) )
 
-
 kts = [
     [0],
     [0,2],
@@ -161,16 +166,20 @@ kts = [
     [0,2,6,8,30],
     ]
 
-muAs = [mu_gen(A) for A in kts]
+uAs = [u_gen(A) for A in kts]
+wAs = [w_gen(A) for A in kts]
 
-log = eval(lambda n : math.log(n))
-LAs = [conv(mu_A, log) for mu_A in muAs]
-from fractions import Fraction
-for LA in LAs:
-    for i in range(len(LA)):
-        LA[i] = round( math.exp(LA[i]), 3 )
+index = 11
+# 9, 10, 11 have prime 61??
+# print( len() )
+# print( conv_power(mu, 3)[:32] )
+u_cancel = conv( uAs[index], conv_power( mu, len(kts[index]) ) )
+w_cancel = conv(wAs[index], mu)
 
-from primes import primes
+# print( sum(1 for x in u_cancel if x != 0) / bound )
+# print( sum(1 for x in w_cancel if x != 0) / bound )
+
+# Compute residue counts
 def r_gen(A): # u for primes
     def out(p):
         A_mod_p = set()
@@ -178,22 +187,29 @@ def r_gen(A): # u for primes
             A_mod_p.add( k % p )
         return len(A_mod_p)
     return out
-rAs = [r_gen(A) for A in kts]
+# Find modulated primes for each uA
+from primes import primes
 def find_mods(A, rA):
     mods = []
-    for p in primes[:100]:
+    for p in primes[:1000]:
         if rA(p) < len(A):
             mods.append(p)
     return mods
-mods = [find_mods(kts[i], rAs[i]) for i in range(len(kts))]
 
-import pandas as pd
-pd.set_option("display.float_format", "{:.3f}".format)
-pd.set_option("display.max_colwidth", 200 )
-print()
-print(pd.DataFrame(LAs
-    # "k-tuple"   : kts,
-    # "modulates" : mods,
-    # "Lambda_A"  : LAs
-).T)
-print() 
+mods = find_mods( kts[index], r_gen(kts[index]) )
+print( mods )
+cancel_primes = []
+for p in primes[:100]:
+    for i in range( 1, bound ):
+        if u_cancel[i] != 0 and u_cancel[i] % p == 0: 
+            cancel_primes.append( p )
+            break
+print( cancel_primes )
+
+# import pandas as pd
+# print(pd.DataFrame({
+#     "u" : u_cancel[:50],
+#     # "w" : w_cancel[:50],
+# }))
+
+

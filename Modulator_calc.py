@@ -6,12 +6,9 @@ import itertools
 from dataclasses import dataclass
 from typing import Callable
 
-primes_max = 1000000
+primes_max = 10000
 
-# We need to create a bunch of kts which are admissible and non-residually equivalent
-# We can do 4 per kt and make them all multiples of 6 to guarantee adm.
-
-# kts = [
+As = [
     # [0],
     # [0,2],
     # [0,6],
@@ -25,7 +22,17 @@ primes_max = 1000000
     # [0,18,30,60],
     # [0,60,120,180],
     # [0,2,6,8,30],
-    # ]
+
+    [0,2],        
+    [0,10],       
+    [0,6],        
+    [0,2,6,8],    
+    [0,8,12,30],  
+    [0,6,12,18],  
+    [0,2,6,8,30], 
+    [0,18,30,60], 
+    [0,60,120,18],
+    ]
 
 # Compute residue counts
 def r_gen(A): # u for primes
@@ -63,45 +70,17 @@ class ktuple:
     N: float
 
 kts = []
-for A in itertools.combinations(range(1,6),3):
-    A = list(A)
-    A.insert(0,0)
-    A = [k*6 for k in A]
-
-    def gen_ktuple( A ):
-        r = r_gen(A)
-        if any( r(p) == p for p in primes[:100]):
-            return None
-        mods = find_mods(A, r)
-        M = compute_M_A(A, r, mods)
-        N = round( compute_N_A(A, r), 9 )
-        return ktuple(A, r, mods, M, N)
-
-    kts.append( gen_ktuple( A.copy() ) ) 
-    A[1] += 2
-    kts.append( gen_ktuple( A ) ) 
-
-def dedupe_by_key(seq, key):
-    seen = set()
-    result = []
-    for item in seq:
-        k = key(item)
-        if k not in seen:
-            seen.add(k)
-            result.append(item)
-    return result
-from operator import attrgetter
-kts = dedupe_by_key(kts, key=attrgetter("N"))
-
-kts.sort(key = lambda x: x.M)
-
-def is_sorted(seq, key=lambda x: x):
-    return all(key(a) <= key(b) for a, b in zip(seq, seq[1:]))
+for A in As:
+    r = r_gen(A)
+    if any( r(p) == p for p in primes[:100]):
+        continue
+    mods = find_mods(A, r)
+    M = compute_M_A(A, r, mods)
+    N = compute_N_A(A, r)
+    kts.append( ktuple(A, r, mods, M, N) )
 
 for k in kts:
-    print( float(k.M), k.N, k.A, k.mods )
-
-print( is_sorted( kts, key=lambda x: x.N ) )
+    print( round(float(k.M),8), round(k.N, 8), round(1.0/k.N, 8), k.A, k.mods )
 
 # Print everything 
 # pd.set_option("display.float_format", "{:.8f}".format)

@@ -525,6 +525,8 @@ Thinking for one second, yeah no doy, the power is always $u_A(p) + k(1-u_A(p))$
 I'm not sold on this having any meaning outside its definition.
 I think the definition that leads to HLC is
 $$\Lambda_A(n) = \prod_{k\in n + A} \Lambda(k).$$
+Maybe there is some asymptotic link between this product version
+and a non-product weighted version?
 
 % =======================================================================================================================================
 \subsection{Admissibility}
@@ -816,13 +818,14 @@ we may describe $\Di(u_A)$ as
 \Di(u_A)(s) = \zeta^{\#A}(s)  
     \prod_{p\in S_A}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.
 \end{equation}
+
+TODO: I say here we shouldn't factor the product further but
+we can do it, it just stops analysis at $s=1$. 
+There are almost certainly things worth saying about the factored form,
+just not at 1.
+
 We refer to the final product once again as the modulator, 
 this time denoted $N_A(s)$, and this time it is infinite.
-It is tempting to factor the modulator into $\Di((\#A)^\Omega)/\zeta^{\#A}$
-and a finite product, but we cannot do this in general, for if $\#A$ is prime 
-the two terms gain a pole and zero at $s=1$, which destroys our further analysis.
-For $A$ with non-prime size, we have computed some values of that product
-at $s=1$ and seen large cancellations, so it may be worth exploring.
 The following result essentially states that the product which yields
 $C_A$ converges, which is well known, but is given for completeness.
 
@@ -898,10 +901,13 @@ following.
 
 The Laurent expansion of $\zeta$ is known, so the residues above
 are computable.
-% The constants $\Omega_A(1)$ are determined entirely by $\#A$, and thus
-% hold no information about the structure of $A$.
-% Then it seems reasonable to expect $N_A(1)$, along with $M_A(1)$, to
-% contain some trace of the structural information.
+We may factor $N_A$ further into $\Di((\#A)^\Omega)$ and
+a finite product, but for k-tuples with a prime size, this creates
+a pole and zero respectively at $s=1$ in those factors.
+Still, considering $\Di((\#A)^\Omega)$ contains no information
+on the structure of $A$ outside of its size, we should anticipate
+the finite product in that factorization to possess some structural information
+akin to $M_A$.
 As $M_A$ and $N_A$ are analogs for $w_A$ and $u_A$, we compute
 their values at 1 for some 
 admissible, non-residually-equivalent k-tuples,
@@ -910,25 +916,24 @@ Computations for $M_A$ were made entirely in the rationals before
 rounding and so should be accurate.
 Computations for $N_A$ were made using the product over the first 
 10000 primes before rounding, and so there is a possibility of error.
+We also include the corresponding $C_A$s for reference, those being 
+the reciprocals of the $N_A$s.
+TODO: is there a dataset of these constants available somewhere?
+If not we could go high precision and provide it.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c }
-    $A$ & $p$ & $M_A(1)$ & $N_A(1)$ \\ 
+\begin{tabular}{ c | c | c | c | c }
+    $A$ & $p$ & $M_A(1)$ & $N_A(1)$ & $C_A$ \\ 
     \hline
-    $\{0,2\}$        & 2          & 0.66666667 & 0.75738949 \\
-    % $\{0,14\}$       & 2,7        & 0.61538462 & 0.63115790 \\
-    $\{0,10\}$       & 2,5        & 0.59259259 & 0.56804211 \\
-    $\{0,6\}$        & 2,3        & 0.53333333 & 0.37869474 \\
-    % $\{0,2,6\}$      & 2,3        & 0.51428571 & 0.34986380 \\
-    % $\{0,4,28\}$     & 2,3,7      & 0.48721805 & 0.27989104 \\
-    % $\{0,4,10\}$     & 2,3,5      & 0.47472527 & 0.23324253 \\
-    % $\{0,30\}$       & 2,3,5      & 0.47407407 & 0.28402106 \\
-    $\{0,2,6,8\}$    & 2,3        & 0.45714286 & 0.24089421 \\
-    $\{0,8,12,30\}$  & 2,3,5,11   & 0.41975814 & 0.10539121 \\
-    $\{0,6,12,18\}$  & 2,3        & 0.41558441 & 0.12044710 \\
-    $\{0,2,6,8,30\}$ & 2,3,5,7,11 & 0.38614839 & 0.05639911 \\
-    $\{0,18,30,60\}$ & 2,3,5,7    & 0.35463203 & 0.03011178 \\
-    $\{0,60,120,18\}$& 2,3,5      & 0.34996582 & 0.03011178
+    $\{0,2\}$        & 2          & 0.66666667 & 0.75738949 &  1.32032464 \\
+    $\{0,10\}$       & 2,5        & 0.59259259 & 0.56804211 &  1.76043285 \\
+    $\{0,6\}$        & 2,3        & 0.53333333 & 0.37869474 &  2.64064928 \\
+    $\{0,2,6,8\}$    & 2,3        & 0.45714286 & 0.24089421 &  4.15119988 \\
+    $\{0,8,12,30\}$  & 2,3,5,11   & 0.41975814 & 0.10539121 &  9.48845686 \\
+    $\{0,6,12,18\}$  & 2,3        & 0.41558441 & 0.12044710 &  8.30239975 \\
+    $\{0,2,6,8,30\}$ & 2,3,5,7,11 & 0.38614839 & 0.05639911 & 17.73077650 \\
+    $\{0,18,30,60\}$ & 2,3,5,7    & 0.35463203 & 0.03011178 & 33.20959900 \\
+    $\{0,60,120,18\}$& 2,3,5      & 0.34996582 & 0.03011178 & 35.76418354 \\
 \end{tabular}
 \end{center}
 
@@ -943,7 +948,6 @@ Indeed, we have for k-tuples $A$ and $B$ with $\#A = \#B = c$,
     M_A(1) &< M_B(1) \\
     \iff 1 &< \prod_{p}\frac{1-v_A(p)p^{-1}}{1-v_B(p)p^{-1}} \\
     \iff 0 &< \sum_{p}\left[ \log(1-v_A(p)p^{-1}) - \log(1-v_B(p)p^{-1}) \right] \\
-    % \iff 0 &< \sum_{p}\left[ -\sum_{k\ge1} \frac{v_A(p)^k}{kp^k} +\sum_{k\ge1} \frac{v_B(p)^k}{kp^k} \right] \\
     \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{v_B(p)^k-v_A(p)^k}{kp^k} \\
     \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{v_B(p)^k-v_A(p)^k}{p^k}. \\
 \end{align*}
@@ -1027,6 +1031,14 @@ is cool, but is there an easier way?
 
 \begin{enumerate}
   \item
+    We could compute the multi logarithmic order of $u_A$.
+  \item
+    Maybe the relationship between the standard $\Psi_A$ definition
+    and $\zeta^{\#A}$ holds between a $u$/$w$ modified version of
+    $\Psi$ and $\zeta$?
+    My instinct is that $w_A$ represents some kind
+    of order reduction.
+  \item
     $u_A\ast \mu^{\ast \#A}$ is almost always zero,
     $w_A\ast \mu$ is almost always zero.
     Are they non-zero at the same indices?
@@ -1040,7 +1052,6 @@ is cool, but is there an easier way?
   \item
     I think we can get milage out of $\Lambda_A := \log \ast u_A$ or 
     something like it.
-
   \item
     Tao keeps mentioning the value of twisting series by characters.
     What value is he referencing, and what does it give us?
