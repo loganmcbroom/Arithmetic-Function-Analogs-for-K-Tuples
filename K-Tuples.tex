@@ -1061,20 +1061,21 @@ $N_A(1)$.
 % \end{proposition}
 
 TODO
-This whole derivation is a bit above my pay grade, so not exactly
+This whole next derivation is a bit above my pay grade, so not exactly
 up to par. 
-I think it's got a cool idea though.
+I think it's got cool ideas though.
+
 \begin{definition}
     $$\Psi_A(x) = \sum_{n \le x} \Lambda(n)w_A(n).$$
 \end{definition}
 \begin{theorem}
     For any admissible k-tuple $A$, we have
-    $$\Psi^*_A(x) = \Psi^*(x) - \#S_A\log x + O(1),$$
-    where the stars indicate the summation should be multiplied by 1/2
-    when $x\in\mathbb{Z}$.
+    $$\Psi_A(x) = \Psi(x) - \#S_A\log x + O(1).$$
 \end{theorem}
 \begin{proof}
-    We apply Perron's formula and obtain
+    We apply Perron's formula and obtain the following where the stars
+    indicate the summation should be multiplied by 1/2
+    when $x\in\mathbb{Z}$.
     \begin{align*}
         \Psi^*_A(x) &= \sum_{n\le x}^*\Lambda(n)w_A(n) \\
         &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\Di(\Lambda\cdot w_A)(z)
@@ -1083,20 +1084,23 @@ I think it's got a cool idea though.
     where $c>1$.
     Because $w_A$ is completely multiplicative, we have 
     \begin{align*}
-    \Di(\Lambda\cdot w_A) &= -\frac{\Di'(w_A)}{\Di(w_A)} \\
-    &= -\frac{\zeta' \cdot M_A + \zeta\cdot M'_A}{\zeta\cdot N_A} \\ 
-    &= -\frac{\zeta'}{\zeta} -\frac{M'_A}{N_A} \\
-    &= \Di(\Lambda) -\frac{M'_A}{M_A}.
+    \Di(\Lambda\cdot w_A)(z) 
+    &= -\frac{d}{dz}\log(\Di(w_A)(z)) \\
+    &= -\frac{d}{dz}\log(\zeta(z)M_A(z)) \\
+    &= -\frac{d}{dz}\log(\zeta(z)) - \frac{d}{dz}\log(M_A(z)) \\
+    &= \Di(\Lambda)(z) - \frac{d}{dz}\log(M_A(z)) \\
     \end{align*}
 
     Substituting this into our integral, we then have
     \begin{align*}
-        \Psi^*_A(x) &= \sum_{n\le x}^*\Lambda(n)w_A(n) \\
-        &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\left[\Di(\Lambda)(z)-\frac{M'_A}{M_A}(z)\right]
+        \Psi^*_A(x)
+        &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\left[
+            \Di(\Lambda)(z)
+            - \frac{d}{dz}\log M_A(z)\right]
             \frac{x^z}{z}dz \\
-        &= \Psi^*(x)
-            - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{M'_A}{M_A}(z)
-            \frac{x^z}{z}dz \\
+        % &= \Psi^*(x)
+        %     - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{M'_A}{M_A}(z)
+        %     \frac{x^z}{z}dz \\
         &= \Psi^*(x)
             - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}
                 \left[\frac{d}{dz}\log M_A(z)\right]\frac{x^z}{z} dz.
@@ -1146,6 +1150,17 @@ I think it's got a cool idea though.
               (\log_p(x) + O(1)) \\
         &= \Psi^*(x) - \#S_A\log x + O(1).
     \end{align*}
+
+    Now, the change in order $d(x)$ created by removing the stars when $x\in\mathbb{Z}$ is
+    \begin{align*}
+    d(x) = (\Psi(x)-\Psi_A(x)) - (\Psi^*(x)-\Psi^*_A(x))
+    & = \frac{1}{2}\Lambda(x)(1-w_A(x)).
+    \end{align*}
+    If $x$ is a power of a prime $p\in S_A$, $d$ is bounded by the max of
+    the logs of those finitely many primes.
+    If $x$ is a power of any other prime, we have $w_A(x)=1$, so $d=0$.
+    If $x$ is any other number, $\Lambda(x)=0$, so $d=0$.
+    Then $d(x)=O(1)$, and the result follows.
 
 \end{proof}
 
