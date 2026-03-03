@@ -2,7 +2,7 @@ import math
 from primes import primes
 from fractions import Fraction
 
-bound = 2**12+1 # Computation bound
+bound = 2**10+1 # Computation bound
 primes_max = 10000 # Largest prime list index to use
 
 def divisors(n):
