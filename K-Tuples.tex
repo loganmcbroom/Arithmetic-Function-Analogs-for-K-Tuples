@@ -5,12 +5,6 @@
 
 \addbibresource{bibliography.bib} 
 
-% \addtolength{\oddsidemargin}{-.875in}
-% \addtolength{\evensidemargin}{-.875in}
-% \addtolength{\textwidth}{1.75in}
-% \addtolength{\topmargin}{-.3in}
-% \addtolength{\textheight}{.6in}
-
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -31,11 +25,9 @@
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \newcommand{\vk}{\varkappa}
-% \newcommand{\bvk}{\overline{\varkappa}}
 \newcommand{\Li}{\mathrm{Li}}
 \newcommand{\Di}{\mathcal{D}}
 \newcommand{\Res}{\text{Res}}
-
 
 \begin{document}
 
@@ -1060,11 +1052,6 @@ $N_A(1)$.
 %     $$\upvartheta_A(x) \sim C_Ax.$$
 % \end{proposition}
 
-TODO
-This whole next derivation is a bit above my pay grade, so not exactly
-up to par. 
-I think it's got cool ideas though.
-
 \begin{definition}
     $$\Psi_A(x) = \sum_{n \le x} \Lambda(n)w_A(n).$$
 \end{definition}
@@ -1073,6 +1060,29 @@ I think it's got cool ideas though.
     $$\Psi_A(x) = \Psi(x) - \#S_A\log x + O(1).$$
 \end{theorem}
 \begin{proof}
+    We have
+    \begin{align*}
+    \Psi(x)-\Psi_A(x)
+    &= \sum_{n\le x} \Lambda(n)(1-w_A(n)).
+    \end{align*}
+    
+    Now, for composite $n$ we have $\Lambda(n)=0$, and for $n=p^k$ where 
+    $p\not\in S_A$, we have $1-w_A(n)=0$, so the summand only takes
+    on values at powers of $p\in S_A$, and we have
+    \begin{align*}
+    \Psi(x)-\Psi_A(x)
+    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} (1-w_A(p)^k) \\
+    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
+        + O\left(\sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} w_A(p)^k\right) \\
+    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
+        + O(1) \\
+    &= \sum_{p\in S_A}\log(p)(\log_p(x) + O(1)) + O(1) \\
+    &= \sum_{p\in S_A}\log(x) + O(1) \\
+    &= \#S_A\log(x) + O(1).
+    \end{align*}
+
+\end{proof}
+\begin{proof}[Silly proof]
     We apply Perron's formula and obtain the following where the stars
     indicate the summation should be multiplied by 1/2
     when $x\in\mathbb{Z}$.
@@ -1144,7 +1154,7 @@ I think it's got cool ideas though.
         \Psi^*_A(x) 
         &= \Psi^*(x)
             - \sum_{p\in S_A} \log p
-              \sum^*_{k \le \log_p(x)} 1 \\
+              \sum^*_{k \le \log_p x} 1 \\
         &= \Psi^*(x)
             - \sum_{p\in S_A} \log p
               (\log_p(x) + O(1)) \\
@@ -1161,50 +1171,78 @@ I think it's got cool ideas though.
     If $x$ is a power of any other prime, we have $w_A(x)=1$, so $d=0$.
     If $x$ is any other number, $\Lambda(x)=0$, so $d=0$.
     Then $d(x)=O(1)$, and the result follows.
-
 \end{proof}
+
+Combining this with the Prime Number Theorem in the form $\Psi(x) \sim x$ gives
+$\Psi_A(x) \sim x$.
 
 % =======================================================================================================================================
 \subsection{Notes/TODO}
 
 \begin{enumerate}
-  \item
-    Maybe the relationship between the standard $\Psi_A$ definition
-    and $\zeta^{\#A}$ holds between a $u$/$w$ modified version of
-    $\Psi$ and $\zeta$?
-    My instinct is that $w_A$ represents some kind
-    of order reduction.
-  \item
-    Is there a meaning that can be attributed to simple operations
-    on modulator constants?
-    I think the only way to get milage out of this is to understand 
-    the probibalistic perspective from whence HLC came.
-  \item
-    Tao keeps mentioning the value of twisting series by characters.
-    What value is he referencing, and what does it give us?
-  \item
-    Continue to hunt for u and w series relations
-  \item
-    Write out the proof for psiA in terms of psi,
-    not sure if it's needed but it's cool.
-  \item
-    Compute the ratio of the $0,2$ and $0,6$ HLC constants.
-    Answer: 1/2 (just requires cancellations)
-    Can we get a formula for any ratio?
-  \item
-    Double check Granville actually implies the thing.
-    Oh, just noticed he is the pretentious theory guy.
-  \item 
-    We should check if any results require finiteness on k-tuple
-  \item 
-    Is there a meaning to u or v on composites outside of comp-mult?
-    It would be more convincing to define them by a property and then
-    prove comp-mult.
-  \item 
-    $\varphi_A$ appears to be equivalent to a discrete convolution.
-    Is that worth thinking about?
-    Can we use that to improve the main proofs?
-    What else can be done with this?
+    \item
+        If, instead of demaning complete containment in $\phi_A$, we 
+        demand any amount of incidence, is the resulting function
+        multiplicative? How is it computed?
+    \item
+        Try looking into $\sum_{n\le x}\Lambda(n)^{u_A(n)}$.
+        For unmodulated primes this gives the correct number of lambdas,
+        For modulated I think the power is reduced based on 
+        the chance that some member of the product for the standard
+        Psi is zero.
+        Idk, this is pretty vague, but it has a nice feeling
+    \item
+        Can we get Cauchy principle value of omega factor at 1?
+        I don't really know what this means in that it's defined
+        via an integral, but I've seen it referenced as a limit
+        of 2 values of the function.
+        
+        Are there other ways to use the finite modulator for $u$?
+        The fact that this situation changes based on $\#A$ being prime
+        makes me suspicious of it in the first place.
+        Still, finite computability is nice.
+        
+    \item
+        Maybe the relationship between the standard $\Psi_A$ definition
+        and $\zeta^{\#A}$ holds between a $u$/$w$ modified version of
+        $\Psi$ and $\zeta$?
+        My instinct is that $w_A$ represents some kind
+        of order reduction.
+
+        We know the w modified $\Psi$, say $\overline{\Psi}_A$ 
+        has the same limiting behavior
+        as $\Psi$ itself, so it's not going to reduce the order,
+        but maybe showing $\Psi_A(x) \sim C_A\overline{\Psi}_A(x)$ 
+        will be easier?
+
+    \item
+        Is there a meaning that can be attributed to simple operations
+        on modulator constants?
+        I think the only way to get milage out of this is to understand 
+        the probibalistic perspective from whence HLC came.
+    \item
+        Tao keeps mentioning the value of twisting series by characters.
+        What value is he referencing, and what does it give us?
+    \item
+        Continue to hunt for u and w series relations
+    \item
+        Compute the ratio of the $0,2$ and $0,6$ HLC constants.
+        Answer: 1/2 (just requires cancellations)
+        For equal tuple size it's rational.
+    \item
+        Double check Granville actually implies the thing.
+        Oh, just noticed he is the pretentious theory guy.
+    \item 
+        We should check if any results require finiteness on k-tuple
+    \item 
+        Is there a meaning to u or v on composites outside of comp-mult?
+        It would be more convincing to define them by a property and then
+        prove comp-mult.
+    \item 
+        $\varphi_A$ appears to be equivalent to a discrete convolution.
+        Is that worth thinking about?
+        Can we use that to improve the main proofs?
+        What else can be done with this?
 \end{enumerate}
 
 \pagebreak

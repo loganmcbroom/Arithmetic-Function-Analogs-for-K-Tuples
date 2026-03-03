@@ -1,28 +1,9 @@
 import math
-from fractions import Fraction
-import pandas as pd
 from primes import primes
-import itertools
 from dataclasses import dataclass
 from typing import Callable
 
-primes_max = 10000
-
 As = [
-    # [0],
-    # [0,2],
-    # [0,6],
-    # [0,10],
-    # [0,14],
-    # [0,30],
-    # [0,2,6],
-    # [0,4,10],
-    # [0,4,28],
-    # [0,2,6,8],
-    # [0,18,30,60],
-    # [0,60,120,180],
-    # [0,2,6,8,30],
-
     [0,2],        
     [0,10],       
     [0,6],        
@@ -34,75 +15,47 @@ As = [
     [0,60,120,180],
     ]
 
-# Compute residue counts
-def r_gen(A): # u for primes
-    def out(p):
-        A_mod_p = set()
-        for k in A:
-            A_mod_p.add( k % p )
-        return len(A_mod_p)
-    return out
-
 # Takes pairs of residues and moduli, finds a simultaneous solution 
-def CRT( pairs ):
-    def mod_inverse(a, m):
-        # Since m is prime, we can use Fermat's little theorem: a^(m-1) ≡ 1 (mod m)
-        # So a^(-1) ≡ a^(m-2) (mod m)
-        return pow(a, m - 2, m)
-    M = math.prod(mi for _,mi in pairs)
-    result = 0
-    for ai, mi in pairs:
-        Mi = M // mi
-        yi = mod_inverse(Mi, mi)
-        result += ai * Mi * yi
-    return result % M
+# def CRT( pairs ):
+#     def mod_inverse(a, m):
+#         # Since m is prime, we can use Fermat's little theorem: a^(m-1) ≡ 1 (mod m)
+#         # So a^(-1) ≡ a^(m-2) (mod m)
+#         return pow(a, m - 2, m)
+#     M = math.prod(mi for _,mi in pairs)
+#     result = 0
+#     for ai, mi in pairs:
+#         Mi = M // mi
+#         yi = mod_inverse(Mi, mi)
+#         result += ai * Mi * yi
+#     return result % M
 
 # Theorem 1.14 - algorithm for finding k-tuple with given residues
-def find_r_rep( r, N ):
-    # Get M
-    M = 0
-    for p in primes[:N]:
-        if M < r(p): M = r(p)
-    A_i = [0]
-    for i in range(2, M+1):
-        # Now, find r for current Ai and check at which primes it's smaller than our desired r
-        ri = r_gen( A_i )
-        Q_i = [p for p in primes[:N] if ri(p) < r(p)]
+# def find_r_rep( r, N ):
+#     # Get M
+#     M = 0
+#     for p in primes[:N]:
+#         if M < r(p): M = r(p)
+#     A_i = [0]
+#     for i in range(2, M+1):
+#         # Now, find r for current Ai and check at which primes it's smaller than our desired r
+#         ri = r_gen( A_i )
+#         Q_i = [p for p in primes[:N] if ri(p) < r(p)]
         
-        # CRT gives a k with 0 <= k < pN# that solves 
-        #   k congruent i (mod q) for all q in Q_i
-        #   and
-        #   k congruent 0 (mod p_i) for p_i in (Primes - Q_i) cap [0,pN]
-        CRT_package = []
-        for p in primes[:N]:
-            if any( p == q for q in Q_i ):
-                CRT_package.append([i,p])
-            else:
-                CRT_package.append([0,p])                
-        k = CRT( CRT_package )
+#         # CRT gives a k with 0 <= k < pN# that solves 
+#         #   k congruent i (mod q) for all q in Q_i
+#         #   and
+#         #   k congruent 0 (mod p_i) for p_i in (Primes - Q_i) cap [0,pN]
+#         CRT_package = []
+#         for p in primes[:N]:
+#             if any( p == q for q in Q_i ):
+#                 CRT_package.append([i,p])
+#             else:
+#                 CRT_package.append([0,p])                
+#         k = CRT( CRT_package )
 
-        A_i.append( k )
-    A_i.sort()
-    return A_i
-
-# Find modulated primes for each uA
-def find_mods(A_size, rA, A_max_diff):
-    mods = []
-    for p in primes[:primes_max]:
-        if p > A_max_diff: break
-        if rA(p) < A_size:
-            mods.append(p)
-    return mods
-
-# Compute M_A(1)
-def compute_M_A(A_size, r, mods):
-    k = A_size
-    return math.prod( (1-Fraction(1,p)) / (1-Fraction(r(p),p*k)) for p in mods )
-
-# Compute N_A(1)
-def compute_N_A(A_size, r):
-    k = A_size
-    return math.prod( (1-1/p)**k / (1-r(p)/p) for p in primes[:primes_max] )
+#         A_i.append( k )
+#     A_i.sort()
+#     return A_i
 
 @dataclass
 class ktuple:
