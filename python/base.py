@@ -5,6 +5,17 @@ from fractions import Fraction
 bound = 2**10+1 # Computation bound
 primes_max = 10000 # Largest prime list index to use
 
+def factorization(n):
+    factors = {}
+    for p in primes:
+        if p > n: break
+        while n % p == 0:
+            if p in factors: factors[p] += 1
+            else: factors.update({p:1})
+            n = n // p
+        if n == 1: break
+    return factors
+
 def divisors(n):
     n = abs(n)
     f = {}

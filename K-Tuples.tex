@@ -24,7 +24,7 @@
 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-\newcommand{\vk}{\varkappa}
+% \newcommand{\vk}{\varkappa}
 \newcommand{\Li}{\mathrm{Li}}
 \newcommand{\Di}{\mathcal{D}}
 \newcommand{\Res}{\text{Res}}
@@ -76,36 +76,21 @@ That is, $k+A$ is the translation of $A$ by $k$.
 We are often concerned with congruence between elements of k-tuples,
 but the usual definition of congruence is insufficient, as it describes only
 exact incidence between numbers relative to a modulus.
-We are instead concerned with the contents of one k-tuple
-being contained in another relative to a modulus.
-The following definition handles the "modulus" aspect of that need,
-and the containment will be handled by $\subset$.
+We are instead concerned with a variety of types of incidence between
+translated k-tuples and the integers relatively prime to some modulus.
+The following definition handles the "modulus" aspect of that need.
 
 \begin{definition}
-Given a k-tuple $A$ and a natural number $n$, define the \textbf{periodization} 
-of $A$ with respect to $n$ by
-$$|A|_n := \{a+kn : a\in A, k\in\mathbb{Z}\}$$
+Given a k-tuple $A$ and a natural number $n$, define
+$$A \bmod n \text{ or } A_n := \{a \bmod n : a\in A\}$$
 
-Define $\mathbb{K}_p\subset\mathbb{K}$, the set of \textbf{periodic k-tuples}, to be the set of all such periodizations.
+Define $\mathbb{K}_n$, the set of \textbf{k-tuples modulo n}, to be the set of 
+all such objects.
 \end{definition}
 
-Note that $|A|_n$ is periodic with period $n$, but there may be a smaller value 
-over which the periodization is periodic.
-
-The greatest common divisor function has no obvious analog in $\mathbb{K}$. 
-We are still interested, though, in whether each element of a k-tuple is 
-coprime to a given natural number.
-
-\begin{definition} Define $\vk(n) : \mathbb{N} \rightarrow \mathbb{K}_p$ by:
-\begin{align*}
-    \vk(n) &:= \{ k\in\mathbb{Z} : (k,n)=1 \}.
-\end{align*}
-If $\vk(n)=C$ for some $n$, we say that $C$ is a \textbf{natural k-tuple}.
-\end{definition}
-
-Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
-as will be seen in Proposition \ref{vk primes}.
-For a k-tuple $A$, we can then speak of each element of $A$ being coprime to some $n$ by saying $A\subset\vk(n)$.
+% Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
+% as will be seen in Proposition \ref{vk primes}.
+% For a k-tuple $A$, we can then speak of each element of $A$ being coprime to some $n$ by saying $A\subset\vk(n)$.
 
 % This definition has the issue that for some A, (A,n) is neither 1 nor not 1, which is logically confusing.
 % \begin{definition}
@@ -115,42 +100,42 @@ For a k-tuple $A$, we can then speak of each element of $A$ being coprime to som
 %     If for all $a\in A$ we have $(a,n)\not=1$, we write $(A,n)\not= 1$.
 % \end{definition}
 
-\begin{proposition}\label{vk mult}
-For any natural numbers $m$ and $n$
-    $$\vk(mn)=\vk(m) \cap \vk(n).$$
-\end{proposition}
-\begin{proof}
-    For $m,n\in\mathbb{N}$, we have
-    \begin{align*}
-        \vk(mn) 
-        &= \{ k\in\mathbb{Z} : (k,mn)=1  \} \\
-        &= \{ k\in\mathbb{Z} : (k,m)=1 \text{ and } (k,n)= 1 \} \\
-        &= \{ k\in\mathbb{Z} : (k,m)=1 \}
-            \cap \{ k\in\mathbb{Z} : (k,n)= 1 \} \\
-        &= \vk(m) \cap \vk(n).
-    \end{align*}
-\end{proof}
-\begin{corollary}\label{vk subset split}
-    For any natural numbers $m$ and $n$, and any k-tuple $A$, we have
-    $$A \subset \vk(mn)  \Leftrightarrow A\subset \vk(m) \textnormal{ and } A \subset \vk(n).$$
-\end{corollary}
-\begin{proof}
-    Let $m,n\in\mathbb{N}$ and let $A\in\mathbb{K}$.
-    Then by the proposition,
-    \begin{align*}
-        &A\subset \vk(mn) \\
-        \Leftrightarrow &A\subset (\vk(m)\cap\vk(n))\\
-        \Leftrightarrow &A\subset \vk(m) \text{ and } A\subset\vk(n).
-    \end{align*}
-\end{proof}
+% \begin{proposition}\label{vk mult}
+% For any natural numbers $m$ and $n$
+%     $$\vk_{mn}=\vk_m \cap \vk_n.$$
+% \end{proposition}
+% \begin{proof}
+%     For $m,n\in\mathbb{N}$, we have
+%     \begin{align*}
+%         \vk_{mn} 
+%         &= \{ k\in\mathbb{Z}_{mn} : (k,mn)=1 \} \\
+%         &= \{ k\in\mathbb{Z} : (k,m)=1 \text{ and } (k,n)= 1 \} \\
+%         &= \{ k\in\mathbb{Z} : (k,m)=1 \}
+%             \cap \{ k\in\mathbb{Z} : (k,n)= 1 \} \\
+%         &= \vk(m) \cap \vk(n).
+%     \end{align*}
+% \end{proof}
+% \begin{corollary}\label{vk subset split}
+%     For any natural numbers $m$ and $n$, and any k-tuple $A$, we have
+%     $$A \subset \vk(mn)  \Leftrightarrow A\subset \vk(m) \textnormal{ and } A \subset \vk(n).$$
+% \end{corollary}
+% \begin{proof}
+%     Let $m,n\in\mathbb{N}$ and let $A\in\mathbb{K}$.
+%     Then by the proposition,
+%     \begin{align*}
+%         &A\subset \vk(mn) \\
+%         \Leftrightarrow &A\subset (\vk(m)\cap\vk(n))\\
+%         \Leftrightarrow &A\subset \vk(m) \text{ and } A\subset\vk(n).
+%     \end{align*}
+% \end{proof}
 
-\begin{proposition}\label{vk primes}
-    For any prime $p$ and natural number $k$, we have
-    $$\vk(p^k) = \vk(p).$$
-\end{proposition}
-\begin{proof}
-    This is immediate from $(n,p^k)=1 \Leftrightarrow (n,p)=1$.
-\end{proof}
+% \begin{proposition}\label{vk primes}
+%     For any prime $p$ and natural number $k$, we have
+%     $$\vk(p^k) = \vk(p).$$
+% \end{proposition}
+% \begin{proof}
+%     This is immediate from $(n,p^k)=1 \Leftrightarrow (n,p)=1$.
+% \end{proof}
 
 % I don't think this is needed
 % \begin{proposition}
@@ -173,123 +158,135 @@ For any natural numbers $m$ and $n$
 % =======================================================================================================================================
 \subsection{The Totient Function}
 
-We now extend Euler's totient function $\varphi$, which first requires a 
-conceptual reinterpreting of the function. 
+We now extend Euler's totient function $\varphi$ to k-tuples
 Instead of counting which natural numbers up to $n$ are relatively 
-prime to $n$, we can think of $\varphi$ as the sliding of a singular 
-k-tuple over the elements of $\vk(n)$ over one of its periods.
-The output of the function will be the number of times the singular 
-k-tuple sat upon an element of $\vk(n)$.
-With this perspective, we may now slide a non-singular 
-k-tuple, e.g. $A=\{0,2\}$, in the same fashion, and count the occurences of 
-all elements of $A$ being over an element of $\vk(6)$.
-We graph this process below. 
-Rather than graphing beyond 6, we rely on the periodicity of $\vk$ and 
-move points beyond 6 back to 0.
+prime to $n$, we count the translates of a k-tuple $A$ by $k\in\mathbb{Z}_n$ 
+for which all elements are coprime to $n$.
+We may also consider counting many types of occurences, and will do so
+in a later section.
+We graph the counting process below for $A=\{0,2\}$ and $n=6$.
+The top grid represents a translate of $A$, and the bottom
+are those integers up to 6 coprime to 6.
+Recalling that those coprime integers are periodic with period 6,
+we simply wrap any elements of the translated $A$ which fall
+off the end back to 0.
 
 \begin{enumerate}
-    \item[0] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+    \item[0] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
             \hline
-            $\bigcdot$ & $\ $ & $\bigcdot$ & $ $ & $ $ & $\ $ & $\ $\\
+            $\bigcdot$ & $\ $ & $\bigcdot$ & $ $ & $ $ & $\ $ \\
             \hline
-            $ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+            $ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ \\
             \hline
         \end{tabular} \end{center}
-    \item[1] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+    \item[1] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
         \hline
-        $ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $ $ & $\ $ & $\ $\\
+        $ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $ $ & $\ $ \\
         \hline
-        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ \\
         \hline
     \end{tabular} \end{center}
-    \item[2] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+    \item[2] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
         \hline
-        $ $ & $\ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $\ $ & $\ $\\
+        $ $ & $\ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $\ $ \\
         \hline
-        $\ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        $\ $ & $\bigcdot$ & $ $ & $\ $ & $\ $ & $\bigcdot$ \\
         \hline
     \end{tabular}\\ \end{center}
-    \item[3] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+    \item[3] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
         \hline
-        $ $ & $\ $ & $ $ & $\bigcdot$ & $ $ & $\bigcdot$ & $\ $\\
+        $ $ & $\ $ & $ $ & $\bigcdot$ & $ $ & $\bigcdot$ \\
         \hline
-        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
-        \hline
-    \end{tabular} \end{center}
-    \item[4] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
-        \hline
-        $\bigcdot$ & $ $ & $ $ & $ $ & $\bigcdot$ & $\ $ & $\ $\\
-        \hline
-        $ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $ $\\
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ \\
         \hline
     \end{tabular} \end{center}
-    \item[5] \begin{center} \begin{tabular}{ |c|c|c|c|c|c|c| } 
+    \item[4] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
         \hline
-        $ $ & $\bigcdot $ & $ $ & $ $ & $ $ & $\bigcdot$ & $ $\\
+        $\bigcdot$ & $ $ & $ $ & $ $ & $\bigcdot$ & $\ $\\
         \hline
-        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$ & $\ $\\
+        $ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$\\
+        \hline
+    \end{tabular} \end{center}
+    \item[5] \begin{center} \begin{tabular}{ |c|c|c|c|c|c| } 
+        \hline
+        $ $ & $\bigcdot $ & $ $ & $ $ & $ $ & $\bigcdot$\\
+        \hline
+        $\ $ & $\bigcdot$ & $\ $ & $\ $ & $\ $ & $\bigcdot$\\
         \hline
     \end{tabular} \end{center}
 \end{enumerate}
 
-There is only a single occurrence, on table 5, of complete containment by $\vk(6)$. 
-The result is then one, and we are conceptually prepared for the following definition.
+There is only a single occurrence, on table 5, of complete containment,
+so our totient should return 1 for this $A$ and $n$.
 
-\begin{definition}[K-Tuple Totient Function]~ \\
-For any k-tuple $A$ and natural number $n$, define $\varphi_A$ by:
-\begin{align*}
-    \varphi_A(1) &:=1 \\
-    \varphi_A(n) &:= \#\{k\in\mathbb{Z} : 0 \leq k < n \textnormal{ and } k+A\subset \vk(n) \}
-\end{align*}
+\begin{definition}[K-tuple totient]~ \\
+    For a k-tuple $A$, define $\varphi_A$ by:
+    \begin{align*}
+        \varphi_A(1) &:= 1 \\
+        \varphi_A(n) &:= \#\{k\in\mathbb{Z}_n : 
+            \forall\ a \in A,\ (k+a,n)=1 \}
+    \end{align*}
 \end{definition}
 
 \begin{theorem}\label{phi multiplicative}
-    For any k-tuple $A$, $\varphi_A$ is a multiplicative function.
+    For any k-tuple $A$, $\varphi_A$ is multiplicative.
 \end{theorem}
 \begin{proof}
-    Let $A$ be a k-tuple and let $m$ and $n$ be coprime natural numbers.
-    For each natural number $a$, define the set $P_A(a)$ by
-    $$ P_A(a) = \{k\in\mathbb{N} : 0 \leq k < a \textnormal{ and } k+A\subset\vk(a)\}$$
-    By the definition of $\varphi_A$, $\#P_A(a)=\varphi_A(a)$. 
+    Throughout, let $k_n$ be the class represented by $k$ in $\mathbb{Z}_n$ for any $n$.
+    Let $A$ be a k-tuple, 
+    and let $m$ and $n$ be coprime natural numbers.
+    For each natural number $b$, define the set $P(b)$ by
+    $$P(b) = \{k_b\in\mathbb{Z}_b : \forall\ a \in A,\ (k_b+a,b) = 1 \}.$$
+    Then by definition $\#P(a)=\varphi_A(a)$. 
 
-    Now let $\Gamma: P_A(mn) \longmapsto P_A(m)\times P_A(n)$ be given by
-    $$\Gamma(a) = (a \text{ mod } m, a \text{ mod } n)$$
-    where we take $a \text{ mod } k$ to mean the unique integer on $[0,k)$ congruent to $a$ modulo $k$.
+    Now let $\Gamma: P(mn) \longmapsto P(m)\times P(n)$ be given by
+    $$\Gamma(k_{mn}) = (k_m, k_n).$$
+    We will show each of the following:
 
-    % Well defined
-    We must first show this mapping does not take an element of $P_A(mn)$ to a pair not in $P_A(m)\times P_A(n)$.
-    Given $k\in P_A(mn)$, we have $k<mn$ and $k+A\subset \vk(mn)$.
-    By Corrolary \ref{vk mult}, $k+A\subset \vk(m)$ and $k+A\subset \vk(n)$.
-    But $\vk(m)$ is periodic with period $m$, so $a \text{ mod } m + A \subset \vk$.
-    We also have $0 \leq a \text{ mod } m < m$, so $a \text{ mod } m\in P_A(m)$ and likewise $a \text{ mod } n\in P_A(n)$.
-    Thus, the mapping is well defined.
-    
-    % Injective
-    Let $a_1,\ a_2\in P(mn)$ such that $\Gamma(a_1)=\Gamma(a_2)$.
-    Then $a_1\equiv a_2 \pmod m$ and $a_1\equiv a_2 \pmod n$. 
-    Because $m$ and $n$ are coprime, $a_1\equiv a_2 \pmod{mn}$. 
-    Because $a_1$ and $a_2$ are also less than $mn$, $a_1=a_2$.
-    Thus, $\Gamma$ is injective.
-    
-    % Surjective
-    Now let $(b,c)\in P(m)\times P(n)$.
-    Then $b<m$, $c<n$, $b+A\subset \vk(m)$, and $c+A\subset \vk(n)$.
-    Because $m$ and $n$ are coprime, there exists exactly one $a$ satisfying $a\equiv b \pmod m$, $a\equiv c \pmod n$,
-    and $0\leq a < mn$ by the Chinese Remainder Theorem.
-    Because $b+A\subset\vk(m)$ and $a\equiv b \pmod m$, $a+A\subset\vk(m)$, and likewise $a+A\subset\vk(n)$.
-    Then by Corrolary \ref{vk subset split}, $a+A\subset\vk(mn)$, so $a\in P_A(mn)$.
-    Thus, $\Gamma(a)=(b,c)$, so $\Gamma$ is surjective. 
+    \begin{enumerate}
+        \item \textbf{$\Gamma$ is well defined.}
+            Let $k_{mn}\in P(mn)$.
+            Then $\forall\ a\in A,\ (k+a,mn) = 1$, so
+            $\forall\ a\in A,\ (k+a,m) = 1$.
+            Proceeding likewise for $n$, $(k_m, k_n) \in P(m)\times P(n)$,
+            so $\Gamma$ is well defined.
 
-    Finally, $\Gamma$ is injective and surjective, so $\Gamma$ is a bijection, and 
+        \item \textbf{$\Gamma$ is injective.}
+            Let $a_{mn},b_{mn}\in P(mn)$ such that $\Gamma(a_{mn})=\Gamma(b_{mn})$.
+            Then $a_m = b_m$ and $a_n = b_n$. 
+            Because $m$ and $n$ are coprime, $a_{mn} = b_{mn}$.
+            Thus, $\Gamma$ is injective.
+            
+        \item \textbf{$\Gamma$ is surjective.}
+            Let $(b_m,c_n)\in P(m)\times P(n)$.
+            By the Chinese Remainder Theorem, there exists $d_{mn}\in\mathbb{Z}_{mn}$
+            such that $d_m=b_m$ and $d_n=c_n$.
+            It then suffices to show $d_{mn}\in P(mn)$, for this gives
+            $\Gamma(d_{mn}) = (b_m,c_n)$.
+
+            Let $a\in A$. 
+            We have
+            \begin{align*}
+                & b_m\in P(m) \\
+                \implies& (a+b_m,m) = 1 \\
+                \implies& (a+d_m,m) = 1 \\
+                \implies& (a+d_{mn},m) = 1.
+            \end{align*}
+            
+            Proceeding likewise for $c_n$, we have $(a+d_{mn},n) = 1$.
+            Combining these gives $(a+d_{mn},mn) = 1$, so 
+            $d_{mn}\in P(mn)$ and $\Gamma$ is surjective.
+    \end{enumerate}
+
+    Thus, $\Gamma$ is a bijection, so
     \begin{align*}
-    \varphi_s(mn)
+    \varphi_A(mn)
     &=\#P(mn) \\
     &=\#(P(m)\times P(n)) \\
     &=\#P(m) \cdot \#P(n) \\
-    &=\varphi_s(m)\cdot\varphi_s(n).
+    &=\varphi_A(m)\cdot\varphi_A(n).
     \end{align*}
 \end{proof}
-
 
 % ================================================================================================================================
 \subsection{The Unit Function}
@@ -297,7 +294,7 @@ The singular unit function $u(n)$ is defined by $u(n)=1$ for all $n$.
 It is surprising that such a trivial function has a non-trivial extension to k-tuples.
 \begin{definition}
     For any k-tuple $A$ and prime $p$, define $u_A(p)$ by:
-    $$u_A(p) = \#\{ k\in |A|_p : 0\leq k < p\}$$
+    $$u_A(p) = \#A_p$$
     We extend $u_A$ to all natural numbers by complete multiplicativity.
 \end{definition}
 
@@ -306,43 +303,66 @@ The definition for primes tells us that $u_A$ gives the number of residues the e
 The definition of $u_A$ on primes is used in the first Hardy and Littlewood 
 conjecture, discussed later, and so is not entirely new.
 It's usage in the following theorem to describe extensions of $\varphi$ 
-is also known, at least in the well studied cases.
+is also known, at least in some well known cases.
 
 \begin{theorem}\label{phi prime powers}
     For any k-tuple $A$, prime $p$, and natural number $k$ we have:
     $$\varphi_A( p^k ) = p^k - u_A(p)p^{k-1}.$$
 \end{theorem}
 \begin{proof}
-    By definition
-    \begin{align*}    
-        u_A(p)&=\#\{ m\in |A|_p : 0\leq m < p \} \\
-        \Rightarrow p-u_A(p)&=\#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } m \not\in |A|_p\}.
-    \end{align*}
-
-    % Reflection
-    Now, as $m$ takes on each residue modulo $p$, so does $-m$, so
+    By definition we have
     \begin{align*}
-        p-u_A(p) 
-        &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } -m \not\in |A|_p\} \\
-        &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+        \varphi_A(p^k) 
+        &= \#\{j \in \mathbb{Z}_{p^k} : \forall\ a \in A,\ (j+a,p^k)=1 \} \\
+        &= \#\{j \in \mathbb{Z}_{p^k} : \forall\ a \in A_{p^k},\ (j+a,p^k)=1 \}. \\
     \end{align*}
-    
-    % Grow by p^k
-    For any $m$ satisfying $m + a \not\equiv 0 \pmod p$, $m+jp$ will satisfy that condition for any integer $j$. 
-    So by extending the upper bound of the range condition to $ap$ we have $a$ times as many 
-    values of $m$ satisfying both conditions. Using this with $a=p^{k-1}$ we have
+    If this condition is satisfied by some $j$, it will be satisfied
+    by $j+pm$ for any $m$, and there are $p^{k-1}$ multiples of $p$ in $\mathbb{Z}_{p^k}$.
+    In other words, as $A_{p^k}$ is translated through $\mathbb{Z}_{p^k}$,
+    we gain the same amount towards our total count as we pass through
+    each period of size $p$, and there are $p^{k-1}$ such periods.
+    We then have
     \begin{align*}
-        p^k - u_A(p)p^{k-1} &=\#\{ m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+        \varphi_A(p^k) 
+        &= p^{k-1}\#\{j \in \mathbb{Z}_p : \forall\ a \in A_p,\ (j+a,p)=1 \} \\
+        &= p^{k-1}(p-\#\{j \in \mathbb{Z}_p : \exists\ a \in A_p,\ (j+a,p)\not=1 \}) \\
     \end{align*}
-
-    Now, $\vk(p)$ contains exactly the integers on the interval $[1,p-1]$, so we may replace the latter condition to obtain
-    $$p^k-u_A(p)p^{k-1} = \#\{m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } m+A\subset\vk(p)\}.$$
-    Then by Theorem \ref{vk primes} we have
-    \begin{align*}
-        p^k - u_A(p)p^{k-1} &= \#\{m\in\mathbb{Z} : 0 \leq m < p^k \textnormal{ and } m+A \subset \vk(p^k) \}\\
-        &= \varphi_A(p^k).
-    \end{align*}
+    Now, $(j+a,p)\not=1$ exactly once per $a\in A_p$ as $j$ ranges over $\mathbb{Z}_p$
+    (when $j+a \equiv 0 \bmod p$).
+    Thus, the size of the set in the previous equation is $\#A_p$, which
+    gives the required formula.
 \end{proof}
+% \begin{proof}[old proof for old defs]
+%     By definition
+%     \begin{align*}    
+%         u_A(p)&=\#\{ m\in |A|_p : 0\leq m < p \} \\
+%         \Rightarrow p-u_A(p)&=\#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } m \not\in |A|_p\}.
+%     \end{align*}
+
+%     % Reflection
+%     Now, as $m$ takes on each residue modulo $p$, so does $-m$, so
+%     \begin{align*}
+%         p-u_A(p) 
+%         &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } -m \not\in |A|_p\} \\
+%         &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+%     \end{align*}
+    
+%     % Grow by p^k
+%     For any $m$ satisfying $m + a \not\equiv 0 \pmod p$, $m+jp$ will satisfy that condition for any integer $j$. 
+%     So by extending the upper bound of the range condition to $ap$ we have $a$ times as many 
+%     values of $m$ satisfying both conditions. Using this with $a=p^{k-1}$ we have
+%     \begin{align*}
+%         p^k - u_A(p)p^{k-1} &=\#\{ m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+%     \end{align*}
+
+%     Now, $\vk(p)$ contains exactly the integers on the interval $[1,p-1]$, so we may replace the latter condition to obtain
+%     $$p^k-u_A(p)p^{k-1} = \#\{m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } m+A\subset\vk(p)\}.$$
+%     Then by Theorem \ref{vk primes} we have
+%     \begin{align*}
+%         p^k - u_A(p)p^{k-1} &= \#\{m\in\mathbb{Z} : 0 \leq m < p^k \textnormal{ and } m+A \subset \vk(p^k) \}\\
+%         &= \varphi_A(p^k).
+%     \end{align*}
+% \end{proof}
 
 \begin{theorem}[Totient Product Formula]~ \\
     For any k-tuple $A$ and natural number $n$, we have:
@@ -352,7 +372,7 @@ is also known, at least in the well studied cases.
 Let $A$ be a k-tuple and $n$ be a natural number.
 Then $n$ has a factorization, say
 $$n=\prod_{p_i|n}p_i^{a_i}.$$
-Then we have by Theorems \ref{phi multiplicative} and \ref{phi prime powers},
+Then we have by theorems \ref{phi multiplicative} and \ref{phi prime powers},
 \begin{align*}
     \varphi_A(n) 
     &= \varphi_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
@@ -419,7 +439,7 @@ Then we have by Theorems \ref{phi multiplicative} and \ref{phi prime powers},
         \item $v$ is eventually constant, say $v(p)=k$ for $p>N$.
         \item For all primes $p$, $v(p) \le p$ and $v(p) \le k$.
     \end{enumerate}
-    The we say $v$ is a \textbf{unit looking}.
+    The we say $v$ is \textbf{unit looking}.
     If there exists a k-tuple such that $u_A=v$, we say $A$ generates $v$, and
     say $v$ is good. 
     Otherwise, $v$ is bad.
@@ -438,6 +458,10 @@ in the general case.
 As a concrete example, the unit looking function 
 $v$ with $v(2)=1$, $v(3)=v(103)=2$, and $v(p)=3$ for all other primes $p$
 is bad, and is the minimal example.
+Computation shows that bad unit looking functions become far more common
+as the primes at which they differ from their eventual value grow,
+and it seems likely that the proportion of good functions goes to zero
+in that limit.
 We may, however, easily find k-tuples whose unit matches a given unit looking function up 
 to an arbitrary bound.
 
@@ -466,7 +490,7 @@ to an arbitrary bound.
 \end{proof}
     
 % ==============================================================================================================================
-\subsection{Dirichlet Products and the M\"obius Function}
+\subsection{Dirichlet Convolution}
 For any arithmetic functions $f$ and $g$ we denote their Dirichlet product by
 $$(f\ast g)(n) := \sum_{ab=n}f(a)g(b).$$
 We denote the Dirichlet inverse of an arithmetic function $f$ by $f^{-1}$.
@@ -503,14 +527,136 @@ which is used to prove the following.
     Taking the Dirichlet product of both sides by $u_A$, we obtain the theorem.
 \end{proof}
 
-This result, while simple, is the reason for our remaining analysis.
+This result, while simple, is the reason for our later analysis.
 Intuitively, $\varphi_A$ should encode information about relative primality
 in the k-tuple sense.
 The function $N$ is neutral in this regard, so we should expect
-$u_A=N\ast\varphi_A^{-1}$ to retain some aspect of that information.
-As will be seen later, a normalization of $u_A$ also allows
-the trivial application of many of the common tools of analytic
-number theory.
+$u_A=N\ast\varphi_A^{-1}$ to retain some aspect of that information
+while playing nicely with Dirichlet series.
+
+\subsection{Alternatives to $\varphi_A$}
+
+When we defined $\varphi_A$, we counted occurences of complete
+coprimality.
+We could also ask for the occurences of any amount of coprimality,
+a specific amount, or a minimum amount, among other requirements.
+However, these examples do not produce multiplicative $\varphi$ analogs.
+
+There is also a subtlety in defining them that doesn't exist in
+our $\varphi_A$. 
+We defined $\varphi_A$ in terms of translates of $A$, but we could have equivalently
+counted the translates of $A_n$.
+These definitions are inequivalent for the examples listed above,
+for we will have $\#A_n < \#A$ when elements of $A$ coincide modulo $n$.
+That is, the issue with those examples is that they rely on the 
+number of $a\in k+A$ or $a\in k+A_n$ to satisfy a property, which
+may differ. 
+We may avoid this issue be only considering functions which
+count those $k$ such that each of the elements of $k+A$ possesses
+some property, rather considering a property on $k+A$ itself.
+But to consider a function to be an analog of $\varphi$, the 
+property considered should be ``Are these elements coprime?".
+There is only one function of this type which considers
+this property: $\varphi_A$.
+
+We may relax our constraints, though, on what property constitutes a totient
+to depend on the value of $(k+a,n)$, rather than if it is 1 or not.
+This gives not only additional k-tuple totients, but also
+additional singular totients.
+In general, we may use the property that $(k+a,n)$ is limited to
+a specific subset of the primes and obtain a multiplicative totient.
+\begin{definition}
+    Given a set of primes $B$, let $a \prec B$ mean that $a$ is composed
+    only of elements of $B$.
+\end{definition}
+In particular, if this set is exactly the primes less than some bound $b$,
+we are requiring $(k+a,n)$ to be b-smooth:
+\begin{definition}
+    If the prime factors of an integer $k$ are bounded by $b$, we
+    say $k$ is \textbf{$b$-smooth}.
+\end{definition}
+\begin{definition}
+    For a k-tuple $A$ and a set of primes $B$,
+    define $\varphi_{A,B}$ by
+    \begin{align*}
+        \varphi_{A,B}(1) &:= 1, \\
+        \varphi_{A,B}(n) &:= \#\{k\in\mathbb{Z}_n : \forall\ a \in A,\
+        (k+a,n) \prec B\}.
+    \end{align*}
+\end{definition}
+\begin{theorem}\label{smooth totient mult}
+    For any k-tuple $A$ and set of primes $B$,
+    $\varphi_{A,B}$ is multiplicative.
+\end{theorem}
+\begin{proof}
+    The proof follows exactly that of $\varphi_A$ and so
+    is omitted.
+\end{proof}
+
+What, then, are the corresponding unit functions $u_{A,B}$?
+They are the same as our earlier $u_A$, except
+they are zero at every number containing a factor
+in $B$. 
+They are completely multiplicative, can be used to
+compute $\varphi_{A,B}$ in the same way, and yield
+$u_{A,B}\ast \varphi_{A,B} = N$.
+The proofs of these facts follow exactly those for $u_A$.
+We return now to the realm of $\varphi_A$, keeping in mind
+that many results may be extended trivially in this way to 
+$\varphi_{A,B}$.
+
+The earlier nonmultiplicative examples are not without value,
+and not beyond hope.
+In essentially all cases, we can express the desired function
+as a linear combination of $\varphi_A$. 
+Consider first for some $n$ and k-tuple $A$, counting the $k\in\mathbb{Z}_n$
+such that exactly $q$ elements of $k+A$ are coprime to $n$.
+We call the value $q$ the quota, and refer to this as the unwrapped,
+exact quota case.
+Replacing $k+A$ with $k+A_n$ yields a wrapped case, and requiring
+at least $q$ values to be coprime to $n$ yields a minimum quota
+case. 
+
+
+\begin{definition}[Exact quota k-tuple totient]
+    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$, define $\varphi^q_A$ by
+    \begin{align*}
+        \varphi^q_A(1) &:= 1 \\
+        \varphi^q_A(n) &:= \#\{k\in\mathbb{Z}_n : q = \#\{a \in A : ()=1\} \}.
+    \end{align*}
+\end{definition}
+\begin{theorem}
+    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$,
+    $$\varphi_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
+        { q \choose k }
+        \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B$$
+\end{theorem}
+\begin{proof}
+    We first naively count $\varphi_A^q$ by summing $\varphi_B$ over all
+    $B\subset A$ with $\#B = q$. 
+    For each of these terms, though, we will also have included every 
+    subset of $A$ which properly contains $B$, each of which will 
+    exceed the required quota.
+    ughhhh
+\end{proof}
+
+\begin{definition}[Minimum quota k-tuple totient]
+    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$, define 
+    $\overline{\varphi}^q_A$ by
+    \begin{align*}
+        \overline{\varphi}^q_A(1) &:= 1 \\
+        % \overline{\varphi}^q_A(n) &:= \#\{k\in\mathbb{Z}_n : q \le \#(k + A_n \cap \vk_n) \}.
+    \end{align*}
+\end{definition}
+\begin{theorem}
+    For any k-tuple $A$, and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$,
+    $$\overline{\varphi}_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
+            {k-1 \choose k-q}
+            \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B.$$
+\end{theorem}
+\begin{proof}
+
+\end{proof}
 
 % =======================================================================================================================================
 \subsection{Von Mangoldt Extensions}
@@ -1180,6 +1326,74 @@ $\Psi_A(x) \sim x$.
 \subsection{Notes/TODO}
 
 \begin{enumerate}
+    \item
+        For a property $P$ satisfying 
+        $$(n,m)=1 \implies P((k,nm)) \implies P((k,n)),$$
+        we have half of multiplicativity for the following function:
+        $$\varphi_{A,P}(n) = \#\{k\in\mathbb{Z}_n : \forall\ a \in A_n,\  
+            P((a+k,n))\}.$$
+        We have that the map $\Gamma(k_{mn}) = (k_m,k_n)$ is surjective.
+        I think to give bijectivity we need for $(m,n)=1$:
+        $$P(k,mn) \iff P(k,m) \land P(k,n).$$
+
+        That is quite restrictive, but we might be able
+        to find some prime boundary stuff that makes it work.
+        Seems like any restriction $(k,mn)$ to a set of primes
+        should work.
+        Smooth numbers are a special case of this.
+
+    \item
+        We have $u_A\ast\phi_A = N = \phi_A^0$.
+        That is, $u_A$ jumps between levels of phi.
+        What functions jump between other levels?
+
+    \item
+        Extract units at primes from other phi types via p-phi(p).
+        Extract also via convolution.
+        Do these match?
+
+        No, but for $A = \{0,2,6,12,30,60\}$,
+        some quotas give diffs between the two methods
+        always a multiple of some prime.
+        For $q = 1$, always 3,
+        $q = 2,3$, always 5.
+
+        Maybe we are slightly off of a better definition
+        of other phis. We can extract u and use the phi
+        product formula to force a multiplicative phi
+        with that kernel.
+
+        It seems that our software, or maybe our definitions,
+        have an error.
+        In software, we are not accounting for the reduction in
+        size through $A\rightarrow A_n$, or alternatively,
+        our definitions are reducing the size.
+        Both questions are valid, but lets first
+        try implementing the definitions in software
+        to check for mult.
+        Assuming I did it right, still no mult.
+        This distinction is a pretty subtle one though,
+        and it doesn't appear for full quota because our definition
+        isn't "get to the size of the tuple".
+        It is instead, "make sure you get everything in the tuple".
+
+        Both definitions are valid things to want to count.
+        Keeping eyes on the prize, we should naively construct
+        the asymptotic order for a portion of the tuple being
+        prime, which should correspond to the code definition.
+
+    \item
+        Formula for partial quotas in terms of full quotas:
+        $$\varphi_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
+            {k-1 \choose k-q}
+            \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B$$
+        I think we should be getting a collapse down to $N=N$ for $q=0$.
+        Write a proof of this.
+        This seems quite powerful.
+        Can we find the order of 1 quotas in a simple way?
+        Can this be inverted to express higher quotas in
+        terms of lower?
+        Does this allow expressing units in terms of one another?
     \item
         If, instead of demaning complete containment in $\phi_A$, we 
         demand any amount of incidence, is the resulting function
