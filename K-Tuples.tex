@@ -613,50 +613,83 @@ Consider first for some $n$ and k-tuple $A$, counting the $k\in\mathbb{Z}_n$
 such that exactly $q$ elements of $k+A$ are coprime to $n$.
 We call the value $q$ the quota, and refer to this as the unwrapped,
 exact quota case.
-Replacing $k+A$ with $k+A_n$ yields a wrapped case, and requiring
-at least $q$ values to be coprime to $n$ yields a minimum quota
-case. 
 
-
-\begin{definition}[Exact quota k-tuple totient]
-    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$, define $\varphi^q_A$ by
+\begin{definition}[Quota k-tuple totients]
+    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$, define 
+    $\varUpsilon^{q=}_A$ by
     \begin{align*}
-        \varphi^q_A(1) &:= 1 \\
-        \varphi^q_A(n) &:= \#\{k\in\mathbb{Z}_n : q = \#\{a \in A : ()=1\} \}.
+        \varUpsilon^{q=}_A(1) &:= 1 \\
+        \varUpsilon^{q=}_A(n) &:= \#\{k\in\mathbb{Z}_n : q = 
+            \#\{a \in A : (k+a,n)=1\} \}.
     \end{align*}
 \end{definition}
+
+Replacing $A$ with $A_n$ in this definition yields a wrapped case, and 
+requiring at least $q$ values to be coprime to $n$ yields a minimum quota
+case. 
+We denote the wrapped with $\varrho$ rather than $\varUpsilon$,
+and minimum quotas use $q\le$ in the superscript.
+
 \begin{theorem}
-    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$,
-    $$\varphi_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
+    For any k-tuple $A$ and quota $q$,
+    $$\varUpsilon^{q=}_A = \sum_{k=q}^{\#A}(-1)^{k-q}
         { q \choose k }
         \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B$$
 \end{theorem}
 \begin{proof}
-    We first naively count $\varphi_A^q$ by summing $\varphi_B$ over all
-    $B\subset A$ with $\#B = q$. 
-    For each of these terms, though, we will also have included every 
-    subset of $A$ which properly contains $B$, each of which will 
-    exceed the required quota.
-    ughhhh
+    TODO
 \end{proof}
 
-\begin{definition}[Minimum quota k-tuple totient]
-    For any k-tuple $A$ and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$, define 
-    $\overline{\varphi}^q_A$ by
-    \begin{align*}
-        \overline{\varphi}^q_A(1) &:= 1 \\
-        % \overline{\varphi}^q_A(n) &:= \#\{k\in\mathbb{Z}_n : q \le \#(k + A_n \cap \vk_n) \}.
-    \end{align*}
-\end{definition}
 \begin{theorem}
-    For any k-tuple $A$, and quota $q\in\mathbb{Z}$ with $0 \le q \le \#A$,
-    $$\overline{\varphi}_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
-            {k-1 \choose k-q}
-            \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B.$$
+    For any k-tuple $A$, and quota $q$,
+    $$\varUpsilon^{q\le}_A = \sum_{k=q}^{\#A}(-1)^{k-q}
+        {k-1 \choose k-q}
+        \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B.$$
 \end{theorem}
 \begin{proof}
-
+TODO
 \end{proof}
+
+The formulae for the corresponding $\varrho$ functions are identical:
+simply replace $A$ with $A_n$ throughout.
+This creates a dependance on $n$ in the final sum which appears to
+explode the computational complexity, but for sufficiently
+large $n$, $A = A_n$, so the order of computational complexity is the same.
+This also shows that the wrapped and unwrapped totients are
+eventually equivalent, as should be expected.
+We will make no further use of the wrapped totients, and the proofs are
+mostly the same as the unwrapped cases, so they are omitted.
+
+\subsection{Totients as Convolutions}
+
+We may also obtain many totient-like functions in terms of
+discrete modular convolutions.
+\begin{definition}
+    Given $f,g : \mathbb{Z}_n \rightarrow \mathbb{C}$,
+    define the discrete modular convolution $\odot_n$ by
+    $$(f\odot g)(k) = \sum_{\substack{a+b\equiv k \\ \bmod n}}f(a)g(b),$$
+    where $a,b\in\mathbb{Z}_n$. 
+\end{definition}
+
+The symbol $\odot$ is non-standard. 
+Normally $\ast$ would be used, but it is already in use for Dirichlet convolution.
+
+Research line
+
+We get the totients by asking questions about the convolution.
+For $\varphi_A$, the question is "how many times did we get to $\#A_n$?".
+Everything else is a question about how many times different values
+were obtained.
+The questions are so similar to the original definitions,
+it seems like the convolution is just a way to describe
+the queried set as a function.
+That is, instead of asking for the number of $k$ for which
+$q = \#S$, we are asking for the number of $k$ for which
+a convolution takes on certain value $q$ times.
+
+Another convolution centric idea, we have $\varphi_A(n)=\#(\varkappa_n +_n A)$
+
+
 
 % =======================================================================================================================================
 \subsection{Von Mangoldt Extensions}
@@ -785,7 +818,7 @@ Note also that for primes $p$ with $\max(A) \le p$, $u_A(p)=\#A$, so
 $w_A$ is eventually 1 on primes.
 We will work with both $\Di(u_A)$ and $\Di(w_A)$.
 
-\subsection{The Dirichlet Series of $v_A$}
+\subsection{The Dirichlet Series of $w_A$}
  
 We have that $w_A$ is completely multiplicative, so $\Di(w_A)$ permits the Euler product
 $$\Di(w_A)(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1},$$
@@ -1117,15 +1150,15 @@ anything else to say about it.
 Indeed, we have for k-tuples $A$ and $B$ with $\#A = \#B = c$,
 \begin{align*}
     M_A(1) &< M_B(1) \\
-    \iff 1 &< \prod_{p}\frac{1-v_A(p)p^{-1}}{1-v_B(p)p^{-1}} \\
-    \iff 0 &< \sum_{p}\left[ \log(1-v_A(p)p^{-1}) - \log(1-v_B(p)p^{-1}) \right] \\
-    \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{v_B(p)^k-v_A(p)^k}{kp^k} \\
-    \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{v_B(p)^k-v_A(p)^k}{p^k}. \\
+    \iff 1 &< \prod_{p}\frac{1-w_A(p)p^{-1}}{1-w_B(p)p^{-1}} \\
+    \iff 0 &< \sum_{p}\left[ \log(1-w_A(p)p^{-1}) - \log(1-w_B(p)p^{-1}) \right] \\
+    \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{w_B(p)^k-w_A(p)^k}{kp^k} \\
+    \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{w_B(p)^k-w_A(p)^k}{p^k}. \\
 \end{align*}
 Following the same proceedure for $N_A(1)$ gives
 \begin{align*}
     N_A(1) &< N_B(1) \\
-    \iff 0 &< \sum_{k\ge1}\frac{c^k}{k}\sum_{p}\frac{v_B(p)^k-v_A(p)^k}{p^k}, \\
+    \iff 0 &< \sum_{k\ge1}\frac{c^k}{k}\sum_{p}\frac{w_B(p)^k-w_A(p)^k}{p^k}, \\
 \end{align*}
 so the ordering of $N$s is essentially that of the $M$s, but with a higher weight
 given to higher powers of each prime.
@@ -1327,60 +1360,21 @@ $\Psi_A(x) \sim x$.
 
 \begin{enumerate}
     \item
-        For a property $P$ satisfying 
-        $$(n,m)=1 \implies P((k,nm)) \implies P((k,n)),$$
-        we have half of multiplicativity for the following function:
-        $$\varphi_{A,P}(n) = \#\{k\in\mathbb{Z}_n : \forall\ a \in A_n,\  
-            P((a+k,n))\}.$$
-        We have that the map $\Gamma(k_{mn}) = (k_m,k_n)$ is surjective.
-        I think to give bijectivity we need for $(m,n)=1$:
-        $$P(k,mn) \iff P(k,m) \land P(k,n).$$
+        Maybe we can get a meaning for $u$ out of the convolution
+        form for $\varphi_A$?
+        As in, maybe on composite $n$, $u$ indicates some
+        obvious information about the conv sequence.
 
-        That is quite restrictive, but we might be able
-        to find some prime boundary stuff that makes it work.
-        Seems like any restriction $(k,mn)$ to a set of primes
-        should work.
-        Smooth numbers are a special case of this.
+    \item
+        The fundamental result we require is a relationship,
+        asymptotic or otherwise, between $u$ or $w$ and the
+        standard $\Psi_A$.
+        Such a result would likely lead to proof of HLC.
 
     \item
         We have $u_A\ast\phi_A = N = \phi_A^0$.
         That is, $u_A$ jumps between levels of phi.
         What functions jump between other levels?
-
-    \item
-        Extract units at primes from other phi types via p-phi(p).
-        Extract also via convolution.
-        Do these match?
-
-        No, but for $A = \{0,2,6,12,30,60\}$,
-        some quotas give diffs between the two methods
-        always a multiple of some prime.
-        For $q = 1$, always 3,
-        $q = 2,3$, always 5.
-
-        Maybe we are slightly off of a better definition
-        of other phis. We can extract u and use the phi
-        product formula to force a multiplicative phi
-        with that kernel.
-
-        It seems that our software, or maybe our definitions,
-        have an error.
-        In software, we are not accounting for the reduction in
-        size through $A\rightarrow A_n$, or alternatively,
-        our definitions are reducing the size.
-        Both questions are valid, but lets first
-        try implementing the definitions in software
-        to check for mult.
-        Assuming I did it right, still no mult.
-        This distinction is a pretty subtle one though,
-        and it doesn't appear for full quota because our definition
-        isn't "get to the size of the tuple".
-        It is instead, "make sure you get everything in the tuple".
-
-        Both definitions are valid things to want to count.
-        Keeping eyes on the prize, we should naively construct
-        the asymptotic order for a portion of the tuple being
-        prime, which should correspond to the code definition.
 
     \item
         Formula for partial quotas in terms of full quotas:
@@ -1395,26 +1389,12 @@ $\Psi_A(x) \sim x$.
         terms of lower?
         Does this allow expressing units in terms of one another?
     \item
-        If, instead of demaning complete containment in $\phi_A$, we 
-        demand any amount of incidence, is the resulting function
-        multiplicative? How is it computed?
-    \item
         Try looking into $\sum_{n\le x}\Lambda(n)^{u_A(n)}$.
         For unmodulated primes this gives the correct number of lambdas,
         For modulated I think the power is reduced based on 
         the chance that some member of the product for the standard
         Psi is zero.
         Idk, this is pretty vague, but it has a nice feeling
-    \item
-        Can we get Cauchy principle value of omega factor at 1?
-        I don't really know what this means in that it's defined
-        via an integral, but I've seen it referenced as a limit
-        of 2 values of the function.
-        
-        Are there other ways to use the finite modulator for $u$?
-        The fact that this situation changes based on $\#A$ being prime
-        makes me suspicious of it in the first place.
-        Still, finite computability is nice.
         
     \item
         Maybe the relationship between the standard $\Psi_A$ definition
@@ -1435,9 +1415,6 @@ $\Psi_A(x) \sim x$.
         I think the only way to get milage out of this is to understand 
         the probibalistic perspective from whence HLC came.
     \item
-        Tao keeps mentioning the value of twisting series by characters.
-        What value is he referencing, and what does it give us?
-    \item
         Continue to hunt for u and w series relations
     \item
         Compute the ratio of the $0,2$ and $0,6$ HLC constants.
@@ -1448,10 +1425,6 @@ $\Psi_A(x) \sim x$.
         Oh, just noticed he is the pretentious theory guy.
     \item 
         We should check if any results require finiteness on k-tuple
-    \item 
-        Is there a meaning to u or v on composites outside of comp-mult?
-        It would be more convincing to define them by a property and then
-        prove comp-mult.
     \item 
         $\varphi_A$ appears to be equivalent to a discrete convolution.
         Is that worth thinking about?

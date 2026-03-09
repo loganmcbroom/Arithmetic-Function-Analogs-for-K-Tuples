@@ -23,15 +23,28 @@ Does exact mode require exactly the number of fills?
 
 mu = invert([1]*bound)
 N = range(bound)
-phi = conv(N,mu)
+phi = to_int( conv(N,mu) )
 def mu_gen(A):
     return pointwise(u_gen(A), mu)
 def phi_gen(A):
-    return conv(N, mu_gen(A))
+    return to_int( conv(N, mu_gen(A)) )
 
-# Generate phi extensions that meet a set incidence count demand,
-# either exactly, or at least.
-def ophi_A_gen(A, quota, exact):
+def upsilon_gen(A, quota, exact):
+    def out(n):
+        total = 0
+        for k in range(n):
+            met = 0
+            for a in A:
+                if math.gcd(k+a,n) == 1:
+                    met += 1
+            if exact:
+                if quota == met: total += 1
+            else:
+                if quota <= met: total += 1
+        return total
+    return eval( out )
+
+def rho_gen(A, quota, exact):
     def out(n):
         total = 0
         for k in range(n):
@@ -60,45 +73,67 @@ def ophi_A_smooth(A, B):
         return total
     return eval( out )
 
-# Generate an exact quota phi in terms of full quotas
-def synthesize_exact_quota(A,q):
+# Generate an exact quota totient in terms of full quotas
+def synthesize_ups_exact(A,q):
     ps = [ [phi_gen(s) for s in combinations(A,r)] for r in range(1,len(A)+1) ]
     return [int( sum( 
         (-1)**(k-q) * math.comb(k,q) * sum(p[i] for p in ps[k-1] ) 
         for k in range(q, len(A)+1))
     ) for i in range(bound)]
     
-# Generate a minimum quota phi in terms of full quotas
-def synthesize_partial_quota(A,q):
+# Generate a minimum quota totient in terms of full quotas
+def synthesize_ups_minimum(A,q):
     ps = [ [phi_gen(s) for s in combinations(A,r)] for r in range(1,len(A)+1) ]
     return [int( sum( 
             (-1)**(k-q) * math.comb(max(k-1,0),k-q) * sum(p[i] for p in ps[k-1] ) 
             for k in range(q, len(A)+1)) 
         ) for i in range(bound)] 
 
+def synthesize_rho_exact(A,q):
+    out = []
+    for i in range(bound):
+        Ai = wrap(A,i)
+        ps = [ [phi_gen(s) for s in combinations(Ai,r)] for r in range(1,len(Ai)+1) ]
+        val = 0
+        for k in range(q, len(Ai)+1): 
+            val += (-1)**(k-q) * math.comb(k,q) * sum(p[i] for p in ps[k-1] ) 
+        out.append(int( val ) )
+    return out
 
-A = [0,2,6,12,30,60]
+def synthesize_rho_minimum(A,q):
+    out = []
+    for i in range(bound):
+        Ai = wrap(A,i)
+        ps = [ [phi_gen(s) for s in combinations(Ai,r)] for r in range(1,len(Ai)+1) ]
+        val = 0
+        for k in range(q, len(Ai)+1): 
+            val += (-1)**(k-q) * math.comb(max(k-1,0),k-q) * sum(p[i] for p in ps[k-1] ) 
+        out.append(int( val ) )
+    return out
 
-ophi = ophi_A_smooth( A, set([2,3]) )
-u_smooth = conv(invert(ophi),N)
-for i in range(bound): u_smooth[i] = int(u_smooth[i])
-print(ophi[:20])
-print(u_smooth[:20])
+A = [0,2,6]
+phi_A = phi_gen(A)
 
-# Tests for forcing quotad phis to be multiplicative
-# ophi = ophi_A_gen(A, q)
-# print(ophi[:30])
+p0 = upsilon_gen(A,0,False)
+p1 = upsilon_gen(A,1,False)
+p2 = upsilon_gen(A,2,False)
+p3 = upsilon_gen(A,3,False)
 
-# def r(p):
-#     return p - ophi[p]
 
-# def gen_forced_mult_phi(r):
-#     def out(n):
-#         ps = [p for p in primes[:100] if n%p == 0]
-#         return int( n * math.prod( 1.0 - r(p)/p for p in ps ) )
-#     return eval(out)
+def print_primes(f):
+    print( [f[p] for p in primes[:20]] )
 
-# p = gen_forced_mult_phi(r)
-# print(p[:30])
+print_primes(to_int(conv(p0,invert(p3))))
+print_primes(to_int(conv(p0,invert(p2))))
+print_primes(to_int(conv(p0,invert(p1))))
+print()
+print_primes(to_int(conv(p1,invert(p3))))
+print_primes(to_int(conv(p1,invert(p2))))
+print()
+print_primes(to_int(conv(p2,invert(p3))))
+
+
+
+
 
 

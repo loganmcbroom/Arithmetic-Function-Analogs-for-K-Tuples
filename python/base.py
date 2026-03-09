@@ -2,7 +2,7 @@ import math
 from primes import primes
 from fractions import Fraction
 
-bound = 2**10+1 # Computation bound
+bound = 2**8+1 # Computation bound
 primes_max = 10000 # Largest prime list index to use
 
 def factorization(n):
@@ -64,6 +64,14 @@ def invert( f ):
 
 def eval( f ):
     return [f(i) if i > 0 else 0 for i in range(0,bound)]
+
+def wrap( A, n ):
+    if n == 0: return []
+    else: return list(set([a % n for a in A]))
+
+def to_int( f ):
+    return [int(f[i]) for i in range(bound)]
+    
 
 Id = [0]*(bound-1)
 Id.insert( 1, 1 )
