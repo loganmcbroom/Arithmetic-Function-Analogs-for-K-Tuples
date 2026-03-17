@@ -10,20 +10,13 @@ def standard_La_A_gen(A):
         return math.prod(La[n+k] if n+k < bound else 1 for k in A)
     return eval( out )
 
-def w_La_A_gen(A):
-    w = w_gen(A)
-    return [ La[i]**w[i] for i in range(bound) ]
-
 A = [0,10]
 singular = singular_series_of_A(A)
 s_La = standard_La_A_gen( A )
-w_La = w_La_A_gen( A )
 
-Psi = sum(La)
-s_Psi_A = sum(s_La)
-w_Psi_A = sum(w_La)
+Psi = sum(La) # Singular Psi
+s_Psi_A = sum(s_La) # Standard Psi_A
 x = bound
 
-print( "Psi_A ~ C_A x", s_Psi_A - (x*singular))
-print( "Psi_A ~ C_A Psi", s_Psi_A - (Psi*singular))
-print( "Psi_A ~ C_A Psi_wA", s_Psi_A - (w_Psi_A*singular))
+print( "Psi_A - C_A x", s_Psi_A - (x*singular))
+print( "Psi_A - C_A Psi", s_Psi_A - (Psi*singular))

@@ -1,12 +1,26 @@
-from base import u_gen, w_gen, mu_gen, phi_gen
+from base import *
 
-A = set([0,2,6])
-u_A = u_gen(A)
-w_A = w_gen(A)
-mu_A = mu_gen(A)
-phi_A = phi_gen(A)
+# primorial = 1
+# A = [0]
+# for p in primes[:10]:
+#     primorial *= p
+#     A.append(primorial)
+#     print( p, 1.0/singular_series_of_A(A) )
+print( singular_series_of_A([0]) )
+print( singular_series_of_A([0,2]) )
+print( singular_series_of_A([0,2,6]) )
+print( singular_series_of_A([0,2,6,8]) )
+print( singular_series_of_A([0,2,6,8,12]) )
+print( singular_series_of_A([0,2,6,8,12,18]) )
+print( singular_series_of_A([0,2,6,8,12,18,20]) )
+print( singular_series_of_A([0,2,6,8,12,18,20,26]) )
 
 
+# A = set([0,2,6])
+# u_A = u_gen(A)
+# w_A = w_gen(A)
+# mu_A = mu_gen(A)
+# phi_A = phi_gen(A)
 
 # Dirichlet character extension testing
 # w = cmath.exp((2*math.pi / 6.0)*1j)
@@ -48,61 +62,61 @@ phi_A = phi_gen(A)
 
 # print( conv(w_A, mu) )
 
-kts = [
-    [0],
-    [0,2],
-    [0,6],
-    [0,10],
-    [0,14],
-    [0,30],
-    [0,2,6],
-    [0,4,10],
-    [0,4,28],
-    [0,2,6,8],
-    [0,18,30,60],
-    [0,60,120,180],
-    [0,2,6,8,30],
-    ]
+# kts = [
+#     [0],
+#     [0,2],
+#     [0,6],
+#     [0,10],
+#     [0,14],
+#     [0,30],
+#     [0,2,6],
+#     [0,4,10],
+#     [0,4,28],
+#     [0,2,6,8],
+#     [0,18,30,60],
+#     [0,60,120,180],
+#     [0,2,6,8,30],
+#     ]
 
-uAs = [u_gen(A) for A in kts]
-wAs = [w_gen(A) for A in kts]
+# uAs = [u_gen(A) for A in kts]
+# wAs = [w_gen(A) for A in kts]
 
-index = 11
+# index = 11
 # 9, 10, 11 have prime 61??
 # print( len() )
 # print( conv_power(mu, 3)[:32] )
-u_cancel = conv( uAs[index], conv_power( mu, len(kts[index]) ) )
-w_cancel = conv(wAs[index], mu)
+# u_cancel = conv( uAs[index], conv_power( mu, len(kts[index]) ) )
+# w_cancel = conv(wAs[index], mu)
 
 # print( sum(1 for x in u_cancel if x != 0) / bound )
 # print( sum(1 for x in w_cancel if x != 0) / bound )
 
 # Compute residue counts
-def r_gen(A): # u for primes
-    def out(p):
-        A_mod_p = set()
-        for k in A:
-            A_mod_p.add( k % p )
-        return len(A_mod_p)
-    return out
+# def r_gen(A): # u for primes
+#     def out(p):
+#         A_mod_p = set()
+#         for k in A:
+#             A_mod_p.add( k % p )
+#         return len(A_mod_p)
+#     return out
 # Find modulated primes for each uA
-from primes import primes
-def find_mods(A, rA):
-    mods = []
-    for p in primes[:1000]:
-        if rA(p) < len(A):
-            mods.append(p)
-    return mods
+# from primes import primes
+# def find_mods(A, rA):
+#     mods = []
+#     for p in primes[:1000]:
+#         if rA(p) < len(A):
+#             mods.append(p)
+#     return mods
 
-mods = find_mods( kts[index], r_gen(kts[index]) )
-print( mods )
-cancel_primes = []
-for p in primes[:100]:
-    for i in range( 1, bound ):
-        if u_cancel[i] != 0 and u_cancel[i] % p == 0: 
-            cancel_primes.append( p )
-            break
-print( cancel_primes )
+# mods = find_mods( kts[index], r_gen(kts[index]) )
+# print( mods )
+# cancel_primes = []
+# for p in primes[:100]:
+#     for i in range( 1, bound ):
+#         if u_cancel[i] != 0 and u_cancel[i] % p == 0: 
+#             cancel_primes.append( p )
+#             break
+# print( cancel_primes )
 
 # import pandas as pd
 # print(pd.DataFrame({

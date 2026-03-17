@@ -111,26 +111,39 @@ def synthesize_rho_minimum(A,q):
         out.append(int( val ) )
     return out
 
+# ===================================================================================================
+# ===================================================================================================
+# ===================================================================================================
+
+
+# Testing for jump functions between totient levels
+# A = [0,2,6]
+# phi_A = phi_gen(A)
+
+# p0 = upsilon_gen(A,0,False)
+# p1 = upsilon_gen(A,1,False)
+# p2 = upsilon_gen(A,2,False)
+# p3 = upsilon_gen(A,3,False)
+
+# def print_primes(f):
+#     print( [f[p] for p in primes[:20]] )
+
+# print_primes(to_int(conv(p0,invert(p3))))
+# print_primes(to_int(conv(p0,invert(p2))))
+# print_primes(to_int(conv(p0,invert(p1))))
+# print()
+# print_primes(to_int(conv(p1,invert(p3))))
+# print_primes(to_int(conv(p1,invert(p2))))
+# print()
+# print_primes(to_int(conv(p2,invert(p3))))
+
+
 A = [0,2,6]
-phi_A = phi_gen(A)
-
-p0 = upsilon_gen(A,0,False)
-p1 = upsilon_gen(A,1,False)
-p2 = upsilon_gen(A,2,False)
-p3 = upsilon_gen(A,3,False)
-
-
-def print_primes(f):
-    print( [f[p] for p in primes[:20]] )
-
-print_primes(to_int(conv(p0,invert(p3))))
-print_primes(to_int(conv(p0,invert(p2))))
-print_primes(to_int(conv(p0,invert(p1))))
-print()
-print_primes(to_int(conv(p1,invert(p3))))
-print_primes(to_int(conv(p1,invert(p2))))
-print()
-print_primes(to_int(conv(p2,invert(p3))))
+u = upsilon_gen(A,3,False)
+r = rho_gen(A,3,False)
+print(u[:40])
+print(phi_gen(A)[:40])
+print([u[i]-r[i] for i in range(40)])
 
 
 

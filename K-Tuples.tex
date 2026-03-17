@@ -47,8 +47,6 @@
 
 \section{K-Tuples}
 
-\subsection{Basic Properties}
-
 \begin{definition}
 Define $\mathbb{K}$, the set of \textbf{k-tuples}, by
 $$\mathbb{K} := \mathscr{P}(\mathbb{Z}).$$
@@ -78,14 +76,11 @@ but the usual definition of congruence is insufficient, as it describes only
 exact incidence between numbers relative to a modulus.
 We are instead concerned with a variety of types of incidence between
 translated k-tuples and the integers relatively prime to some modulus.
-The following definition handles the "modulus" aspect of that need.
+The following definition handles the ``modulus'' aspect of that need.
 
 \begin{definition}
 Given a k-tuple $A$ and a natural number $n$, define
 $$A \bmod n \text{ or } A_n := \{a \bmod n : a\in A\}$$
-
-Define $\mathbb{K}_n$, the set of \textbf{k-tuples modulo n}, to be the set of 
-all such objects.
 \end{definition}
 
 % Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
@@ -156,9 +151,9 @@ all such objects.
 % \end{proof}
 
 % =======================================================================================================================================
-\subsection{The Totient Function}
+\section{The Totient Function}
 
-We now extend Euler's totient function $\varphi$ to k-tuples
+We now extend Euler's totient function $\varphi$ to k-tuples.
 Instead of counting which natural numbers up to $n$ are relatively 
 prime to $n$, we count the translates of a k-tuple $A$ by $k\in\mathbb{Z}_n$ 
 for which all elements are coprime to $n$.
@@ -289,7 +284,7 @@ so our totient should return 1 for this $A$ and $n$.
 \end{proof}
 
 % ================================================================================================================================
-\subsection{The Unit Function}
+\section{The Unit Function}
 The singular unit function $u(n)$ is defined by $u(n)=1$ for all $n$.
 It is surprising that such a trivial function has a non-trivial extension to k-tuples.
 \begin{definition}
@@ -303,7 +298,7 @@ The definition for primes tells us that $u_A$ gives the number of residues the e
 The definition of $u_A$ on primes is used in the first Hardy and Littlewood 
 conjecture, discussed later, and so is not entirely new.
 It's usage in the following theorem to describe extensions of $\varphi$ 
-is also known, at least in some well known cases.
+is also known, at least in some well studied cases.
 
 \begin{theorem}\label{phi prime powers}
     For any k-tuple $A$, prime $p$, and natural number $k$ we have:
@@ -392,7 +387,7 @@ Then we have by theorems \ref{phi multiplicative} and \ref{phi prime powers},
 \end{theorem}
 \begin{proof}
     The proof of these follows nearly verbatim the singular case,
-    which is shown in theorem 2.5 of \cite{Apostol}.
+    which is shown in Theorem 2.5 of \cite{Apostol}.
     % \begin{enumerate}
     %     \item[(a)] We have 
     %         $$\frac{\varphi_A(n)}{n}=\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
@@ -439,7 +434,7 @@ Then we have by theorems \ref{phi multiplicative} and \ref{phi prime powers},
         \item $v$ is eventually constant, say $v(p)=k$ for $p>N$.
         \item For all primes $p$, $v(p) \le p$ and $v(p) \le k$.
     \end{enumerate}
-    The we say $v$ is \textbf{unit looking}.
+    Then we say $v$ is \textbf{unit looking}.
     If there exists a k-tuple such that $u_A=v$, we say $A$ generates $v$, and
     say $v$ is good. 
     Otherwise, $v$ is bad.
@@ -490,7 +485,7 @@ to an arbitrary bound.
 \end{proof}
     
 % ==============================================================================================================================
-\subsection{Dirichlet Convolution}
+\section{Dirichlet Convolution}
 For any arithmetic functions $f$ and $g$ we denote their Dirichlet product by
 $$(f\ast g)(n) := \sum_{ab=n}f(a)g(b).$$
 We denote the Dirichlet inverse of an arithmetic function $f$ by $f^{-1}$.
@@ -534,8 +529,7 @@ The function $N$ is neutral in this regard, so we should expect
 $u_A=N\ast\varphi_A^{-1}$ to retain some aspect of that information
 while playing nicely with Dirichlet series.
 
-\subsection{Alternatives to $\varphi_A$}
-
+\section{Alternatives to $\varphi_A$}
 When we defined $\varphi_A$, we counted occurences of complete
 coprimality.
 We could also ask for the occurences of any amount of coprimality,
@@ -627,8 +621,10 @@ exact quota case.
 Replacing $A$ with $A_n$ in this definition yields a wrapped case, and 
 requiring at least $q$ values to be coprime to $n$ yields a minimum quota
 case. 
-We denote the wrapped with $\varrho$ rather than $\varUpsilon$,
+We denote the wrapped cases with $\varrho$ rather than $\varUpsilon$,
 and minimum quotas use $q\le$ in the superscript.
+Clearly, $\varUpsilon_A^{\#A=}=\varphi_A$, though this is also
+proven by the following theorem.
 
 \begin{theorem}
     For any k-tuple $A$ and quota $q$,
@@ -660,85 +656,42 @@ eventually equivalent, as should be expected.
 We will make no further use of the wrapped totients, and the proofs are
 mostly the same as the unwrapped cases, so they are omitted.
 
-\subsection{Totients as Convolutions}
+Using the discrete modular convolution, we can obtain
+the essential data required to compute wrapped quota totients
+for all quotas at once.
 
-We may also obtain many totient-like functions in terms of
-discrete modular convolutions.
 \begin{definition}
     Given $f,g : \mathbb{Z}_n \rightarrow \mathbb{C}$,
     define the discrete modular convolution $\odot_n$ by
-    $$(f\odot g)(k) = \sum_{\substack{a+b\equiv k \\ \bmod n}}f(a)g(b),$$
+    $$(f\odot_n g)(k) = \sum_{\substack{a+b\equiv k \\ \bmod n}}f(a)g(b),$$
     where $a,b\in\mathbb{Z}_n$. 
 \end{definition}
 
 The symbol $\odot$ is non-standard. 
 Normally $\ast$ would be used, but it is already in use for Dirichlet convolution.
 
-Research line
+\begin{theorem}
+    Let $A\in\mathbb{K}$,
+    let $n\in\mathbb{N}$, and let $\chi_0$ be the principle 
+    Dirichlet character mod $n$.
+    Let $1_{A_n}$ be the indicator function of $A_n$.
+    Then
+    $$(1_{A_n}\odot_n\chi_0)(k) = \#\{a \in A_n : (k+a,n)=1\}.$$
+\end{theorem}
+\begin{proof}
+    TODO
+\end{proof}
 
-We get the totients by asking questions about the convolution.
-For $\varphi_A$, the question is "how many times did we get to $\#A_n$?".
-Everything else is a question about how many times different values
-were obtained.
-The questions are so similar to the original definitions,
-it seems like the convolution is just a way to describe
-the queried set as a function.
-That is, instead of asking for the number of $k$ for which
-$q = \#S$, we are asking for the number of $k$ for which
-a convolution takes on certain value $q$ times.
+Computing $1_{A_n}\odot_n\chi_0$ for all $k$ then gives a convenient data
+format for querying quota totient information at $n$.
+This can be made to work for unwrapped quota totients by
+considering a period of size $n$ of the non-modular discrete convolution
+of $\chi_0$ and $1_A$.
 
-Another convolution centric idea, we have $\varphi_A(n)=\#(\varkappa_n +_n A)$
-
-
-
-% =======================================================================================================================================
-\subsection{Von Mangoldt Extensions}
-
-We could have indroduced $u_A$ or $\varphi_A$ from the other
-via the formula $u_A \ast \varphi_A = N$, though we would then
-need to prove the definitional properties of whichever function came 
-second.
-We take that direction now, extending the Von Mangoldt function $\Lambda$
-via a formula, and then finding what properties it possesses.
-
-\begin{definition}
-    Let $A$ be a k-tuple. 
-    Define $\Lambda_A$ by
-    $$\Lambda_A := \log \ast \mu_A.$$
-\end{definition}
-
-TODO: And then? Below this line in this section is temporary while researching.
-These functions often behave like the base version.
-On primes they are the same. 
-On powers of primes, you can only obtain logs of powers of the prime (obv),
-but it seems like it is limited in how many of those powers are available?
-e.g., at 9 we are getting only 1,0 powers, at 25 we get 1,0,-1,-2 powers.
-The default behavior is 1 power.
-Thinking for one second, yeah no doy, the power is always $u_A(p) + k(1-u_A(p))$.
-I'm not sold on this having any meaning outside its definition.
-I think the definition that leads to HLC is
-$$\Lambda_A(n) = \prod_{k\in n + A} \Lambda(k).$$
-Maybe there is some asymptotic link between this product version
-and a non-product weighted version?
-We can describe this as a pointwise product of shifted copies of $\Lambda$.
-Seems to me that this whole mess (number theory) has something
-to do with the interplay between the pointwise product, (general) convolution
-products, and addition over sequences.
-The zeta function (algebraicly) is the pointwise product identity put into 
-the product convolution. 
-The product convolution identity, put into the pointwise product, just returns
-the product convolution identity times $f(1)$, which is somewhat
-less interesting than the zeta function.
-
-AFAIK only the sum and product convolutions have generating functions,
-though I should look into proving that, or considering other ways
-of forcing analytic data our of general conv.
-If that's possible, those generating functions at u may be as interesting
-as zeta or geometric series.
-Anyway this belongs in the convolution paper.
+% Another convolution centric idea, we have $\varphi_A(n)=\#(\varkappa_n +_n A)$
 
 % =======================================================================================================================================
-\subsection{Admissibility}
+\section{Admissibility}
 
 \begin{definition}
     We say a k-tuple $A$ is \textbf{admissible} if, for each prime $p$, we have
@@ -746,6 +699,26 @@ Anyway this belongs in the convolution paper.
 \end{definition}
 
 Then a k-tuple is admissible if it does not fill all of the residue classes modulo any prime.
+This condition gives a simple bound on $u_A$.
+
+\begin{proposition}
+    For any admissible k-tuple $A$, we have
+    $$u_A(n) \leq \varphi(n).$$
+\end{proposition}
+\begin{proof}
+    Let $A\in\mathbb{K}$ be admissible, and let $n$ be a natural number with factorization
+    $$n=\prod_{p_i|n}p_i^{a_i}.$$
+    Then 
+    \begin{align*}
+        u_A(n) 
+        &= u_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+        &= \prod_{p_i|n}u_A(p_i)^{a_i} \\
+        &\leq \prod_{p_i|n}(p_i-1)^{a_i} \\
+        &\leq \prod_{p_i|n}(p_i-1)\cdot p_i^{a_i-i} \\
+        &= \varphi(n).
+    \end{align*}
+\end{proof}
+
 We are now equipped to state the prime k-tuple conjecture.
 
 \begin{conjecture}[Prime K-Tuple Conjecture]
@@ -783,162 +756,158 @@ that it holds as a consequence the following result, which seems intuitively imp
 % ========================================================================================================================
 % ========================================================================================================================
 % ========================================================================================================================
-\section{Analytic Results}
 
-We denote the Derichlet series of an arithmetic function $f$ by
-$$\Di(f)(s) := \sum_{n\ge 1}\frac{f(n)}{n^{s}}.$$
+% The function $u_A$ is convenient to work with in the setting of arithmetic functions in
+% that it takes on only integer values and gives the relationship $u_A \ast \phi_A = N$.
+% Transporting it to the domain of Dirichlet series, though, poses a challenge.
+% The function $\mathcal{D}(u_A)(s)=\sum_{n\ge 1}u_A(n)n^{-s}$ permits an Euler product, 
+% and that product can be written as a power of $\zeta$, a finite product, and 
+% the series $\Di((\#A)^{\Omega})$, where $\Omega(n)$ is the number of primes 
+% (counting multiplicity) which compose $n$.
+% While the final portion of this form has reasonable convergence properties,
+% it will be the cause of much of the complexity in analyzing $u_A$.
+% That portion, though, does not seem to have much to do with the additive patterns
+% we seek to analyze; rather it describes that $u_A$ should grow
+% approximately with the number of primes in its composition.
+% The following adjustment, then, gives an arithmetic function
+% which contains the same essential information, but which has far simpler
+% analytic properties.
 
-The function $u_A$ is convenient to work with in the setting of arithmetic functions in
-that it takes on only integer values and gives the relationship $u_A \ast \phi_A = N$.
-Transporting it to the domain of Dirichlet series, though, poses a challenge.
-The function $\mathcal{D}(u_A)(s)=\sum_{n\ge 1}u_A(n)n^{-s}$ permits an Euler product, 
-and that product can be written as a power of $\zeta$, a finite product, and 
-the series $\Di((\#A)^{\Omega})$, where $\Omega(n)$ is the number of primes 
-(counting multiplicity) which compose $n$.
-While the final portion of this form has reasonable convergence properties,
-it will be the cause of much of the complexity in analyzing $u_A$.
-That portion, though, does not seem to have much to do with the additive patterns
-we seek to analyze; rather it describes that $u_A$ should grow
-approximately with the number of primes in its composition.
-The following adjustment, then, gives an arithmetic function
-which contains the same essential information, but which has far simpler
-analytic properties.
+% \begin{definition}
+%     Let $A$ be a k-tuple.
+%     For each $n$, define $w_A(n)$ by
+%     $$w_A(n) = \frac{u_A(n)}{(\#A)^{\Omega(n)}}.$$
+% \end{definition}
 
-\begin{definition}
-    Let $A$ be a k-tuple.
-    For each $n$, define $w_A(n)$ by
-    $$w_A(n) = \frac{u_A(n)}{(\#A)^{\Omega(n)}}.$$
-\end{definition}
+% This is equivalent to defining $w_A(p)=u_A(p)/\#A$ on primes and
+% extending it by complete multiplicativity as with $u_A$,
+% but we may also show this directly: because $\Omega$ is completely additive, 
+% $(\#A)^{\Omega}$ is completely multiplicative, so $w_A$ is as well.
+% Note also that for primes $p$ with $\max(A) \le p$, $u_A(p)=\#A$, so
+% $w_A$ is eventually 1 on primes.
+% We will work with both $\Di(u_A)$ and $\Di(w_A)$.
 
-This is equivalent to defining $w_A(p)=u_A(p)/\#A$ on primes and
-extending it by complete multiplicativity as with $u_A$,
-but we may also show this directly: because $\Omega$ is completely additive, 
-$(\#A)^{\Omega}$ is completely multiplicative, so $w_A$ is as well.
-Note also that for primes $p$ with $\max(A) \le p$, $u_A(p)=\#A$, so
-$w_A$ is eventually 1 on primes.
-We will work with both $\Di(u_A)$ and $\Di(w_A)$.
-
-\subsection{The Dirichlet Series of $w_A$}
+% \section{The Dirichlet Series of $w_A$}
  
-We have that $w_A$ is completely multiplicative, so $\Di(w_A)$ permits the Euler product
-$$\Di(w_A)(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1},$$
-but we know for sufficiently large primes, $w_A(p)=1$, so
-letting $S_A$ be the set of primes on which $w_A(p)\not= 1$, we have
-$$\Di(w_A)(s) = \zeta(s)\prod_{p\in S_A}\frac{1-p^{-s}}{1-w_A(p)p^{-s}}.$$
-Let $M_A(s)$ denote the finite product above and call this the modulator for $A$.
-This form immediately yields the analytic continuation of $\Di(w_A)$ via
-the continuation of $\zeta$ to the entire plane, except at the pole contributed 
-by $\zeta$ at $s=1$, and one infinite (but well behaved) set of poles for each $p\in S_A$.
-These poles are at the solutions of $0=1-w_A(p)p^{-s}$, which are found, for any 
-$k\in\mathbb{Z}$, at $s_{p,k} = \frac{\log(w_A(p)) + 2\pi k i}{\log(p)}$.
+% We have that $w_A$ is completely multiplicative, so $\Di(w_A)$ permits the Euler product
+% $$\Di(w_A)(s) = \prod_{p}(1-w_A(p)p^{-s})^{-1},$$
+% but we know for sufficiently large primes, $w_A(p)=1$, so
+% letting $S_A$ be the set of primes on which $w_A(p)\not= 1$, we have
+% $$\Di(w_A)(s) = \zeta(s)\prod_{p\in S_A}\frac{1-p^{-s}}{1-w_A(p)p^{-s}}.$$
+% Let $M_A(s)$ denote the finite product above and call this the modulator for $A$.
+% This form immediately yields the analytic continuation of $\Di(w_A)$ via
+% the continuation of $\zeta$ to the entire plane, except at the pole contributed 
+% by $\zeta$ at $s=1$, and one infinite (but well behaved) set of poles for each $p\in S_A$.
+% These poles are at the solutions of $0=1-w_A(p)p^{-s}$, which are found, for any 
+% $k\in\mathbb{Z}$, at $s_{p,k} = \frac{\log(w_A(p)) + 2\pi k i}{\log(p)}$.
 
-\begin{proposition}
-    For any admissible k-tuple, we have 
-    $$\frac{1}{x}\sum_{n\le x} w_A(n) \sim M_A(1).$$
-\end{proposition}
-\begin{proof} 
-    Every modulator pole has real part less than one.
-    Thus, we can apply the Wiener-Ikehara theorem (1.1 in \cite{Korevaar}) 
-    which gives
-    $$\frac{1}{n}\sum_{n\le x} w_A(n) \sim \text{Res}(\Di(w_A), 1).$$
-    We have $\text{Res}(\zeta,1)=1$, so
-    $$\text{Res}(\Di(w_A), 1) = M_A(1),$$
-    as was needed.
-\end{proof}
+% \begin{proposition}
+%     For any admissible k-tuple, we have 
+%     $$\frac{1}{x}\sum_{n\le x} w_A(n) \sim M_A(1).$$
+% \end{proposition}
+% \begin{proof} 
+%     Every modulator pole has real part less than one.
+%     Thus, we can apply the Wiener-Ikehara theorem (1.1 in \cite{Korevaar}) 
+%     which gives
+%     $$\frac{1}{n}\sum_{n\le x} w_A(n) \sim \text{Res}(\Di(w_A), 1).$$
+%     We have $\text{Res}(\zeta,1)=1$, so
+%     $$\text{Res}(\Di(w_A), 1) = M_A(1),$$
+%     as was needed.
+% \end{proof}
 
-To find the residues of any pole of the modulator, we first 
-show that no two poles among those listed coincide. 
-Clearly none of those given by the modulator coincide with $s=1$, so we need only 
-check that no poles among the modulator coincide.
-Suprisingly, though, this will walk us directly into the four exponentials conjecture.
-\begin{conjecture}[Four exponentials conjecture]
-    For $1\le i,j \le 2$, let $\lambda_{ij}\in\mathbb{C}$ such that
-    each $exp(\lambda_{ij})$ is algebraic. Suppose that $\lambda_{11}$
-    and $\lambda_{12}$ are linearly independent, and that $\lambda_{21}$
-    and $\lambda_{22}$ are linearly independent, both in the rationals.
-    Then
-    $$\lambda_{11}\lambda_{22} \not= \lambda_{12}\lambda_{21}.$$
-\end{conjecture}
-\begin{lemma}
-    Assume the four exponentials conjecture. 
-    Then we have
-    $$s_{p_1,k_1} = s_{p_2,k_2} \implies (p_1,k_1) = (p_2,k_2).$$
-\end{lemma}
-\begin{proof}
-    % Let $a_i = w_A(p_i)$ and note that $a_i\in\mathbb{Q}$ and $0 < a_i < 1$, 
-    % so $a_i\not\in\mathbb{Z}$.
-    Assume $s_{p_1,k_1} = s_{p_2,k_2}$, and assume for contradiction $p_1\not=p_2$
-    Then their real parts coincide and we have $\log{a_1}/\log{p_1} =\log{a_2}/\log{p_2}$,
-    which gives 
-    \begin{equation}\label{four exp 1}
-    \log{a_1}\log{p_2} = \log{a_2}\log{p_1}.
-    \end{equation}
-    Each $a_i$ and $p_i$ is rational and thus algebraic, so the exponential
-    of each logarithm is algebraic.
+% To find the residues of any pole of the modulator, we first 
+% show that no two poles among those listed coincide. 
+% Clearly none of those given by the modulator coincide with $s=1$, so we need only 
+% check that no poles among the modulator coincide.
+% Suprisingly, though, this will walk us directly into the four exponentials conjecture.
+% \begin{conjecture}[Four exponentials conjecture]
+%     For $1\le i,j \le 2$, let $\lambda_{ij}\in\mathbb{C}$ such that
+%     each $exp(\lambda_{ij})$ is algebraic. Suppose that $\lambda_{11}$
+%     and $\lambda_{12}$ are linearly independent, and that $\lambda_{21}$
+%     and $\lambda_{22}$ are linearly independent, both in the rationals.
+%     Then
+%     $$\lambda_{11}\lambda_{22} \not= \lambda_{12}\lambda_{21}.$$
+% \end{conjecture}
+% \begin{lemma}
+%     Assume the four exponentials conjecture. 
+%     Then we have
+%     $$s_{p_1,k_1} = s_{p_2,k_2} \implies (p_1,k_1) = (p_2,k_2).$$
+% \end{lemma}
+% \begin{proof}
+%     % Let $a_i = w_A(p_i)$ and note that $a_i\in\mathbb{Q}$ and $0 < a_i < 1$, 
+%     % so $a_i\not\in\mathbb{Z}$.
+%     Assume $s_{p_1,k_1} = s_{p_2,k_2}$, and assume for contradiction $p_1\not=p_2$
+%     Then their real parts coincide and we have $\log{a_1}/\log{p_1} =\log{a_2}/\log{p_2}$,
+%     which gives 
+%     \begin{equation}\label{four exp 1}
+%     \log{a_1}\log{p_2} = \log{a_2}\log{p_1}.
+%     \end{equation}
+%     Each $a_i$ and $p_i$ is rational and thus algebraic, so the exponential
+%     of each logarithm is algebraic.
     
-    To show the linear independence of $\log{p_1}$ and $\log{p_2}$, assume
-    there are $r,s\in\mathbb{Q}$ such that $r\log{p_1} + s\log{p_2} = 0$.
-    Then $p_1^rp_2^s = 1$, which is only possible if $r=s=0$.
+%     To show the linear independence of $\log{p_1}$ and $\log{p_2}$, assume
+%     there are $r,s\in\mathbb{Q}$ such that $r\log{p_1} + s\log{p_2} = 0$.
+%     Then $p_1^rp_2^s = 1$, which is only possible if $r=s=0$.
 
-    If $\log{a_1}$ and $\log{a_2}$ are dependent, then there are $r,s\in\mathbb{Q}$,
-    not both 0, such that $r\log{a_1} + s\log{a_2} = 0$.
-    Without loss of generality, assume $r\not=0$.
-    Then $a_1 = a_2^{-s/r}$.
-    Applying this to equation (\ref{four exp 1}), we have
-    \begin{align*}
-    -\frac{s}{r}\log{p_2} &= \log{p_1} \\
-    \implies p_2^{-s/r} &= p_1,
-    \end{align*}
-    which is a contradiction.
-    Thus, $\log{a_1}$ and $\log{a_2}$ are linearly independent.
+%     If $\log{a_1}$ and $\log{a_2}$ are dependent, then there are $r,s\in\mathbb{Q}$,
+%     not both 0, such that $r\log{a_1} + s\log{a_2} = 0$.
+%     Without loss of generality, assume $r\not=0$.
+%     Then $a_1 = a_2^{-s/r}$.
+%     Applying this to equation (\ref{four exp 1}), we have
+%     \begin{align*}
+%     -\frac{s}{r}\log{p_2} &= \log{p_1} \\
+%     \implies p_2^{-s/r} &= p_1,
+%     \end{align*}
+%     which is a contradiction.
+%     Thus, $\log{a_1}$ and $\log{a_2}$ are linearly independent.
 
-    Finally, we may apply the four exponentials conjecture, which 
-    contradicts (\ref{four exp 1}).
-    Thus, $p_1=p_2$. 
-    Showing $k_1=k_2$ is trivial.
-\end{proof}
+%     Finally, we may apply the four exponentials conjecture, which 
+%     contradicts (\ref{four exp 1}).
+%     Thus, $p_1=p_2$. 
+%     Showing $k_1=k_2$ is trivial.
+% \end{proof}
 
-The values of $a_i$ in the above proof are not entirely arbitrary, coming
-from $w_A$. 
-As such, there may be some way of showing this result holds
-without the four exponentials conjecture.
-We continue to assume the conjecture as we now find the residues of the poles
-associated with the modulator.
+% The values of $a_i$ in the above proof are not entirely arbitrary, coming
+% from $w_A$. 
+% As such, there may be some way of showing this result holds
+% without the four exponentials conjecture.
+% We continue to assume the conjecture as we now find the residues of the poles
+% associated with the modulator.
 
-\begin{theorem}
-    $$\text{Res}(\Di(w_A), s_{p,k}) = 
-        \frac{1-p^{-s_{p,k}}}{\log{p}} \zeta(s_{p,k}) 
-        \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}}.
-        $$
-\end{theorem} 
-\begin{proof}
-    By the lemma, each pole of $\Di(w_A)$ is simple.
-    That is, for any $s_{p,k}$ we have $\Di(w_A)(s) = 
-    H_{p,k}(s)\cdot g(s)$, where 
-    $$g(s) = \frac{1}{1-w_A(p)p^{-s}},$$
-    and
-    $$H_{p,k}(s) = \zeta(s)(1-p^{-s})
-        \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}},
-        $$ 
-    where $H_{p,k}$ is holomorphic at $s_{p,k}$.
-    Now, note that by the definition of $s_{p,k}$, $1-w_A(p)p^{-s_{p,k}}=0$.
-    Using this, we have
-    \begin{align*}
-    \text{Res}((1-w_A(p)p^{-s})^{-1},s_{p,k}) 
-        &= \frac{1}{\frac{d}{ds}(1-w_A(p)p^{-s})|_{s_{p,k}}} \\ 
-        &= \frac{1}{w_A(p)\log(p)p^{-s_{p,k}}} \\ 
-        &= \frac{1}{\log(p)},
-    \end{align*}
-    which gives
-    \begin{align*}
-        \text{Res}(\Di(w_A),s_{p,k}) = \frac{H_{p,k}(s_{p,k})}{\log(p)}
-    \end{align*}
-    as was needed.
-\end{proof}
+% \begin{theorem}
+%     $$\text{Res}(\Di(w_A), s_{p,k}) = 
+%         \frac{1-p^{-s_{p,k}}}{\log{p}} \zeta(s_{p,k}) 
+%         \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}}.
+%         $$
+% \end{theorem} 
+% \begin{proof}
+%     By the lemma, each pole of $\Di(w_A)$ is simple.
+%     That is, for any $s_{p,k}$ we have $\Di(w_A)(s) = 
+%     H_{p,k}(s)\cdot g(s)$, where 
+%     $$g(s) = \frac{1}{1-w_A(p)p^{-s}},$$
+%     and
+%     $$H_{p,k}(s) = \zeta(s)(1-p^{-s})
+%         \prod_{\substack{q\in S\\q\not=p}}\frac{1-q^{-s_{p_k}}}{1-w_A(q)q^{-s_{p,k}}},
+%         $$ 
+%     where $H_{p,k}$ is holomorphic at $s_{p,k}$.
+%     Now, note that by the definition of $s_{p,k}$, $1-w_A(p)p^{-s_{p,k}}=0$.
+%     Using this, we have
+%     \begin{align*}
+%     \text{Res}((1-w_A(p)p^{-s})^{-1},s_{p,k}) 
+%         &= \frac{1}{\frac{d}{ds}(1-w_A(p)p^{-s})|_{s_{p,k}}} \\ 
+%         &= \frac{1}{w_A(p)\log(p)p^{-s_{p,k}}} \\ 
+%         &= \frac{1}{\log(p)},
+%     \end{align*}
+%     which gives
+%     \begin{align*}
+%         \text{Res}(\Di(w_A),s_{p,k}) = \frac{H_{p,k}(s_{p,k})}{\log(p)}
+%     \end{align*}
+%     as was needed.
+% \end{proof}
 
 
 % ================================================================================
-\subsection{The First Hardy-Littlewood Conjecture}
+\section{The First Hardy-Littlewood Conjecture}
 
 \begin{definition}
     For any admissible k-tuple $A$, define 
@@ -988,6 +957,8 @@ first Hardy-Littlewood conjecture.
 \begin{proposition}
     TODO: this result needs additional care due to the meaning of asymptotic
     expansion, though it is correct.
+    We could also just state it as true, I don't think proving this
+    is all that important.
     We have the asymptotic expansion of $\Li_n$ to be
     $$\Li_n(x) \sim \frac{x}{(n-1)!\log{x}}\sum_{k\ge n-1}\frac{k!}{\log^k(x)}.$$
 \end{proposition}
@@ -1016,20 +987,22 @@ we should attempt to show, following in the steps of the prime number theorem,
 that 
 $$\pi_A(x) \sim \frac{C_Ax}{\log^{\#A}{x}}.$$
 
-\subsection{The Dirichlet Series of $u_A$}
+\section{The Dirichlet Series of $u_A$}
 
-For each admissible constellation $A$, conjecture \ref{HLC} gives an associated 
+We denote the Derichlet series of an arithmetic function $f$ by
+$$\Di(f)(s) := \sum_{n\ge 1}\frac{f(n)}{n^{s}}.$$
+
+For each admissible constellation $A$, Conjecture \ref{HLC} gives an associated 
 constant $C_A$.
-This section aims to explore these constants in our context.
-Just as we describe $\Di(w_A)$ in terms of $\zeta$ and a finite modulator, 
-we may describe $\Di(u_A)$ as
+% This section aims to explore these constants in our context.
+% Just as we describe $\Di(w_A)$ in terms of $\zeta$ and a finite modulator, 
+We may factor $\Di(u_A)$ as
 \begin{equation}\label{DUA zeta form}
 \Di(u_A)(s) = \zeta^{\#A}(s)  
-    \prod_{p\in S_A}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.
+    \prod_{p}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.
 \end{equation}
 
-We refer to the final product once again as the modulator, 
-this time denoted $N_A(s)$, and this time it is infinite.
+We refer to the final product as the modulator, denoted $N_A(s)$.
 The following result essentially states that the product which yields
 $C_A$ converges, which is well known, but is given for completeness.
 
@@ -1107,102 +1080,137 @@ The Laurent expansion of $\zeta$ is known, so the residues above
 are computable.
 We may factor $N_A$ further into $\Di((\#A)^\Omega)$ and
 a finite product, but for k-tuples with a prime size, this creates
-a pole and zero respectively at $s=1$ in those factors.
-Still, considering $\Di((\#A)^\Omega)$ contains no information
-on the structure of $A$ outside of its size, we should anticipate
-the finite product in that factorization to possess some structural information
-akin to $M_A$.
-As $M_A$ and $N_A$ are analogs for $w_A$ and $u_A$, we compute
-their values at 1 for some 
+a pole and zero at $s=1$ in those factors respectively.
+% Still, considering $\Di((\#A)^\Omega)$ contains no information
+% on the structure of $A$ outside of its size, we should anticipate
+% the finite product in that factorization to possess some structural information
+% akin to $M_A$.
+We now compute $N_A(1)$ for some 
 admissible, non-residually-equivalent k-tuples,
-where the $p$ column gives those primes over which $w_A(p)\not=1$.
-Computations for $M_A$ were made entirely in the rationals before
-rounding and so should be accurate.
-Computations for $N_A$ were made using the product over the first 
-10000 primes before rounding, and so there is a possibility of error.
-We also include the corresponding $C_A$s for reference, those being 
-the reciprocals of the $N_A$s.
-TODO: is there a dataset of these constants available somewhere?
-If not we could go high precision and provide it.
+where the $p$ column gives those primes over which $u_A(p)\not=\#A$.
+% Computations for $M_A$ were made entirely in the rationals before
+% rounding and so should be accurate.
+Computations were made using the product over the first 
+10000 primes before rounding, and are made only for the sake of discussion:
+they should not be used outside this context.
+We also include the corresponding $C_A$s.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c | c }
-    $A$ & $p$ & $M_A(1)$ & $N_A(1)$ & $C_A$ \\ 
+% \begin{tabular}{ c | c | c | c | c }
+%     $A$ & $p$ & $M_A(1)$ & $N_A(1)$ & $C_A$ \\ 
+%     \hline
+%     $\{0,2\}$         & 2          & 0.66666667 & 0.75738949 &  1.32032464 \\
+%     $\{0,10\}$        & 2,5        & 0.59259259 & 0.56804211 &  1.76043285 \\
+%     $\{0,6\}$         & 2,3        & 0.53333333 & 0.37869474 &  2.64064928 \\
+%     $\{0,2,6,8\}$     & 2,3        & 0.45714286 & 0.24089421 &  4.15119988 \\
+%     $\{0,8,12,30\}$   & 2,3,5,11   & 0.41975814 & 0.10539121 &  9.48845686 \\
+%     $\{0,6,12,18\}$   & 2,3        & 0.41558441 & 0.12044710 &  8.30239975 \\
+%     $\{0,2,6,8,30\}$  & 2,3,5,7,11 & 0.38614839 & 0.05639911 & 17.73077650 \\
+%     $\{0,18,30,60\}$  & 2,3,5,7    & 0.35463203 & 0.03011178 & 33.20959900 \\
+%     $\{0,60,120,180\}$& 2,3,5      & 0.34996582 & 0.03011178 & 33.20959900 \\
+% \end{tabular}
+\begin{tabular}{ c | c | c | c }
+    $A$ & $p$ & $N_A(1)$ & $C_A$ \\ 
     \hline
-    $\{0,2\}$         & 2          & 0.66666667 & 0.75738949 &  1.32032464 \\
-    $\{0,10\}$        & 2,5        & 0.59259259 & 0.56804211 &  1.76043285 \\
-    $\{0,6\}$         & 2,3        & 0.53333333 & 0.37869474 &  2.64064928 \\
-    $\{0,2,6,8\}$     & 2,3        & 0.45714286 & 0.24089421 &  4.15119988 \\
-    $\{0,8,12,30\}$   & 2,3,5,11   & 0.41975814 & 0.10539121 &  9.48845686 \\
-    $\{0,6,12,18\}$   & 2,3        & 0.41558441 & 0.12044710 &  8.30239975 \\
-    $\{0,2,6,8,30\}$  & 2,3,5,7,11 & 0.38614839 & 0.05639911 & 17.73077650 \\
-    $\{0,18,30,60\}$  & 2,3,5,7    & 0.35463203 & 0.03011178 & 33.20959900 \\
-    $\{0,60,120,180\}$& 2,3,5      & 0.34996582 & 0.03011178 & 33.20959900 \\
+    $\{0,2\}$         & 2          & 0.75738949 &  1.32032464 \\
+    $\{0,10\}$        & 2,5        & 0.56804211 &  1.76043285 \\
+    $\{0,6\}$         & 2,3        & 0.37869474 &  2.64064928 \\
+    $\{0,2,6,8\}$     & 2,3        & 0.24089421 &  4.15119988 \\
+    $\{0,8,12,30\}$   & 2,3,5,11   & 0.10539121 &  9.48845686 \\
+    $\{0,6,12,18\}$   & 2,3        & 0.12044710 &  8.30239975 \\
+    $\{0,2,6,8,30\}$  & 2,3,5,7,11 & 0.05639911 & 17.73077650 \\
+    $\{0,18,30,60\}$  & 2,3,5,7    & 0.03011178 & 33.20959900 \\
+    $\{0,60,120,180\}$& 2,3,5      & 0.03011178 & 33.20959900 \\
 \end{tabular}
 \end{center}
 
-The table is sorted by $M_A(1)$, and at first glance it appears
-that $N_A(1)$ follows in step.
-The entries $\{0,8,12,30\}$ and $\{0,6,12,18\}$ have been added
-to dispel this. 
-TODO: I don't think this next thing is really worth saying if we don't have 
-anything else to say about it.
-Indeed, we have for k-tuples $A$ and $B$ with $\#A = \#B = c$,
-\begin{align*}
-    M_A(1) &< M_B(1) \\
-    \iff 1 &< \prod_{p}\frac{1-w_A(p)p^{-1}}{1-w_B(p)p^{-1}} \\
-    \iff 0 &< \sum_{p}\left[ \log(1-w_A(p)p^{-1}) - \log(1-w_B(p)p^{-1}) \right] \\
-    \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{w_B(p)^k-w_A(p)^k}{kp^k} \\
-    \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{w_B(p)^k-w_A(p)^k}{p^k}. \\
-\end{align*}
-Following the same proceedure for $N_A(1)$ gives
-\begin{align*}
-    N_A(1) &< N_B(1) \\
-    \iff 0 &< \sum_{k\ge1}\frac{c^k}{k}\sum_{p}\frac{w_B(p)^k-w_A(p)^k}{p^k}, \\
-\end{align*}
-so the ordering of $N$s is essentially that of the $M$s, but with a higher weight
-given to higher powers of each prime.
+% The table is sorted by $M_A(1)$, and at first glance it appears
+% that $N_A(1)$ follows in step.
+% The entries $\{0,8,12,30\}$ and $\{0,6,12,18\}$ have been added
+% to dispel this. 
+% TODO: I don't think this next thing is really worth saying if we don't have 
+% anything else to say about it.
+% Indeed, we have for k-tuples $A$ and $B$ with $\#A = \#B = c$,
+% \begin{align*}
+%     M_A(1) &< M_B(1) \\
+%     \iff 1 &< \prod_{p}\frac{1-w_A(p)p^{-1}}{1-w_B(p)p^{-1}} \\
+%     \iff 0 &< \sum_{p}\left[ \log(1-w_A(p)p^{-1}) - \log(1-w_B(p)p^{-1}) \right] \\
+%     \iff 0 &< \sum_{p}\sum_{k\ge1} \frac{w_B(p)^k-w_A(p)^k}{kp^k} \\
+%     \iff 0 &< \sum_{k\ge1} \frac{1}{k}\sum_{p} \frac{w_B(p)^k-w_A(p)^k}{p^k}. \\
+% \end{align*}
+% Following the same proceedure for $N_A(1)$ gives
+% \begin{align*}
+%     N_A(1) &< N_B(1) \\
+%     \iff 0 &< \sum_{k\ge1}\frac{c^k}{k}\sum_{p}\frac{w_B(p)^k-w_A(p)^k}{p^k}, \\
+% \end{align*}
+% so the ordering of $N$s is essentially that of the $M$s, but with a higher weight
+% given to higher powers of each prime.
 
-We see also that the final two entries for $N_A(1)$ in the table appear to be exactly
+We see that the final two entries appear to be exactly
 equal. It is not a rounding error: they are identical.
 This, along with their corresponding k-tuples having the same size,
 means that the Hardy-Littlewood Conjecture predicts these k-tuples
 to have identical limiting frequency, despite their residual
 inequivalence.
 
-Just as the natural density of $w_A$ can be expressed in terms of $M_A(1)$,
-we may express the limiting behavior of the summatory function of $u_A$ via
+When k-tuples $A$ and $B$ have the same size, the ratio $N_A(s)/N_B(s)$ 
+is a finite product, so $N_A(1)/N_B(1)$ is rational.
+It is convenient to handle these constants in a rational form, so
+we would like to define, for each $k$, a constant representing
+the infinite portion of the product.
+The naive candidate is $\prod_{p}\frac{(1-p^{-1})^{\#A}}{1-p^{-s}}$,
+but this diverges.
+We can use $N_A(1)$ for any particular $A$, but opt to instead choose
+the maximum of such constants.
+\begin{definition}
+    For each $k\in\mathbb{N}$, define 
+    $$\mathfrak{U}_k = \max\{N_A(1) : \#A = k\}.$$
+\end{definition}
+
+\begin{proposition}
+    For any $k\in\mathbb{N}$, we have
+    $$\mathfrak{U}_k = N_A(1)$$
+    for $A$ containing ???
+\end{proposition}
+\begin{proof}
+    I think it is OEIS: A135311.
+    Verify via simulation.
+    For proof, assume for contradiction there is 
+\end{proof}
+
+Some of these minimal constants are given below.
+\begin{center}
+\begin{tabular}{ c | c }
+    $k$ & $\mathfrak{U}_k$ \\ 
+    \hline
+    1 & 0 \\
+    2 & 0 \\
+    3 & 0 \\
+    4 & 0 \\
+    5 & 0 \\
+    6 & 0 \\
+    7 & 0 \\
+    8 & 0 \\
+    9 & 0
+\end{tabular}
+\end{center}
+
+% Just as the natural density of $w_A$ can be expressed in terms of $M_A(1)$,
+We may express the limiting behavior of the summatory function of $u_A$ via
 $N_A(1)$.
 \begin{theorem}
     For any admissible k-tuple $A$, we have
     $$\frac{1}{x\log^{\#A-1}{x}}\sum_{n\le x}u_A(n) \sim \frac{N_A(1)}{(\#A-1)!}.$$
 \end{theorem}
 \begin{proof}
-    This follows immediately from theorem 5.2 of \cite{Tenenbaum}. 
+    This is exactly the result of Theorem 5.2 in \cite{Tenenbaum}. 
 \end{proof}
 
 % =======================================================================================================================================
-\section{Dump zone}
+\pagebreak
+\section{TODO}
 
-\subsection{Unplaced results}
-
-\begin{theorem}
-    For any admissible k-tuple $A$, we have
-    $$u_A(n) \leq \varphi(n).$$
-\end{theorem}
-\begin{proof}
-    Let $A\in\mathbb{K}$, and let $n$ be a natural number with factorization
-    $$n=\prod_{p_i|n}p_i^{a_i}.$$
-    Then 
-    \begin{align*}
-        u_A(n) 
-        &= u_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
-        &= \prod_{p_i|n}u_A(p_i)^{a_i} \\
-        &\leq \prod_{p_i|n}(p_i-1)^{a_i} \\
-        &\leq \prod_{p_i|n}(p_i-1)\cdot p_i^{a_i-i} \\
-        &= \varphi(n).
-    \end{align*}
-\end{proof}
+% \subsection{Unplaced results}
 
 
 
@@ -1231,205 +1239,148 @@ $N_A(1)$.
 %     $$\upvartheta_A(x) \sim C_Ax.$$
 % \end{proposition}
 
-\begin{definition}
-    $$\Psi_A(x) = \sum_{n \le x} \Lambda(n)w_A(n).$$
-\end{definition}
-\begin{theorem}
-    For any admissible k-tuple $A$, we have
-    $$\Psi_A(x) = \Psi(x) - \#S_A\log x + O(1).$$
-\end{theorem}
-\begin{proof}
-    We have
-    \begin{align*}
-    \Psi(x)-\Psi_A(x)
-    &= \sum_{n\le x} \Lambda(n)(1-w_A(n)).
-    \end{align*}
+% \begin{definition}
+%     $$\Psi_A(x) = \sum_{n \le x} \Lambda(n)w_A(n).$$
+% \end{definition}
+% \begin{theorem}
+%     For any admissible k-tuple $A$, we have
+%     $$\Psi_A(x) = \Psi(x) - \#S_A\log x + O(1).$$
+% \end{theorem}
+% \begin{proof}
+%     We have
+%     \begin{align*}
+%     \Psi(x)-\Psi_A(x)
+%     &= \sum_{n\le x} \Lambda(n)(1-w_A(n)).
+%     \end{align*}
     
-    Now, for composite $n$ we have $\Lambda(n)=0$, and for $n=p^k$ where 
-    $p\not\in S_A$, we have $1-w_A(n)=0$, so the summand only takes
-    on values at powers of $p\in S_A$, and we have
-    \begin{align*}
-    \Psi(x)-\Psi_A(x)
-    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} (1-w_A(p)^k) \\
-    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
-        + O\left(\sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} w_A(p)^k\right) \\
-    &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
-        + O(1) \\
-    &= \sum_{p\in S_A}\log(p)(\log_p(x) + O(1)) + O(1) \\
-    &= \sum_{p\in S_A}\log(x) + O(1) \\
-    &= \#S_A\log(x) + O(1).
-    \end{align*}
+%     Now, for composite $n$ we have $\Lambda(n)=0$, and for $n=p^k$ where 
+%     $p\not\in S_A$, we have $1-w_A(n)=0$, so the summand only takes
+%     on values at powers of $p\in S_A$, and we have
+%     \begin{align*}
+%     \Psi(x)-\Psi_A(x)
+%     &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} (1-w_A(p)^k) \\
+%     &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
+%         + O\left(\sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} w_A(p)^k\right) \\
+%     &= \sum_{p\in S_A}\log(p)\sum_{k \le \log_p x} 1
+%         + O(1) \\
+%     &= \sum_{p\in S_A}\log(p)(\log_p(x) + O(1)) + O(1) \\
+%     &= \sum_{p\in S_A}\log(x) + O(1) \\
+%     &= \#S_A\log(x) + O(1).
+%     \end{align*}
 
-\end{proof}
-\begin{proof}[Silly proof]
-    We apply Perron's formula and obtain the following where the stars
-    indicate the summation should be multiplied by 1/2
-    when $x\in\mathbb{Z}$.
-    \begin{align*}
-        \Psi^*_A(x) &= \sum_{n\le x}^*\Lambda(n)w_A(n) \\
-        &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\Di(\Lambda\cdot w_A)(z)
-            \frac{x^z}{z}dz,
-    \end{align*}
-    where $c>1$.
-    Because $w_A$ is completely multiplicative, we have 
-    \begin{align*}
-    \Di(\Lambda\cdot w_A)(z) 
-    &= -\frac{d}{dz}\log(\Di(w_A)(z)) \\
-    &= -\frac{d}{dz}\log(\zeta(z)M_A(z)) \\
-    &= -\frac{d}{dz}\log(\zeta(z)) - \frac{d}{dz}\log(M_A(z)) \\
-    &= \Di(\Lambda)(z) - \frac{d}{dz}\log(M_A(z)) \\
-    \end{align*}
+% \end{proof}
+% \begin{proof}[Silly proof]
+%     We apply Perron's formula and obtain the following where the stars
+%     indicate the summation should be multiplied by 1/2
+%     when $x\in\mathbb{Z}$.
+%     \begin{align*}
+%         \Psi^*_A(x) &= \sum_{n\le x}^*\Lambda(n)w_A(n) \\
+%         &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\Di(\Lambda\cdot w_A)(z)
+%             \frac{x^z}{z}dz,
+%     \end{align*}
+%     where $c>1$.
+%     Because $w_A$ is completely multiplicative, we have 
+%     \begin{align*}
+%     \Di(\Lambda\cdot w_A)(z) 
+%     &= -\frac{d}{dz}\log(\Di(w_A)(z)) \\
+%     &= -\frac{d}{dz}\log(\zeta(z)M_A(z)) \\
+%     &= -\frac{d}{dz}\log(\zeta(z)) - \frac{d}{dz}\log(M_A(z)) \\
+%     &= \Di(\Lambda)(z) - \frac{d}{dz}\log(M_A(z)) \\
+%     \end{align*}
 
-    Substituting this into our integral, we then have
-    \begin{align*}
-        \Psi^*_A(x)
-        &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\left[
-            \Di(\Lambda)(z)
-            - \frac{d}{dz}\log M_A(z)\right]
-            \frac{x^z}{z}dz \\
-        % &= \Psi^*(x)
-        %     - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{M'_A}{M_A}(z)
-        %     \frac{x^z}{z}dz \\
-        &= \Psi^*(x)
-            - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}
-                \left[\frac{d}{dz}\log M_A(z)\right]\frac{x^z}{z} dz.
-    \end{align*}
+%     Substituting this into our integral, we then have
+%     \begin{align*}
+%         \Psi^*_A(x)
+%         &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\left[
+%             \Di(\Lambda)(z)
+%             - \frac{d}{dz}\log M_A(z)\right]
+%             \frac{x^z}{z}dz \\
+%         % &= \Psi^*(x)
+%         %     - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\frac{M'_A}{M_A}(z)
+%         %     \frac{x^z}{z}dz \\
+%         &= \Psi^*(x)
+%             - \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}
+%                 \left[\frac{d}{dz}\log M_A(z)\right]\frac{x^z}{z} dz.
+%     \end{align*}
 
-    The derivative can be expanded as
-    \begin{align*}
-        \frac{d}{dz}\log M_A(z) 
-        &= \frac{d}{dz} \sum_{p\in S_A}\left[\log(1-p^{-z}) - \log(1-w_A(p)p^{-z})\right] \\
-        &= \sum_{p\in S_A}\left[\frac{\log(p) p^{-z}}{1-p^{-z}} - \frac{w_A(p)\log(p) p^{-z}}{1-w_A(p)p^{-z}}\right] \\
-        &= \sum_{p\in S_A}\left[\log(p)\sum_{k\ge 1}p^{-kz}(1-w_A^k(p))\right]. \\
-    \end{align*}
-    (TODO: Is this a stupid way to eval this? There's probably a more direct route, but
-    integrating series makes everything easy except for convergence.)
+%     The derivative can be expanded as
+%     \begin{align*}
+%         \frac{d}{dz}\log M_A(z) 
+%         &= \frac{d}{dz} \sum_{p\in S_A}\left[\log(1-p^{-z}) - \log(1-w_A(p)p^{-z})\right] \\
+%         &= \sum_{p\in S_A}\left[\frac{\log(p) p^{-z}}{1-p^{-z}} - \frac{w_A(p)\log(p) p^{-z}}{1-w_A(p)p^{-z}}\right] \\
+%         &= \sum_{p\in S_A}\left[\log(p)\sum_{k\ge 1}p^{-kz}(1-w_A^k(p))\right]. \\
+%     \end{align*}
+%     (TODO: Is this a stupid way to eval this? There's probably a more direct route, but
+%     integrating series makes everything easy except for convergence.)
 
-    Now, substituting this into our above integral and distributing the integral
-    over all sums (TODO convergence), we have
-    \begin{align*}
-        \Psi^*_A(x) 
-        &= \Psi^*(x)
-            - \frac{1}{2\pi i}
-                \sum_{p\in S_A} \log p
-                \sum_{k\ge 1}
-                \int_{c-i\infty}^{c+i\infty} \frac{(x/p^k)^z}{z}dz.
-    \end{align*}
+%     Now, substituting this into our above integral and distributing the integral
+%     over all sums (TODO convergence), we have
+%     \begin{align*}
+%         \Psi^*_A(x) 
+%         &= \Psi^*(x)
+%             - \frac{1}{2\pi i}
+%                 \sum_{p\in S_A} \log p
+%                 \sum_{k\ge 1}
+%                 \int_{c-i\infty}^{c+i\infty} \frac{(x/p^k)^z}{z}dz.
+%     \end{align*}
 
-    When $\log_p(x)<k$ we have $x/p^k<1$, and we may consider the integral to
-    be closed along a right semicircle (just trust me dawg, but actually this
-    is a critical detail).
-    The integrand is analytic within that half-plane, so the integrals are all 0.
+%     When $\log_p(x)<k$ we have $x/p^k<1$, and we may consider the integral to
+%     be closed along a right semicircle (just trust me dawg, but actually this
+%     is a critical detail).
+%     The integrand is analytic within that half-plane, so the integrals are all 0.
 
-    When $\log_p(x)>k$, we may then consider the integral to be along a left
-    closed semicircle, so the integral evaluates to $2\pi i \cdot \Res((x/p^k)^z/z,0)
-    = 2\pi i$.
+%     When $\log_p(x)>k$, we may then consider the integral to be along a left
+%     closed semicircle, so the integral evaluates to $2\pi i \cdot \Res((x/p^k)^z/z,0)
+%     = 2\pi i$.
 
-    When $\log_p(x)=k$, the integral may be directly evaluated on the path
-    $z=c+it$ as the vertical bound go symmetrically to infinity, and yields $\pi i$.
+%     When $\log_p(x)=k$, the integral may be directly evaluated on the path
+%     $z=c+it$ as the vertical bound go symmetrically to infinity, and yields $\pi i$.
 
-    Accounting for each case, we have
-        \begin{align*}
-        \Psi^*_A(x) 
-        &= \Psi^*(x)
-            - \sum_{p\in S_A} \log p
-              \sum^*_{k \le \log_p x} 1 \\
-        &= \Psi^*(x)
-            - \sum_{p\in S_A} \log p
-              (\log_p(x) + O(1)) \\
-        &= \Psi^*(x) - \#S_A\log x + O(1).
-    \end{align*}
+%     Accounting for each case, we have
+%         \begin{align*}
+%         \Psi^*_A(x) 
+%         &= \Psi^*(x)
+%             - \sum_{p\in S_A} \log p
+%               \sum^*_{k \le \log_p x} 1 \\
+%         &= \Psi^*(x)
+%             - \sum_{p\in S_A} \log p
+%               (\log_p(x) + O(1)) \\
+%         &= \Psi^*(x) - \#S_A\log x + O(1).
+%     \end{align*}
 
-    Now, the change in order $d(x)$ created by removing the stars when $x\in\mathbb{Z}$ is
-    \begin{align*}
-    d(x) = (\Psi(x)-\Psi_A(x)) - (\Psi^*(x)-\Psi^*_A(x))
-    & = \frac{1}{2}\Lambda(x)(1-w_A(x)).
-    \end{align*}
-    If $x$ is a power of a prime $p\in S_A$, $d$ is bounded by the max of
-    the logs of those finitely many primes.
-    If $x$ is a power of any other prime, we have $w_A(x)=1$, so $d=0$.
-    If $x$ is any other number, $\Lambda(x)=0$, so $d=0$.
-    Then $d(x)=O(1)$, and the result follows.
-\end{proof}
+%     Now, the change in order $d(x)$ created by removing the stars when $x\in\mathbb{Z}$ is
+%     \begin{align*}
+%     d(x) = (\Psi(x)-\Psi_A(x)) - (\Psi^*(x)-\Psi^*_A(x))
+%     & = \frac{1}{2}\Lambda(x)(1-w_A(x)).
+%     \end{align*}
+%     If $x$ is a power of a prime $p\in S_A$, $d$ is bounded by the max of
+%     the logs of those finitely many primes.
+%     If $x$ is a power of any other prime, we have $w_A(x)=1$, so $d=0$.
+%     If $x$ is any other number, $\Lambda(x)=0$, so $d=0$.
+%     Then $d(x)=O(1)$, and the result follows.
+% \end{proof}
 
-Combining this with the Prime Number Theorem in the form $\Psi(x) \sim x$ gives
-$\Psi_A(x) \sim x$.
-
-% =======================================================================================================================================
-\subsection{Notes/TODO}
+% Combining this with the Prime Number Theorem in the form $\Psi(x) \sim x$ gives
+% $\Psi_A(x) \sim x$.
 
 \begin{enumerate}
-    \item
-        Maybe we can get a meaning for $u$ out of the convolution
-        form for $\varphi_A$?
-        As in, maybe on composite $n$, $u$ indicates some
-        obvious information about the conv sequence.
-
-    \item
-        The fundamental result we require is a relationship,
-        asymptotic or otherwise, between $u$ or $w$ and the
-        standard $\Psi_A$.
-        Such a result would likely lead to proof of HLC.
-
     \item
         We have $u_A\ast\phi_A = N = \phi_A^0$.
         That is, $u_A$ jumps between levels of phi.
         What functions jump between other levels?
 
     \item
-        Formula for partial quotas in terms of full quotas:
-        $$\varphi_A^q = \sum_{k=q}^{\#A}(-1)^{k-q}
-            {k-1 \choose k-q}
-            \sum_{\substack{B\subset A \\ \#B = k}}\varphi_B$$
-        I think we should be getting a collapse down to $N=N$ for $q=0$.
-        Write a proof of this.
-        This seems quite powerful.
-        Can we find the order of 1 quotas in a simple way?
-        Can this be inverted to express higher quotas in
+        Can the quota totient formulae be inverted to express higher quotas in
         terms of lower?
-        Does this allow expressing units in terms of one another?
-    \item
-        Try looking into $\sum_{n\le x}\Lambda(n)^{u_A(n)}$.
-        For unmodulated primes this gives the correct number of lambdas,
-        For modulated I think the power is reduced based on 
-        the chance that some member of the product for the standard
-        Psi is zero.
-        Idk, this is pretty vague, but it has a nice feeling
-        
-    \item
-        Maybe the relationship between the standard $\Psi_A$ definition
-        and $\zeta^{\#A}$ holds between a $u$/$w$ modified version of
-        $\Psi$ and $\zeta$?
-        My instinct is that $w_A$ represents some kind
-        of order reduction.
+        Are there corresponding formulae relating unit functions for quota totients?
 
-        We know the w modified $\Psi$, say $\overline{\Psi}_A$ 
-        has the same limiting behavior
-        as $\Psi$ itself, so it's not going to reduce the order,
-        but maybe showing $\Psi_A(x) \sim C_A\overline{\Psi}_A(x)$ 
-        will be easier?
-
-    \item
-        Is there a meaning that can be attributed to simple operations
-        on modulator constants?
-        I think the only way to get milage out of this is to understand 
-        the probibalistic perspective from whence HLC came.
-    \item
-        Continue to hunt for u and w series relations
-    \item
-        Compute the ratio of the $0,2$ and $0,6$ HLC constants.
-        Answer: 1/2 (just requires cancellations)
-        For equal tuple size it's rational.
     \item
         Double check Granville actually implies the thing.
         Oh, just noticed he is the pretentious theory guy.
+
     \item 
-        We should check if any results require finiteness on k-tuple
-    \item 
-        $\varphi_A$ appears to be equivalent to a discrete convolution.
-        Is that worth thinking about?
-        Can we use that to improve the main proofs?
-        What else can be done with this?
+        We should check if any results require finiteness on k-tuple.
+        Also check each theorem for admissibility requirements.
 \end{enumerate}
 
 \pagebreak

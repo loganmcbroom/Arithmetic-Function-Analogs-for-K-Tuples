@@ -2,7 +2,7 @@ import math
 from primes import primes
 from fractions import Fraction
 
-bound = 2**8+1 # Computation bound
+bound = 2**20+1 # Computation bound
 primes_max = 10000 # Largest prime list index to use
 
 def factorization(n):
@@ -162,6 +162,6 @@ def compute_N_A(A_size, r):
     k = A_size
     return math.prod( (1-1/p)**k / (1-r(p)/p) for p in primes[:primes_max] )
 
-# Compute the singular series for A
+# Compute the singular series for A (HLC1 constant)
 def singular_series_of_A(A):
     return 1.0/compute_N_A(len(A), r_gen(A))
