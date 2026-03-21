@@ -31,18 +31,18 @@
 
 \begin{document}
 
-\title{Arithmetic Function Analogs for K-Tuples}
+\title{An Intuitive Introduction to the First Hardy-Littlewood Conjecture}
 \author{Logan McBroom}
 \date{}
 \maketitle
 
 \begin{abstract}
-    We encode the essential information of k-tuples in some
+    We encode relative primality information with respect to k-tuples in
     extensions of common arithmetic functions. 
-    Analogs of some fundamental relationships between those common functions
-    are shown to hold for our extensions.
-    The basic analytic properties of some of these
-    functions are derived and related to the first Hardy-Littlewood conjecture.
+    This is used to motivate the residue counting function of
+    the first Hardy-Littlewood conjecture, and leads
+    to the singular series.
+    We also discuss the singular series as a probabilistic adjustment.
 \end{abstract}
 
 \section{K-Tuples}
@@ -50,28 +50,34 @@
 \begin{definition}
 Define $\mathbb{K}$, the set of \textbf{k-tuples}, by
 $$\mathbb{K} := \mathscr{P}(\mathbb{Z}).$$
-We say a k-tuple is \textbf{singular} if it contains exactly one element.
 \end{definition}
 
-Some authors forbid infinite k-tuples.
-We denote the number of elements in a set $S$ by $\#S$.
-The motivation for much of this paper is to extend 
-a definition or result pertaining to integers to the k-tuples.
-That is, we view traditional number theoretic concepts involving an integer $k$ 
-as being about the singular k-tuple $\{0\}$, and attempt to extend that result 
-in a natural way to nonsingular k-tuples.
-We also refer to such singular definitions and results collectively as 
-``singular number theory''.
+This is a non-standard definition.
+As the name indicates, k-tuples are usually defined as tuples,
+that is, finite sequences.
+If we require finiteness, we will manually indicate it,
+and the sequence order of k-tuples is never needed.
+There is also the indication that `k-tuple' should mean there are $k$
+elements in the set, and this is usually the case.
+This is convenient, but also confusing when juggling many k-tuples of
+multiple sizes, so we take the name k-tuple to simply be a set
+of integers, and describe the size of a k-tuple $A$ (or any other set) 
+by $\#A$.
+
+Our goal is to view traditional number theoretic concepts
+as being about the k-tuple $\{0\}$, and to attempt to extend those results
+in a natural way to all k-tuples.
 
 \begin{definition}
 For $A,B \in\mathbb{K}$, we define
 $$A+B := \{a+b : a\in A, b\in B \}.$$
 \end{definition}
 
-For $k\in\mathbb{Z}$ and $A\in\mathbb{K}$, define for convenience $k+A := \{k\} + A$.
-That is, $k+A$ is the translation of $A$ by $k$.
+For $j\in\mathbb{Z}$ and $A\in\mathbb{K}$, define for convenience 
+$j+A := \{j\} + A$.
+That is, $j+A$ is the translation of $A$ by $j$.
 
-We are often concerned with congruence between elements of k-tuples,
+We are concerned with congruence between elements of k-tuples,
 but the usual definition of congruence is insufficient, as it describes only
 exact incidence between numbers relative to a modulus.
 We are instead concerned with a variety of types of incidence between
@@ -80,7 +86,7 @@ The following definition handles the ``modulus'' aspect of that need.
 
 \begin{definition}
 Given a k-tuple $A$ and a natural number $n$, define
-$$A \bmod n \text{ or } A_n := \{a \bmod n : a\in A\}$$
+$$A_n := \{a \bmod n : a\in A\}$$
 \end{definition}
 
 % Note that if $\vk(n)=C$ for some $n$, $C$ is periodic with period $n$, though again, it may possess a smaller period than $n$
@@ -155,9 +161,9 @@ $$A \bmod n \text{ or } A_n := \{a \bmod n : a\in A\}$$
 
 We now extend Euler's totient function $\varphi$ to k-tuples.
 Instead of counting which natural numbers up to $n$ are relatively 
-prime to $n$, we count the translates of a k-tuple $A$ by $k\in\mathbb{Z}_n$ 
+prime to $n$, we count the translates of a k-tuple $A$ by $j\in\mathbb{Z}_n$ 
 for which all elements are coprime to $n$.
-We may also consider counting many types of occurences, and will do so
+We may also consider counting many other types of occurences, and will do so
 in a later section.
 We graph the counting process below for $A=\{0,2\}$ and $n=6$.
 The top grid represents a translate of $A$, and the bottom
@@ -218,8 +224,8 @@ so our totient should return 1 for this $A$ and $n$.
     For a k-tuple $A$, define $\varphi_A$ by:
     \begin{align*}
         \varphi_A(1) &:= 1 \\
-        \varphi_A(n) &:= \#\{k\in\mathbb{Z}_n : 
-            \forall\ a \in A,\ (k+a,n)=1 \}
+        \varphi_A(n) &:= \#\{j\in\mathbb{Z}_n : 
+            \forall\ a \in A,\ (j+a,n)=1 \}
     \end{align*}
 \end{definition}
 
@@ -227,23 +233,24 @@ so our totient should return 1 for this $A$ and $n$.
     For any k-tuple $A$, $\varphi_A$ is multiplicative.
 \end{theorem}
 \begin{proof}
-    Throughout, let $k_n$ be the class represented by $k$ in $\mathbb{Z}_n$ for any $n$.
+    Throughout, for any integer $j$, let $j_n$ be the class represented 
+    by $j$ in $\mathbb{Z}_n$.
     Let $A$ be a k-tuple, 
     and let $m$ and $n$ be coprime natural numbers.
     For each natural number $b$, define the set $P(b)$ by
-    $$P(b) = \{k_b\in\mathbb{Z}_b : \forall\ a \in A,\ (k_b+a,b) = 1 \}.$$
+    $$P(b) = \{j_b\in\mathbb{Z}_b : \forall\ a \in A,\ (j_b+a,b) = 1 \}.$$
     Then by definition $\#P(a)=\varphi_A(a)$. 
 
     Now let $\Gamma: P(mn) \longmapsto P(m)\times P(n)$ be given by
-    $$\Gamma(k_{mn}) = (k_m, k_n).$$
+    $$\Gamma(j_{mn}) = (j_m, j_n).$$
     We will show each of the following:
 
     \begin{enumerate}
         \item \textbf{$\Gamma$ is well defined.}
-            Let $k_{mn}\in P(mn)$.
-            Then $\forall\ a\in A,\ (k+a,mn) = 1$, so
-            $\forall\ a\in A,\ (k+a,m) = 1$.
-            Proceeding likewise for $n$, $(k_m, k_n) \in P(m)\times P(n)$,
+            Let $j_{mn}\in P(mn)$.
+            Then $\forall\ a\in A,\ (j+a,mn) = 1$, so
+            $\forall\ a\in A,\ (j+a,m) = 1$.
+            Proceeding likewise for $n$, $(j_m, j_n) \in P(m)\times P(n)$,
             so $\Gamma$ is well defined.
 
         \item \textbf{$\Gamma$ is injective.}
@@ -288,21 +295,20 @@ so our totient should return 1 for this $A$ and $n$.
 The singular unit function $u(n)$ is defined by $u(n)=1$ for all $n$.
 It is surprising that such a trivial function has a non-trivial extension to k-tuples.
 \begin{definition}
-    For any k-tuple $A$ and prime $p$, define $u_A(p)$ by:
-    $$u_A(p) = \#A_p$$
-    We extend $u_A$ to all natural numbers by complete multiplicativity.
+    For any k-tuple $A$ and prime $p$, define $\nu_A(p)$ by:
+    $$\nu_A(p) = \#A_p$$
+    We extend $\nu_A$ to all natural numbers by complete multiplicativity.
 \end{definition}
 
-We have immediately from complete multiplicativity that $u_A(1)=1$.
-The definition for primes tells us that $u_A$ gives the number of residues the elements of $A$ fill modulo $p$.
-The definition of $u_A$ on primes is used in the first Hardy and Littlewood 
-conjecture, discussed later, and so is not entirely new.
-It's usage in the following theorem to describe extensions of $\varphi$ 
-is also known, at least in some well studied cases.
+We have immediately from complete multiplicativity that $\nu_A(1)=1$.
+The definition for primes tells us that $\nu_A$ gives the number of residues 
+the elements of $A$ fill modulo $p$.
+It's usage on primes in the following theorem to describe extensions of $\varphi$ 
+is known, at least in some well studied cases.
 
 \begin{theorem}\label{phi prime powers}
     For any k-tuple $A$, prime $p$, and natural number $k$ we have:
-    $$\varphi_A( p^k ) = p^k - u_A(p)p^{k-1}.$$
+    $$\varphi_A( p^k ) = p^k - \nu_A(p)p^{k-1}.$$
 \end{theorem}
 \begin{proof}
     By definition we have
@@ -330,14 +336,14 @@ is also known, at least in some well studied cases.
 % \begin{proof}[old proof for old defs]
 %     By definition
 %     \begin{align*}    
-%         u_A(p)&=\#\{ m\in |A|_p : 0\leq m < p \} \\
-%         \Rightarrow p-u_A(p)&=\#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } m \not\in |A|_p\}.
+%         \nu_A(p)&=\#\{ m\in |A|_p : 0\leq m < p \} \\
+%         \Rightarrow p-\nu_A(p)&=\#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } m \not\in |A|_p\}.
 %     \end{align*}
 
 %     % Reflection
 %     Now, as $m$ takes on each residue modulo $p$, so does $-m$, so
 %     \begin{align*}
-%         p-u_A(p) 
+%         p-\nu_A(p) 
 %         &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } -m \not\in |A|_p\} \\
 %         &= \#\{ m\in\mathbb{Z} : 0\leq m < p \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
 %     \end{align*}
@@ -347,21 +353,21 @@ is also known, at least in some well studied cases.
 %     So by extending the upper bound of the range condition to $ap$ we have $a$ times as many 
 %     values of $m$ satisfying both conditions. Using this with $a=p^{k-1}$ we have
 %     \begin{align*}
-%         p^k - u_A(p)p^{k-1} &=\#\{ m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
+%         p^k - \nu_A(p)p^{k-1} &=\#\{ m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } (\forall\ a\in A,\ m+a \not\equiv 0 \pmod p )\}.
 %     \end{align*}
 
 %     Now, $\vk(p)$ contains exactly the integers on the interval $[1,p-1]$, so we may replace the latter condition to obtain
-%     $$p^k-u_A(p)p^{k-1} = \#\{m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } m+A\subset\vk(p)\}.$$
+%     $$p^k-\nu_A(p)p^{k-1} = \#\{m\in\mathbb{Z} : 0\leq m < p^k \textnormal{ and } m+A\subset\vk(p)\}.$$
 %     Then by Theorem \ref{vk primes} we have
 %     \begin{align*}
-%         p^k - u_A(p)p^{k-1} &= \#\{m\in\mathbb{Z} : 0 \leq m < p^k \textnormal{ and } m+A \subset \vk(p^k) \}\\
+%         p^k - \nu_A(p)p^{k-1} &= \#\{m\in\mathbb{Z} : 0 \leq m < p^k \textnormal{ and } m+A \subset \vk(p^k) \}\\
 %         &= \varphi_A(p^k).
 %     \end{align*}
 % \end{proof}
 
 \begin{theorem}[Totient Product Formula]~ \\
     For any k-tuple $A$ and natural number $n$, we have:
-    $$\varphi_A(n)=n\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
+    $$\varphi_A(n)=n\prod_{p|n}\left(1-\frac{\nu_A(p)}{p}\right).$$
 \end{theorem}
 \begin{proof}
 Let $A$ be a k-tuple and $n$ be a natural number.
@@ -372,8 +378,8 @@ Then we have by theorems \ref{phi multiplicative} and \ref{phi prime powers},
     \varphi_A(n) 
     &= \varphi_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
     &= \prod_{p_i|n}\varphi_A(p_i^{a_i}) \\
-    &= \prod_{p_i|n} \left(p_i^{a_i} - u_A(p_i)p_i^{a_i-1}\right) \\
-    &= n\prod_{p_i|n} \left(1 - \frac{u_A(p_i)}{p_i}\right).
+    &= \prod_{p_i|n} \left(p_i^{a_i} - \nu_A(p_i)p_i^{a_i-1}\right) \\
+    &= n\prod_{p_i|n} \left(1 - \frac{\nu_A(p_i)}{p_i}\right).
 \end{align*}
 \end{proof}
 
@@ -386,58 +392,21 @@ Then we have by theorems \ref{phi multiplicative} and \ref{phi prime powers},
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    The proof of these follows nearly verbatim the singular case,
+    The proof of these follows nearly verbatim the proofs for $\varphi$,
     which is shown in Theorem 2.5 of \cite{Apostol}.
-    % \begin{enumerate}
-    %     \item[(a)] We have 
-    %         $$\frac{\varphi_A(n)}{n}=\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right).$$
-    %         For any prime divisor $p$ of $mn$, we have either $p|m$ or $p|n$. 
-    %         If both are true, we also have $p|(m,n)$. Then
-    %         \begin{align*}
-    %             \frac{\varphi_A(mn)}{mn} 
-    %             &= \prod_{p|n}\left(1-\frac{u_A(p)}{p}\right) \\
-    %             &= \frac{\prod_{p|m}\left(1-\frac{u_A(p)}{p}\right)\prod_{p|n}\left(1-\frac{u_A(p)}{p}\right)} 
-    %                 {\prod_{p|(m,n)}\left(1-\frac{u_A(p)}{p}\right)} \\
-    %             &= \frac{\frac{\varphi_A(m)}{m}\frac{\varphi_A(n)}{n}}{\frac{\varphi_A(d)}{d}}
-    %         \end{align*}
-    %         Multiplying by $mn$ gives the desired result.
-
-    %     \item[(b)] This is a special case of (a).
-        
-    %     \item[(c)] Since $a|b$ we have $b=ac$ where $1 \leq c \leq b$.
-    %         If $c=b$ then $a=1$ and $\varphi_A(a)|\varphi_A(b)$ trivially. 
-    %         Assume then that $c<b$.
-    %         From (b) we have
-    %         \begin{equation}\label{phi divides phi property}
-    %             \begin{aligned}
-    %                 \varphi_A(b) 
-    %                 &= \varphi_A(ac) \\
-    %                 &= \varphi_A(a)\varphi_A(c)\frac{d}{\varphi_A(d)} \\
-    %                 &= d\varphi_A(a)\frac{\varphi_A(c)}{\varphi_A(d)}
-    %             \end{aligned}
-    %         \end{equation}
-    %         where $d=(a,c)$.
-    %         The result follows by induction on $b$.
-    %         For $b=1$ it holds trivially.
-    %         Suppose now that it holds for all integers less than $b$.
-    %         Then it holds for $c$, so $\varphi_A(d)|\varphi_A(c)$.
-    %         The right member of (\ref{phi divides phi property}) is then an integer, so (\ref{phi divides phi property})
-    %         gives that $\varphi_A(a)|\varphi_A(b)$.
-
-    % \end{enumerate}
 \end{proof}
 
 \begin{definition}
-    Let $v$ be an arithmetic function such that:
+    Let $w$ be an arithmetic function such that:
     \begin{enumerate}
-        \item $v$ is completely multiplicative.
-        \item $v$ is eventually constant, say $v(p)=k$ for $p>N$.
-        \item For all primes $p$, $v(p) \le p$ and $v(p) \le k$.
+        \item $w$ is completely multiplicative.
+        \item $w$ is eventually constant, say $w(p)=k$ for $p>N$.
+        \item For all primes $p$, $w(p) \le p$ and $w(p) \le k$.
     \end{enumerate}
-    Then we say $v$ is \textbf{unit looking}.
-    If there exists a k-tuple such that $u_A=v$, we say $A$ generates $v$, and
-    say $v$ is good. 
-    Otherwise, $v$ is bad.
+    Then we say $w$ is \textbf{unit looking}.
+    If there exists a k-tuple such that $\nu_A=w$, we say $A$ generates $w$, and
+    say $w$ is good. 
+    Otherwise, $w$ is bad.
 \end{definition}
 
 Unit looking functions, as far as can be checked by simple methods, appear
@@ -451,7 +420,7 @@ A general algorithm determining this property would be useful in
 later computation, but it seems unlikely such an algorithm is feasable
 in the general case.
 As a concrete example, the unit looking function 
-$v$ with $v(2)=1$, $v(3)=v(103)=2$, and $v(p)=3$ for all other primes $p$
+$w$ with $w(2)=1$, $w(3)=w(103)=2$, and $w(p)=3$ for all other primes $p$
 is bad, and is the minimal example.
 Computation shows that bad unit looking functions become far more common
 as the primes at which they differ from their eventual value grow,
@@ -462,26 +431,26 @@ to an arbitrary bound.
 
 \begin{theorem}
     Let $p_n$ be the $n$th prime number.
-    Let $v$ be a unit looking function.
+    Let $w$ be a unit looking function.
     Then for any natural $N$, there exists a 
-    k-tuple $A$ such that $u_A(n)=v(n)$ for $n \leq N$.
+    k-tuple $A$ such that $\nu_A(n)=w(n)$ for $n \leq N$.
 \end{theorem}
 \begin{proof}
-    By the complete multiplicativity of $u_A$ and $v$,
+    By the complete multiplicativity of $\nu_A$ and $w$,
     we need only show the equality on primes up to $N$.
 
-    Let $k$ be the eventual value of $v$ on primes.
+    Let $k$ be the eventual value of $w$ on primes.
     Let $A_1=\{0\}$.
-    If $k=1$, we have $u_{A_1}=v$ and are done.
+    If $k=1$, we have $\nu_{A_1}=w$ and are done.
     Now for each $i$ from 2 to $k$, let $Q_i$ be the set of primes up to $N$ for 
-    which $u_{A_i}(p)<v(p)$.
+    which $\nu_{A_i}(p)<w(p)$.
     By the Chinese Remainder Theorem there exists $a$ which solves $a\equiv i \pmod q$
     for all $q\in Q_i$, and $a\equiv 0$ modulo each other prime up to $N$.
     Let $A_i=A_{i-1}\cup a$.
 
-    Then for each prime $p_n$ up to $N$, exactly the first $v(p_n)$ residues 
+    Then for each prime $p_n$ up to $N$, exactly the first $w(p_n)$ residues 
     have been filled by elements of $A_k$. 
-    That is, $u_{A_k}(p_n)=v(p_n)$.
+    That is, $\nu_{A_k}(p_n)=w(p_n)$.
 \end{proof}
     
 % ==============================================================================================================================
@@ -493,12 +462,12 @@ We define the arithmetic function $N$ by $N(n)=n$.
 
 \begin{definition}
     For any k-tuple $A$, define $\mu_A$ to be the unique Dirichlet inverse
-    of $u_A$.
+    of $\nu_A$.
 \end{definition}
 
-By definition $u_A$ is completely multiplicative, so by Theorem 2.17 
+By definition $\nu_A$ is completely multiplicative, so by Theorem 2.17 
 in \cite{Apostol}, we have its Dirichlet inverse to be
-$$\mu_A(n)=u_A^{-1}(n)=\mu(n)u_A(n).$$
+$$\mu_A(n)=\nu_A^{-1}(n)=\mu(n)\nu_A(n).$$
 
 We have also from Theorem 2.18 of \cite{Apostol} that for any multiplicative function $f$ and natural number $n$, that
 \begin{equation}\label{sum to product}
@@ -508,25 +477,25 @@ which is used to prove the following.
 
 \begin{theorem}
     For any k-tuple $A$, we have
-    $$u_A*\varphi_A = N.$$
+    $$\nu_A*\varphi_A = N.$$
 \end{theorem}
 \begin{proof}
-    Applying equation (\ref{sum to product}) with $f(n)=u_A(n)/n$ to the totient product formula, we have
+    Applying equation (\ref{sum to product}) with $f(n)=\nu_A(n)/n$ to the totient product formula, we have
     \begin{align*}
         \varphi_A(n) 
-        &= n \prod_{p|n}\left(1-\frac{u_A(p)}{p}\right) \\
-        &= n \sum_{d|n}\mu(d)\frac{u_A(d)}{d} \\
+        &= n \prod_{p|n}\left(1-\frac{\nu_A(p)}{p}\right) \\
+        &= n \sum_{d|n}\mu(d)\frac{\nu_A(d)}{d} \\
         &= \sum_{d|n}\mu_A(d)\frac{n}{d} \\
         &= (\mu_A\ast N)(n).
     \end{align*}
-    Taking the Dirichlet product of both sides by $u_A$, we obtain the theorem.
+    Taking the Dirichlet product of both sides by $\nu_A$, we obtain the theorem.
 \end{proof}
 
 This result, while simple, is the reason for our later analysis.
 Intuitively, $\varphi_A$ should encode information about relative primality
 in the k-tuple sense.
 The function $N$ is neutral in this regard, so we should expect
-$u_A=N\ast\varphi_A^{-1}$ to retain some aspect of that information
+$\nu_A=N\ast\varphi_A^{-1}$ to retain some aspect of that information
 while playing nicely with Dirichlet series.
 
 \section{Alternatives to $\varphi_A$}
@@ -587,14 +556,14 @@ we are requiring $(k+a,n)$ to be b-smooth:
     is omitted.
 \end{proof}
 
-What, then, are the corresponding unit functions $u_{A,B}$?
-They are the same as our earlier $u_A$, except
+What, then, are the corresponding unit functions $\nu_{A,B}$?
+They are the same as our earlier $\nu_A$, except
 they are zero at every number containing a factor
 in $B$. 
 They are completely multiplicative, can be used to
 compute $\varphi_{A,B}$ in the same way, and yield
-$u_{A,B}\ast \varphi_{A,B} = N$.
-The proofs of these facts follow exactly those for $u_A$.
+$\nu_{A,B}\ast \varphi_{A,B} = N$.
+The proofs of these facts follow exactly those for $\nu_A$.
 We return now to the realm of $\varphi_A$, keeping in mind
 that many results may be extended trivially in this way to 
 $\varphi_{A,B}$.
@@ -695,24 +664,24 @@ of $\chi_0$ and $1_A$.
 
 \begin{definition}
     We say a k-tuple $A$ is \textbf{admissible} if, for each prime $p$, we have
-    $$u_A(p)<p.$$
+    $$\nu_A(p)<p.$$
 \end{definition}
 
 Then a k-tuple is admissible if it does not fill all of the residue classes modulo any prime.
-This condition gives a simple bound on $u_A$.
+This condition gives a simple bound on $\nu_A$.
 
 \begin{proposition}
     For any admissible k-tuple $A$, we have
-    $$u_A(n) \leq \varphi(n).$$
+    $$\nu_A(n) \leq \varphi(n).$$
 \end{proposition}
 \begin{proof}
     Let $A\in\mathbb{K}$ be admissible, and let $n$ be a natural number with factorization
     $$n=\prod_{p_i|n}p_i^{a_i}.$$
     Then 
     \begin{align*}
-        u_A(n) 
-        &= u_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
-        &= \prod_{p_i|n}u_A(p_i)^{a_i} \\
+        \nu_A(n) 
+        &= \nu_A\left(\prod_{p_i|n}p_i^{a_i}\right) \\
+        &= \prod_{p_i|n}\nu_A(p_i)^{a_i} \\
         &\leq \prod_{p_i|n}(p_i-1)^{a_i} \\
         &\leq \prod_{p_i|n}(p_i-1)\cdot p_i^{a_i-i} \\
         &= \varphi(n).
@@ -757,17 +726,17 @@ that it holds as a consequence the following result, which seems intuitively imp
 % ========================================================================================================================
 % ========================================================================================================================
 
-% The function $u_A$ is convenient to work with in the setting of arithmetic functions in
-% that it takes on only integer values and gives the relationship $u_A \ast \phi_A = N$.
+% The function $\nu_A$ is convenient to work with in the setting of arithmetic functions in
+% that it takes on only integer values and gives the relationship $\nu_A \ast \phi_A = N$.
 % Transporting it to the domain of Dirichlet series, though, poses a challenge.
-% The function $\mathcal{D}(u_A)(s)=\sum_{n\ge 1}u_A(n)n^{-s}$ permits an Euler product, 
+% The function $\mathcal{D}(\nu_A)(s)=\sum_{n\ge 1}\nu_A(n)n^{-s}$ permits an Euler product, 
 % and that product can be written as a power of $\zeta$, a finite product, and 
 % the series $\Di((\#A)^{\Omega})$, where $\Omega(n)$ is the number of primes 
 % (counting multiplicity) which compose $n$.
 % While the final portion of this form has reasonable convergence properties,
-% it will be the cause of much of the complexity in analyzing $u_A$.
+% it will be the cause of much of the complexity in analyzing $\nu_A$.
 % That portion, though, does not seem to have much to do with the additive patterns
-% we seek to analyze; rather it describes that $u_A$ should grow
+% we seek to analyze; rather it describes that $\nu_A$ should grow
 % approximately with the number of primes in its composition.
 % The following adjustment, then, gives an arithmetic function
 % which contains the same essential information, but which has far simpler
@@ -776,16 +745,16 @@ that it holds as a consequence the following result, which seems intuitively imp
 % \begin{definition}
 %     Let $A$ be a k-tuple.
 %     For each $n$, define $w_A(n)$ by
-%     $$w_A(n) = \frac{u_A(n)}{(\#A)^{\Omega(n)}}.$$
+%     $$w_A(n) = \frac{\nu_A(n)}{(\#A)^{\Omega(n)}}.$$
 % \end{definition}
 
-% This is equivalent to defining $w_A(p)=u_A(p)/\#A$ on primes and
-% extending it by complete multiplicativity as with $u_A$,
+% This is equivalent to defining $w_A(p)=\nu_A(p)/\#A$ on primes and
+% extending it by complete multiplicativity as with $\nu_A$,
 % but we may also show this directly: because $\Omega$ is completely additive, 
 % $(\#A)^{\Omega}$ is completely multiplicative, so $w_A$ is as well.
-% Note also that for primes $p$ with $\max(A) \le p$, $u_A(p)=\#A$, so
+% Note also that for primes $p$ with $\max(A) \le p$, $\nu_A(p)=\#A$, so
 % $w_A$ is eventually 1 on primes.
-% We will work with both $\Di(u_A)$ and $\Di(w_A)$.
+% We will work with both $\Di(\nu_A)$ and $\Di(w_A)$.
 
 % \section{The Dirichlet Series of $w_A$}
  
@@ -910,7 +879,7 @@ that it holds as a consequence the following result, which seems intuitively imp
 \section{The First Hardy-Littlewood Conjecture}
 
 \begin{definition}
-    For any admissible k-tuple $A$, define 
+    For any k-tuple $A$, define 
     $$\pi_A(x) = \#\{n \le x : n + A \subset \mathbb{P} \}.$$
 \end{definition}
 
@@ -930,18 +899,45 @@ that it holds as a consequence the following result, which seems intuitively imp
 Let $A$ be an admissible k-tuple. Then
 $$\pi_A(x) \sim C_A\Li_{\#A}(x),$$
 where
-$$C_A = \prod_{p}\frac{1-u_A(p)p^{-1}}{(1-p^{-1})^{\#A}}.$$
+$$C_A = \prod_{p}\frac{1-\nu_A(p)p^{-1}}{(1-p^{-1})^{\#A}}.$$
 \end{conjecture}
-This, of course, implies the prime k-tuple conjecture.
+
+This conjecture can be understood intuitively.
+Consider a translation of a k-tuple $A$ by a large value $j$.
+If we assume that prime numbers are distributed randomly with 
+a distribution of $1/\log(n)$, and that the probabilities of each element
+of $A+j$ being are uncorrelated, we would guess the probability of all the 
+elements of $A+j$ being prime to be
+$$\prod_{n\in j+A}1/\log(n).$$
+For our large $j$, this is essentially $1/\log(n)^{\#A}$.
+Then we would naively expect $\pi_A(x) \sim \Li_{\#A}(x)$.
+
+The presence of $C_A$, refered to as the `singular series' for $A$,
+is a correction factor for our assumption of non-correlation.
+To see this, consider $A=\{0,2\}$, the twin prime case.
+Translating this by our large $j$, if $j+0$ is prime,
+we know that $j+0$ is odd. 
+Then $j+2$ is also odd, which should double the chance that $j+2$ is prime!
+We have also that $j+0\equiv 1,2 \pmod 3$, so $j+2\equiv 0,1 \pmod 3$.
+Our assumption that primes behave randomly essentially assumes that
+there was a $1/3$ chance that $j+2$ was a multiple of 3 
+regardless of the primality of $j+0$; we now see that the structure of $A$
+dictates the actual chance should be $1/2$.
+Correcting probabilities with respect to the structure of $A$ for each 
+prime in this way gives exactly $C_A$.
+This sort of probabilistic game allows the guessing of many
+correct formulae for prime numbers.
+
+This conjecture, of course, implies the prime k-tuple conjecture.
 It also implies that the exact structure of a k-tuple
 does not determine its asymptotic behavior, but
-rather that behavior is entirely decided by $u_A$.
-For example, $\{0,2\}$ and $\{0,4\}$ produce the same $u_A$.
+rather that behavior is entirely decided by $\nu_A$.
+For example, $\{0,2\}$ and $\{0,4\}$ produce the same $\nu_A$.
 This yields an equivalence relation.
 
 \begin{definition}
     Given k-tuples $A$ and $B$, we say they are \textbf{residually equivalent} if
-    $u_A=u_B$.
+    $\nu_A=\nu_B$.
 \end{definition}
 
 The following asymptotic expansion is well known:
@@ -987,23 +983,23 @@ we should attempt to show, following in the steps of the prime number theorem,
 that 
 $$\pi_A(x) \sim \frac{C_Ax}{\log^{\#A}{x}}.$$
 
-\section{The Dirichlet Series of $u_A$}
+\section{The Dirichlet Series of $\nu_A$}
 
 We denote the Derichlet series of an arithmetic function $f$ by
 $$\Di(f)(s) := \sum_{n\ge 1}\frac{f(n)}{n^{s}}.$$
 
-For each admissible constellation $A$, Conjecture \ref{HLC} gives an associated 
-constant $C_A$.
+% For each admissible constellation $A$, Conjecture \ref{HLC} gives an associated 
+% constant $C_A$.
 % This section aims to explore these constants in our context.
 % Just as we describe $\Di(w_A)$ in terms of $\zeta$ and a finite modulator, 
-We may factor $\Di(u_A)$ as
+We may factor $\Di(\nu_A)$ as
 \begin{equation}\label{DUA zeta form}
-\Di(u_A)(s) = \zeta^{\#A}(s)  
-    \prod_{p}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.
+\Di(\nu_A)(s) = \zeta^{\#A}(s)  
+    \prod_{p}\frac{(1-p^{-s})^{\#A}}{1-\nu_A(p)p^{-s}}.
 \end{equation}
 
 We refer to the final product as the modulator, denoted $N_A(s)$.
-The following result essentially states that the product which yields
+The following result essentially states that the singular series
 $C_A$ converges, which is well known, but is given for completeness.
 
 \begin{proposition}
@@ -1012,18 +1008,18 @@ $C_A$ converges, which is well known, but is given for completeness.
 \end{proposition}
 \begin{proof}
     Let $A$ be an admissible k-tuple.
-    Then $u_A(p) < p$, so the real parts of the solutions of $1-u_A(p)p^{-s}=0$ are all
+    Then $\nu_A(p) < p$, so the real parts of the solutions of $1-\nu_A(p)p^{-s}=0$ are all
     left of 1, and go to 0 as $p\rightarrow\infty$.
-    Then there exists $\epsilon>0$ such that all solutions of $1-u_A(p)p^{-s}=0$
+    Then there exists $\epsilon>0$ such that all solutions of $1-\nu_A(p)p^{-s}=0$
     lie to the left of $1-\epsilon$.
     Fix $s=\sigma + it$ with $\sigma>1/2$.
     Let 
-    $$N_{A,r}(s) = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-u_A(p)p^{-s}}.$$
+    $$N_{A,r}(s) = \prod_{p>r}\frac{(1-p^{-s})^{\#A}}{1-\nu_A(p)p^{-s}}.$$
     We will show the convergence of $N_{A,r}$ at $s$ for a fixed $r$, from which 
     the result follows, as the finitely many removed factors all converge
     for $\Re(s)>1-\epsilon$.
     We fix $r$ to be large enough that both $\#Ar^{-\sigma} < 1/2$,
-    and $u_A(p)=\#A$ for $p>r$.
+    and $\nu_A(p)=\#A$ for $p>r$.
     We then have
     \begin{align*}
         \log{N_{A, r}}(s) 
@@ -1068,7 +1064,7 @@ following.
     For any admissible k-tuple $A$, we have
     $$\frac{1}{C_A} = N_A(1),$$
     and
-    $$\Res(\zeta^{\#A},1) = C_A\Res(\Di(u_A),1).$$
+    $$\Res(\zeta^{\#A},1) = C_A\Res(\Di(\nu_A),1).$$
 \end{corollary}
 \begin{proof}
     The first equality is immediate from the definitions of $C_A$
@@ -1087,12 +1083,12 @@ a pole and zero at $s=1$ in those factors respectively.
 % akin to $M_A$.
 We now compute $N_A(1)$ for some 
 admissible, non-residually-equivalent k-tuples,
-where the $p$ column gives those primes over which $u_A(p)\not=\#A$.
+where the $p$ column gives those primes over which $\nu_A(p)\not=\#A$.
 % Computations for $M_A$ were made entirely in the rationals before
 % rounding and so should be accurate.
 Computations were made using the product over the first 
 10000 primes before rounding, and are made only for the sake of discussion:
-they should not be used outside this context.
+they have not been verified for accuracy.
 We also include the corresponding $C_A$s.
 
 \begin{center}
@@ -1112,15 +1108,15 @@ We also include the corresponding $C_A$s.
 \begin{tabular}{ c | c | c | c }
     $A$ & $p$ & $N_A(1)$ & $C_A$ \\ 
     \hline
-    $\{0,2\}$         & 2          & 0.75738949 &  1.32032464 \\
-    $\{0,10\}$        & 2,5        & 0.56804211 &  1.76043285 \\
-    $\{0,6\}$         & 2,3        & 0.37869474 &  2.64064928 \\
-    $\{0,2,6,8\}$     & 2,3        & 0.24089421 &  4.15119988 \\
-    $\{0,8,12,30\}$   & 2,3,5,11   & 0.10539121 &  9.48845686 \\
-    $\{0,6,12,18\}$   & 2,3        & 0.12044710 &  8.30239975 \\
-    $\{0,2,6,8,30\}$  & 2,3,5,7,11 & 0.05639911 & 17.73077650 \\
-    $\{0,18,30,60\}$  & 2,3,5,7    & 0.03011178 & 33.20959900 \\
-    $\{0,60,120,180\}$& 2,3,5      & 0.03011178 & 33.20959900 \\
+    $\{0,2\}$         & 2          & 0.75738949... &  1.32032464... \\
+    $\{0,10\}$        & 2,5        & 0.56804211... &  1.76043285... \\
+    $\{0,6\}$         & 2,3        & 0.37869474... &  2.64064928... \\
+    $\{0,2,6,8\}$     & 2,3        & 0.24089421... &  4.15119988... \\
+    $\{0,8,12,30\}$   & 2,3,5,11   & 0.10539121... &  9.48845686... \\
+    $\{0,6,12,18\}$   & 2,3        & 0.12044710... &  8.30239975... \\
+    $\{0,2,6,8,30\}$  & 2,3,5,7,11 & 0.05639911... & 17.73077650... \\
+    $\{0,18,30,60\}$  & 2,3,5,7    & 0.03011178... & 33.20959900... \\
+    $\{0,60,120,180\}$& 2,3,5      & 0.03011178... & 33.20959900... \\
 \end{tabular}
 \end{center}
 
@@ -1160,8 +1156,8 @@ we would like to define, for each $k$, a constant representing
 the infinite portion of the product.
 The naive candidate is $\prod_{p}\frac{(1-p^{-1})^{\#A}}{1-p^{-s}}$,
 but this diverges.
-We can use $N_A(1)$ for any particular $A$, but opt to instead choose
-the maximum of such constants.
+We could use $N_A(1)$ for any particular admissible $A$, and opt to choose
+the maximum among such constants.
 \begin{definition}
     For each $k\in\mathbb{N}$, define 
     $$\mathfrak{U}_k = \max\{N_A(1) : \#A = k\}.$$
@@ -1175,7 +1171,9 @@ the maximum of such constants.
 \begin{proof}
     I think it is OEIS: A135311.
     Verify via simulation.
-    For proof, assume for contradiction there is 
+    I don't know that this is really important? 
+    We don't need to choose one, and also where would we even
+    go with this?
 \end{proof}
 
 Some of these minimal constants are given below.
@@ -1183,36 +1181,141 @@ Some of these minimal constants are given below.
 \begin{tabular}{ c | c }
     $k$ & $\mathfrak{U}_k$ \\ 
     \hline
-    1 & 0 \\
-    2 & 0 \\
-    3 & 0 \\
-    4 & 0 \\
-    5 & 0 \\
-    6 & 0 \\
-    7 & 0 \\
-    8 & 0 \\
-    9 & 0
+    1 & 1.00000000... \\
+    2 & 0.75738948... \\
+    3 & 0.34986379... \\
+    4 & 0.24089420... \\
+    5 & 0.09869844... \\
+    6 & 0.05780744... \\
+    7 & 0.01852784... \\
+    8 & 0.00560960... \\
+    9 & 0.00158709...
 \end{tabular}
 \end{center}
 
-% Just as the natural density of $w_A$ can be expressed in terms of $M_A(1)$,
-We may express the limiting behavior of the summatory function of $u_A$ via
-$N_A(1)$.
-\begin{theorem}
-    For any admissible k-tuple $A$, we have
-    $$\frac{1}{x\log^{\#A-1}{x}}\sum_{n\le x}u_A(n) \sim \frac{N_A(1)}{(\#A-1)!}.$$
-\end{theorem}
-\begin{proof}
-    This is exactly the result of Theorem 5.2 in \cite{Tenenbaum}. 
-\end{proof}
+
+\section{Proof of the First Hardy-Littlewood Conjecture}
+
+Sorry, just kidding.
+What, though, are the difficulties in proving such a result?
+We've seen that many results may be extended to k-tuples
+without much difficulty, so why can we not apply the logic
+used in the Prime Number Theorem to its k-tuple analog, 
+the First Hardy-Littlewood Conjecture?
+
+The Prime Number Theorem is usually proven in the equivalent form
+$\Psi \sim x$, where $\Psi(x)=\sum_{n\le x}\Lambda(n)$
+and $\Lambda(n)$ is defined on powers of primes by 
+$\Lambda(p^k)=\log(p)$, and is zero otherwise.
+The k-tuple analog of $\Psi$, $\Psi_A$, is known in that
+the we can obtain the desired result from $\Psi_A \sim C_Ax$.
+That function is defined by
+$$\Psi_A(x) = \sum_{n\le x}\prod_{a\in A+n}\Lambda(a).$$
+
+We have tools for analyzing summatory functions using
+Dirichlet series. 
+In particular, $\Psi$ and $\Di(\Lambda)$ are closely related,
+and one can show that $\Di(\Lambda)$ is the negative logarithmic
+derivitive of $\zeta$.
+From this point the Prime Number Theorem is reached through
+a careful analysis.
+The difficulty in extending this result to k-tuples seems
+to lie
+in the incompatibility between Dirichlet series, pointwise
+products, and shifted sequences.
+That is, we would need to work with Dirichlet series of
+the form
+$$\sum_{n\ge 1} \frac{f(n)g(n+k)}{n^s},$$
+and 
+
+It seems that the difficulty in extending this idea lies
+in TODO
+
+Testing on general Dirichlet series, we can get the summatory of $\Psi_A$
+in terms of a GDS with $\lambda_n = \prod_{a\in A}\log(a+n)$ 
+using general Perron's formula.
+Let $A^s := e^{s\prod_{a\in A}\log(a)}$.
+Then the GDS takes the form
+$$\Di_A(\Lambda_A)(s) = \sum_{n}\frac{\Lambda(A+n)}{(A+n)^s},$$
+and Perron's gives
+\begin{align*}
+    \Psi_A(x) 
+    &= \sum_{n\le x}\Lambda(A+n) \\
+    &= \sum_{\lambda_n \le \log(A+x)}\Lambda(A+n) \\
+    &= \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\Di_A(\Lambda_A)(s)
+        \frac{(A+x)^s}{s}ds
+\end{align*}
+From there you can follow the PNT path up to
+$$\Di_A(\Lambda_A)(s) = -\frac{d}{ds}\sum_{\substack{n \\ n + a_i = p_i^{k_i}}}
+    \frac{(e^{-s\log(p_1)\cdot\cdot\cdot\log(p_m)})^
+        {k_1\cdot\cdot\cdot k_m}}{k_1\cdot\cdot\cdot k_m}.$$
+In PNT we just have n to be a power of a prime so we can sum
+over all primes of sum over all powers, and the power sum is
+a log expansion.
+Numeric test shows we don't have 
+$$\frac{\zeta_A'}{\zeta_A} = -\Di_A(\Lambda_A)$$
+for these tuple Dirichlet series (tds) as we do with singular,
+but there may be a more complex link between the TDS of $\Lambda_A$
+and the TDS zeta.
+
+Another alternative is multivariable dirichlet series of the form
+$$\Di_A(f)(s_1,...,s_k) = \sum_{n}\frac{f(n)}
+    {(n+a_1)^{s_1}\cdot\cdot\cdot(n+a_m)^{s_m}}.$$
+We'll need to look into modifying Perron's formula to work with this
+format, but it seems probable it can be done.
+This series lets us do
+\begin{align*}
+    \Di_A(\Lambda_A)(s_1,...,s_k) 
+    &= \sum_{n}\frac{\prod_{a\in A}\Lambda(a+n)}{(n+a_1)^{s_1}\cdot\cdot\cdot(n+a_m)^{s_m}} \\
+    &= -\frac{d}{ds_1}\sum_{\substack{n\\n+a_1 = p^k}}
+        \frac{p^{-ks_1}\prod_{\substack{a\in A \\ a \not= a_1}}\Lambda(a+n)}
+        {k(n+a_2)^{s_1}\cdot\cdot\cdot(n+a_m)^{s_m}}.
+\end{align*}
+In other words, we can manipulate single logs at a time through derivatives,
+rather than having to pop out all logs at once as in the avove case.
+This faces the same difficulties, though, where $(n+a_i)^{s_i}$ is
+then nonconstant wrt $k$, so even if we split the $n$ sum into $p$ and
+$k$ sums, we can't collapse as a log expansion.
+
+There's another way to express the multivariable type: for twin primes it's
+$$\mathcal{D}_{\{0,2\}}(\Lambda)(s_1,...,s_m) = \sum_{n_1}\sum_{n_2}\frac{\Lambda(n_1)\Lambda(n_2)}{n_1^{s_1}n_2^{s_2}}\cdot 1_{n_2=n_1+2}.$$
+That is, it's the previous one but you expand the sum to every
+option and then filter down.
+You can get this to
+\begin{align*}
+& \sum_{n}\sum_{a+b=n}
+    \frac{\Lambda(a)\cdot 1_{n=2a+1}}{a^{s_1}}
+    \frac{\Lambda(b)}{b^{s_2}} \\
+= &\sum_{n}
+    \left[\frac{\Lambda\cdot 1_{n=2N+1}}{N^{s_1}}
+    *_+
+    \frac{\Lambda}{N^{s_2}}\right](n).
+\end{align*}
+
+The ability to express this Dirichlet type series as a linear sum
+over Cauchy products is suggestive that it might be used on a larger
+category of mixed (add + mult) problems such as Bateman-Horn (though
+I imagine this corresponds to an even broader scope?).
+I think the first generalization, TDS, is the best fit for HLC1,
+but the Dirichlet series for $\nu_A$ still needs to get involved somewhere
+along the way.
+It also faces the ever looming problem of shift coherence, rather than
+shift invariance.
+The jump between coherent and invariant objects seems critical.
 
 % =======================================================================================================================================
 \pagebreak
 \section{TODO}
 
-% \subsection{Unplaced results}
-
-
+% We may express the limiting behavior of the summatory function of $\nu_A$ via
+% $N_A(1)$.
+% \begin{theorem}
+%     For any admissible k-tuple $A$, we have
+%     $$\frac{1}{x\log^{\#A-1}{x}}\sum_{n\le x}\nu_A(n) \sim \frac{N_A(1)}{(\#A-1)!}.$$
+% \end{theorem}
+% \begin{proof}
+%     This is exactly the result of Theorem 5.2 in \cite{Tenenbaum}. 
+% \end{proof}
 
 % To that end, we follow the usual route and define:
 % \begin{definition}
@@ -1365,8 +1468,8 @@ $N_A(1)$.
 
 \begin{enumerate}
     \item
-        We have $u_A\ast\phi_A = N = \phi_A^0$.
-        That is, $u_A$ jumps between levels of phi.
+        We have $\nu_A\ast\phi_A = N = \phi_A^0$.
+        That is, $\nu_A$ jumps between levels of phi.
         What functions jump between other levels?
 
     \item

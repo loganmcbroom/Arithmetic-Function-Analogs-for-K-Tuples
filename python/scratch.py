@@ -1,4 +1,8 @@
 from base import *
+from math import exp,log
+
+print( exp(log(3)*log(5) + log(11)*log(13)) )
+print( exp(log(33)*log(35)) )
 
 # primorial = 1
 # A = [0]
@@ -6,14 +10,15 @@ from base import *
 #     primorial *= p
 #     A.append(primorial)
 #     print( p, 1.0/singular_series_of_A(A) )
-print( singular_series_of_A([0]) )
-print( singular_series_of_A([0,2]) )
-print( singular_series_of_A([0,2,6]) )
-print( singular_series_of_A([0,2,6,8]) )
-print( singular_series_of_A([0,2,6,8,12]) )
-print( singular_series_of_A([0,2,6,8,12,18]) )
-print( singular_series_of_A([0,2,6,8,12,18,20]) )
-print( singular_series_of_A([0,2,6,8,12,18,20,26]) )
+# print( 1.0/singular_series_of_A([0]) )
+# print( 1.0/singular_series_of_A([0,2]) )
+# print( 1.0/singular_series_of_A([0,2,6]) )
+# print( 1.0/singular_series_of_A([0,2,6,8]) )
+# print( 1.0/singular_series_of_A([0,2,6,8,12]) )
+# print( 1.0/singular_series_of_A([0,2,6,8,12,18]) )
+# print( 1.0/singular_series_of_A([0,2,6,8,12,18,20]) )
+# print( 1.0/singular_series_of_A([0,2,6,8,12,18,20,26]) )
+# print( 1.0/singular_series_of_A([0,2,6,8,12,18,20,26,30]) )
 
 
 # A = set([0,2,6])
